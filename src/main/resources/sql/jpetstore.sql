@@ -492,4 +492,17 @@ CREATE TABLE `shopping_cart`
     quantity     INT  DEFAULT 0,
     in_stock     BOOL DEFAULT TRUE,
     is_purchased BOOL DEFAULT FALSE
-)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;
+
+DROP TABLE IF EXISTS admin;
+CREATE TABLE admin
+(
+    id       BIGINT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(32),
+    password VARCHAR(64)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;
+
+INSERT INTO admin(username, password)
+VALUES ('Admin', '[Admin]');
