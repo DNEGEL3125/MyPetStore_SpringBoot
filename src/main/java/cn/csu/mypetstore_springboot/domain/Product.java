@@ -11,13 +11,13 @@ public class Product implements Serializable {
     @Serial
     private static final long serialVersionUID = -7492639752670189553L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_id")
     private String productId;
     private String categoryId;
     private String name;
     private String description;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     public String getProductId() {
         return productId;
@@ -53,13 +53,5 @@ public class Product implements Serializable {
 
     public String toString() {
         return getName();
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 }

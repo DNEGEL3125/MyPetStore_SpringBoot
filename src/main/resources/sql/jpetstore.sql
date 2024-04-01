@@ -13,7 +13,7 @@ File Encoding         : 65001
 Date: 2012-09-28 21:46:57
 */
 
-# SET FOREIGN_KEY_CHECKS = 0;
+SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
 -- Table structure for `account`
@@ -39,20 +39,7 @@ CREATE TABLE `account`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
--- ----------------------------
--- Records of account
--- ----------------------------
-INSERT INTO `account` (username, email, first_name, last_name, status, address1, address2, city, state, zip, country,
-                       phone, profile_id)
-VALUES ('a', 'a', 'a', 'a', null, 'a', 'a', 'aa', 'a', 'a', 'a', 'a', 1);
-INSERT INTO `account` (username, email, first_name, last_name, status, address1, address2, city, state, zip, country,
-                       phone, profile_id)
-VALUES ('ACID', 'acid@yourdomain.com', 'ABC', 'XYX', 'OK', '901 San Antonio Road', 'MS UCUP02-206', 'Palo Alto', 'CA',
-        '94303', 'USA', '555-555-5555', 2);
-INSERT INTO `account` (username, email, first_name, last_name, status, address1, address2, city, state, zip, country,
-                       phone, profile_id)
-VALUES ('j2ee', 'yourname@yourdomain.com', 'ABC', 'XYX', null, '901 San Antonio Road', 'MS UCUP02-206', 'Palo Alto',
-        'CA', '94303', 'USA', '555-555-5555', 3);
+
 
 -- ----------------------------
 -- Table structure for `bannerdata`
@@ -66,19 +53,7 @@ CREATE TABLE `bannerdata`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
--- ----------------------------
--- Records of bannerdata
--- ----------------------------
-INSERT INTO `bannerdata`
-VALUES ('BIRDS', '<image src=\"/images/banner_birds.gif\">');
-INSERT INTO `bannerdata`
-VALUES ('CATS', '<image src=\"/images/banner_cats.gif\">');
-INSERT INTO `bannerdata`
-VALUES ('DOGS', '<image src=\"/images/banner_dogs.gif\">');
-INSERT INTO `bannerdata`
-VALUES ('FISH', '<image src=\"/images/banner_fish.gif\">');
-INSERT INTO `bannerdata`
-VALUES ('REPTILES', '<image src=\"/images/banner_reptiles.gif\">');
+
 
 -- ----------------------------
 -- Table structure for `category`
@@ -86,27 +61,14 @@ VALUES ('REPTILES', '<image src=\"/images/banner_reptiles.gif\">');
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category`
 (
-    `catid` varchar(10) NOT NULL,
-    `name`  varchar(80)  DEFAULT NULL,
-    `descn` varchar(255) DEFAULT NULL,
-    PRIMARY KEY (`catid`)
+    category_id varchar(10) NOT NULL,
+    `name`      varchar(80)  DEFAULT NULL,
+    description varchar(255) DEFAULT NULL,
+    PRIMARY KEY (category_id)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
--- ----------------------------
--- Records of category
--- ----------------------------
-INSERT INTO `category`
-VALUES ('BIRDS', 'Birds', '<image src=\"/images/birds_icon.gif\"><font size=\"5\" color=\"blue\"> Birds</font>');
-INSERT INTO `category`
-VALUES ('CATS', 'Cats', '<image src=\"/images/cats_icon.gif\"><font size=\"5\" color=\"blue\"> Cats</font>');
-INSERT INTO `category`
-VALUES ('DOGS', 'Dogs', '<image src=\"/images/dogs_icon.gif\"><font size=\"5\" color=\"blue\"> Dogs</font>');
-INSERT INTO `category`
-VALUES ('FISH', 'Fish', '<image src=\"/images/fish_icon.gif\"><font size=\"5\" color=\"blue\"> Fish</font>');
-INSERT INTO `category`
-VALUES ('REPTILES', 'Reptiles',
-        '<image src=\"/images/reptiles_icon.gif\"><font size=\"5\" color=\"blue\"> Reptiles</font>');
+
 
 -- ----------------------------
 -- Table structure for `inventory`
@@ -118,67 +80,9 @@ CREATE TABLE `inventory`
     `quantity` int         NOT NULL,
     PRIMARY KEY (`item_id`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
--- ----------------------------
--- Records of inventory
--- ----------------------------
-INSERT INTO `inventory`
-VALUES ('EST-1', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-10', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-11', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-12', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-13', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-14', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-15', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-16', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-17', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-18', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-19', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-2', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-20', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-21', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-22', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-23', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-24', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-25', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-26', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-27', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-28', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-3', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-4', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-5', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-6', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-7', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-8', '10000');
-INSERT INTO `inventory`
-VALUES ('EST-9', '10000');
+
 
 -- ----------------------------
 -- Table structure for `item`
@@ -186,84 +90,27 @@ VALUES ('EST-9', '10000');
 DROP TABLE IF EXISTS `item`;
 CREATE TABLE `item`
 (
-    `item_id`   varchar(10) NOT NULL,
-    product_id  varchar(10) NOT NULL,
-    `listprice` decimal(10, 2) DEFAULT NULL,
-    `unitcost`  decimal(10, 2) DEFAULT NULL,
-    `supplier`  int REFERENCES supplier (suppid),
+    id          BIGINT PRIMARY KEY AUTO_INCREMENT,
+    `item_id`   varchar(10) NOT NULL UNIQUE KEY,
+    product_id  VARCHAR(10) NOT NULL, -- REFERENCES product(product_id)
+    list_price  decimal(10, 2) DEFAULT NULL,
+    unit_cost   decimal(10, 2) DEFAULT NULL,
+    supplier_id int REFERENCES supplier (suppid),
     `status`    varchar(2)     DEFAULT NULL,
-    `attr1`     varchar(80)    DEFAULT NULL,
-    `attr2`     varchar(80)    DEFAULT NULL,
-    `attr3`     varchar(80)    DEFAULT NULL,
-    `attr4`     varchar(80)    DEFAULT NULL,
-    `attr5`     varchar(80)    DEFAULT NULL,
-    PRIMARY KEY (`item_id`),
-    KEY `fk_item_2` (`supplier`),
+    attribute1  varchar(80)    DEFAULT NULL,
+    attribute2  varchar(80)    DEFAULT NULL,
+    attribute3  varchar(80)    DEFAULT NULL,
+    attribute4  varchar(80)    DEFAULT NULL,
+    attribute5  varchar(80)    DEFAULT NULL,
+    quantity    INT            DEFAULT 0,
+    KEY `fk_item_2` (supplier_id),
     KEY `itemProd` (product_id),
     CONSTRAINT `fk_item_1` FOREIGN KEY (product_id) REFERENCES `product` (product_id),
-    CONSTRAINT `fk_item_2` FOREIGN KEY (`supplier`) REFERENCES `supplier` (`suppid`)
+    CONSTRAINT `fk_item_2` FOREIGN KEY (supplier_id) REFERENCES `supplier` (`suppid`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
--- ----------------------------
--- Records of item
--- ----------------------------
-INSERT INTO `item`
-VALUES ('EST-1', 'FI-SW-01', '16.50', '10.00', '1', 'P', 'Large', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-10', 'K9-DL-01', '18.50', '12.00', '1', 'P', 'Spotted Adult Female', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-11', 'RP-SN-01', '18.50', '12.00', '1', 'P', 'Venomless', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-12', 'RP-SN-01', '18.50', '12.00', '1', 'P', 'Rattleless', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-13', 'RP-LI-02', '18.50', '12.00', '1', 'P', 'Green Adult', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-14', 'FL-DSH-01', '58.50', '12.00', '1', 'P', 'Tailless', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-15', 'FL-DSH-01', '23.50', '12.00', '1', 'P', 'With tail', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-16', 'FL-DLH-02', '93.50', '12.00', '1', 'P', 'Adult Female', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-17', 'FL-DLH-02', '93.50', '12.00', '1', 'P', 'Adult Male', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-18', 'AV-CB-01', '193.50', '92.00', '1', 'P', 'Adult Male', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-19', 'AV-SB-02', '15.50', '2.00', '1', 'P', 'Adult Male', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-2', 'FI-SW-01', '16.50', '10.00', '1', 'P', 'Small', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-20', 'FI-FW-02', '5.50', '2.00', '1', 'P', 'Adult Male', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-21', 'FI-FW-02', '5.29', '1.00', '1', 'P', 'Adult Female', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-22', 'K9-RT-02', '135.50', '100.00', '1', 'P', 'Adult Male', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-23', 'K9-RT-02', '145.49', '100.00', '1', 'P', 'Adult Female', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-24', 'K9-RT-02', '255.50', '92.00', '1', 'P', 'Adult Male', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-25', 'K9-RT-02', '325.29', '90.00', '1', 'P', 'Adult Female', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-26', 'K9-CW-01', '125.50', '92.00', '1', 'P', 'Adult Male', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-27', 'K9-CW-01', '155.29', '90.00', '1', 'P', 'Adult Female', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-28', 'K9-RT-01', '155.29', '90.00', '1', 'P', 'Adult Female', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-3', 'FI-SW-02', '18.50', '12.00', '1', 'P', 'Toothless', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-4', 'FI-FW-01', '18.50', '12.00', '1', 'P', 'Spotted', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-5', 'FI-FW-01', '18.50', '12.00', '1', 'P', 'Spotless', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-6', 'K9-BD-01', '18.50', '12.00', '1', 'P', 'Male Adult', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-7', 'K9-BD-01', '18.50', '12.00', '1', 'P', 'Female Puppy', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-8', 'K9-PO-02', '18.50', '12.00', '1', 'P', 'Male Puppy', null, null, null, null);
-INSERT INTO `item`
-VALUES ('EST-9', 'K9-DL-01', '18.50', '12.00', '1', 'P', 'Spotless Male Puppy', null, null, null, null);
+
 
 -- ----------------------------
 -- Table structure for `lineitem`
@@ -278,11 +125,9 @@ CREATE TABLE `lineitem`
     `unitprice` decimal(10, 2) NOT NULL,
     PRIMARY KEY (`orderid`, `linenum`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
--- ----------------------------
--- Records of lineitem
--- ----------------------------
+
 
 -- ----------------------------
 -- Table structure for `orders`
@@ -317,11 +162,9 @@ CREATE TABLE `orders`
     `locale`          varchar(80)    NOT NULL,
     PRIMARY KEY (`orderid`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
--- ----------------------------
--- Records of orders
--- ----------------------------
+
 
 -- ----------------------------
 -- Table structure for `orderstatus`
@@ -335,11 +178,9 @@ CREATE TABLE `orderstatus`
     `status`    varchar(2) NOT NULL,
     PRIMARY KEY (`orderid`, `linenum`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
--- ----------------------------
--- Records of orderstatus
--- ----------------------------
+
 
 -- ----------------------------
 -- Table structure for `product`
@@ -347,52 +188,17 @@ CREATE TABLE `orderstatus`
 DROP TABLE IF EXISTS product;
 CREATE TABLE `product`
 (
-    id         BIGINT AUTO_INCREMENT PRIMARY KEY,
-    product_id varchar(10) NOT NULL UNIQUE,
-    `category` varchar(10) NOT NULL,
-    `name`     varchar(80)  DEFAULT NULL,
-    `descn`    varchar(255) DEFAULT NULL,
-    KEY `productCat` (`category`),
+    product_id  varchar(10) PRIMARY KEY,
+    category_id varchar(10) NOT NULL,
+    `name`      varchar(80)  DEFAULT NULL,
+    description     varchar(255) DEFAULT NULL,
+    KEY `productCat` (category_id),
     KEY `productName` (`name`),
-    CONSTRAINT `fk_product_1` FOREIGN KEY (`category`) REFERENCES `category` (`catid`)
+    CONSTRAINT `fk_product_1` FOREIGN KEY (category_id) REFERENCES `category` (category_id)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
--- ----------------------------
--- Records of product
--- ----------------------------
-INSERT INTO `product` (product_id, category, name, descn)
-VALUES ('AV-CB-01', 'BIRDS', 'Amazon Parrot', '<image src=\"/images/bird4.gif\">Great companion for up to 75 years');
-INSERT INTO `product` (product_id, category, name, descn)
-VALUES ('AV-SB-02', 'BIRDS', 'Finch', '<image src=\"/images/bird1.gif\">Great stress reliever');
-INSERT INTO `product` (product_id, category, name, descn)
-VALUES ('FI-FW-01', 'FISH', 'Koi', '<image src=\"/images/fish3.gif\">Fresh Water fish from Japan');
-INSERT INTO `product` (product_id, category, name, descn)
-VALUES ('FI-FW-02', 'FISH', 'Goldfish', '<image src=\"/images/fish2.gif\">Fresh Water fish from China');
-INSERT INTO `product` (product_id, category, name, descn)
-VALUES ('FI-SW-01', 'FISH', 'Angelfish', '<image src=\"/images/fish1.jpg\">Salt Water fish from Australia');
-INSERT INTO `product` (product_id, category, name, descn)
-VALUES ('FI-SW-02', 'FISH', 'Tiger Shark', '<image src=\"/images/fish4.gif\">Salt Water fish from Australia');
-INSERT INTO `product` (product_id, category, name, descn)
-VALUES ('FL-DLH-02', 'CATS', 'Persian', '<image src=\"/images/cat1.gif\">Friendly house cat, doubles as a princess');
-INSERT INTO `product` (product_id, category, name, descn)
-VALUES ('FL-DSH-01', 'CATS', 'Manx', '<image src=\"/images/cat3.gif\">Great for reducing mouse populations');
-INSERT INTO `product` (product_id, category, name, descn)
-VALUES ('K9-BD-01', 'DOGS', 'Bulldog', '<image src=\"/images/dog2.gif\">Friendly dog from England');
-INSERT INTO `product` (product_id, category, name, descn)
-VALUES ('K9-CW-01', 'DOGS', 'Chihuahua', '<image src=\"/images/dog4.gif\">Great companion dog');
-INSERT INTO `product` (product_id, category, name, descn)
-VALUES ('K9-DL-01', 'DOGS', 'Dalmation', '<image src=\"/images/dog5.gif\">Great dog for a Fire Station');
-INSERT INTO `product` (product_id, category, name, descn)
-VALUES ('K9-PO-02', 'DOGS', 'Poodle', '<image src=\"/images/dog6.gif\">Cute dog from France');
-INSERT INTO `product` (product_id, category, name, descn)
-VALUES ('K9-RT-01', 'DOGS', 'Golden Retriever', '<image src=\"/images/dog1.gif\">Great family dog');
-INSERT INTO `product` (product_id, category, name, descn)
-VALUES ('K9-RT-02', 'DOGS', 'Labrador Retriever', '<image src=\"/images/dog5.gif\">Great hunting dog');
-INSERT INTO `product` (product_id, category, name, descn)
-VALUES ('RP-LI-02', 'REPTILES', 'Iguana', '<image src=\"/images/lizard2.gif\">Friendly green friend');
-INSERT INTO `product` (product_id, category, name, descn)
-VALUES ('RP-SN-01', 'REPTILES', 'Rattlesnake', '<image src=\"/images/lizard3.gif\">Doubles as a watch dog');
+
 
 -- ----------------------------
 -- Table structure for `profile`
@@ -406,17 +212,9 @@ CREATE TABLE `profile`
     `mylistopt`   BOOL        DEFAULT NULL,
     `banneropt`   BOOL        DEFAULT NULL
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
--- ----------------------------
--- Records of profile
--- ----------------------------
-INSERT INTO `profile`(id, langpref, favcategory, mylistopt, banneropt)
-VALUES (1, 'japanese', 'DOGS', null, null);
-INSERT INTO `profile`
-VALUES (2, 'english', 'CATS', '1', '1');
-INSERT INTO `profile`
-VALUES (3, 'english', 'FISH', '1', '1');
+
 
 -- ----------------------------
 -- Table structure for `sequence`
@@ -428,15 +226,9 @@ CREATE TABLE `sequence`
     `nextid` INT         NOT NULL,
     PRIMARY KEY (`name`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
--- ----------------------------
--- Records of sequence
--- ----------------------------
-INSERT INTO `sequence`
-VALUES ('linenum', '1000');
-INSERT INTO `sequence`
-VALUES ('ordernum', '1000');
+
 
 -- ----------------------------
 -- Table structure for `signon`
@@ -448,17 +240,9 @@ CREATE TABLE `signon`
     `password` varchar(25) NOT NULL,
     PRIMARY KEY (`username`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
--- ----------------------------
--- Records of signon
--- ----------------------------
-INSERT INTO `signon`
-VALUES ('a', 'a');
-INSERT INTO `signon`
-VALUES ('ACID', 'ACID');
-INSERT INTO `signon`
-VALUES ('j2ee', 'j2ee');
+
 
 -- ----------------------------
 -- Table structure for `supplier`
@@ -477,15 +261,9 @@ CREATE TABLE `supplier`
     `phone`  varchar(80) DEFAULT NULL,
     PRIMARY KEY (`suppid`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
--- ----------------------------
--- Records of supplier
--- ----------------------------
-INSERT INTO `supplier`
-VALUES ('1', 'XYZ Pets', 'AC', '600 Avon Way', '', 'Los Angeles', 'CA', '94024', '212-947-0797');
-INSERT INTO `supplier`
-VALUES ('2', 'ABC Pets', 'AC', '700 Abalone Way', '', 'San Francisco ', 'CA', '94024', '415-947-0797');
+
 
 DROP TABLE IF EXISTS `shopping_cart`;
 CREATE TABLE `shopping_cart`
@@ -510,3 +288,6 @@ CREATE TABLE admin
 
 INSERT INTO admin(username, password)
 VALUES ('Admin', '[Admin]');
+
+
+SET FOREIGN_KEY_CHECKS = 1;

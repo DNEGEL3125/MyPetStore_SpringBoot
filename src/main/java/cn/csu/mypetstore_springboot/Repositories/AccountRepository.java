@@ -27,6 +27,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
             "      ZIP = #{#account.zip}," +
             "      COUNTRY = #{#account.country}," +
             "      PHONE = #{#account.phone}" +
-            "    WHERE USERID = :username", nativeQuery = true)
+            "    WHERE username = :username", nativeQuery = true)
     void updateAccountByUsername(String username, Account account);
 }

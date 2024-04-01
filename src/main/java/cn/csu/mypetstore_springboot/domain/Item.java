@@ -1,6 +1,7 @@
 package cn.csu.mypetstore_springboot.domain;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.Reference;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -13,8 +14,7 @@ public class Item implements Serializable {
     private static final long serialVersionUID = -2159121673445254631L;
 
     private String itemId;
-    @Column(name = "product_id", insertable = false, updatable = false)
-    private String productId;
+
     private BigDecimal listPrice;
     private BigDecimal unitCost;
     private int supplierId;
@@ -25,6 +25,7 @@ public class Item implements Serializable {
     private String attribute4;
     private String attribute5;
     @ManyToOne
+    @JoinColumn(name = "product_id")
     private Product product;
     private int quantity;
     @Id
@@ -53,14 +54,6 @@ public class Item implements Serializable {
 
     public void setProduct(Product product) {
         this.product = product;
-    }
-
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
     }
 
     public int getSupplierId() {
@@ -136,7 +129,7 @@ public class Item implements Serializable {
     }
 
     public String toString() {
-        return "(" + getItemId() + "-" + getProductId() + ")";
+        return "(" + getItemId() + "-" + product.getProductId() + ")";
     }
 
     public void setId(Long id) {
