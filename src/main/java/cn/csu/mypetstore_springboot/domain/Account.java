@@ -1,9 +1,6 @@
 package cn.csu.mypetstore_springboot.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -17,7 +14,6 @@ public class Account implements Serializable {
     private static final long serialVersionUID = 8751282105532159742L;
 
     private String username;
-    private String password;
     private String email;
     private String firstName;
     private String lastName;
@@ -30,10 +26,8 @@ public class Account implements Serializable {
     private String country;
     private String phone;
     private String favouriteCategoryId;
-    private String languagePreference;
-    private boolean listOption;
-    private boolean bannerOption;
-    private String bannerName;
+    @OneToOne
+    private Profile profile;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -46,13 +40,6 @@ public class Account implements Serializable {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getEmail() {
         return email;
@@ -153,43 +140,19 @@ public class Account implements Serializable {
         this.favouriteCategoryId = favouriteCategoryId;
     }
 
-    public String getLanguagePreference() {
-        return languagePreference;
-    }
-
-    public void setLanguagePreference(String languagePreference) {
-        this.languagePreference = languagePreference;
-    }
-
-    public boolean isListOption() {
-        return listOption;
-    }
-
-    public void setListOption(boolean listOption) {
-        this.listOption = listOption;
-    }
-
-    public boolean isBannerOption() {
-        return bannerOption;
-    }
-
-    public void setBannerOption(boolean bannerOption) {
-        this.bannerOption = bannerOption;
-    }
-
-    public String getBannerName() {
-        return bannerName;
-    }
-
-    public void setBannerName(String bannerName) {
-        this.bannerName = bannerName;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 }

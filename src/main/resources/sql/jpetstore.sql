@@ -13,7 +13,7 @@ File Encoding         : 65001
 Date: 2012-09-28 21:46:57
 */
 
-SET FOREIGN_KEY_CHECKS = 0;
+# SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
 -- Table structure for `account`
@@ -21,33 +21,38 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `account`;
 CREATE TABLE `account`
 (
-    `userid`    varchar(80) NOT NULL,
-    `email`     varchar(80) NOT NULL,
-    `firstname` varchar(80) NOT NULL,
-    `lastname`  varchar(80) NOT NULL,
-    `status`    varchar(2)  DEFAULT NULL,
-    `addr1`     varchar(80) NOT NULL,
-    `addr2`     varchar(40) DEFAULT NULL,
-    `city`      varchar(80) NOT NULL,
-    `state`     varchar(80) NOT NULL,
-    `zip`       varchar(20) NOT NULL,
-    `country`   varchar(20) NOT NULL,
-    `phone`     varchar(80) NOT NULL,
-    PRIMARY KEY (`userid`)
+    id                    BIGINT PRIMARY KEY AUTO_INCREMENT,
+    username              varchar(80) NOT NULL UNIQUE,
+    `email`               varchar(80) NOT NULL,
+    `first_name`          varchar(80) NOT NULL,
+    `last_name`           varchar(80) NOT NULL,
+    `status`              varchar(2)  DEFAULT NULL,
+    address1              varchar(80) NOT NULL,
+    address2              varchar(40) DEFAULT NULL,
+    `city`                varchar(80) NOT NULL,
+    `state`               varchar(80) NOT NULL,
+    `zip`                 varchar(20) NOT NULL,
+    `country`             varchar(20) NOT NULL,
+    `phone`               varchar(80) NOT NULL,
+    favourite_category_id varchar(80) REFERENCES bannerdata (favcategory),
+    profile_id            BIGINT REFERENCES profile (id)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
 -- ----------------------------
 -- Records of account
 -- ----------------------------
-INSERT INTO `account`
-VALUES ('a', 'a', 'a', 'a', null, 'a', 'a', 'aa', 'a', 'a', 'a', 'a');
-INSERT INTO `account`
+INSERT INTO `account` (username, email, first_name, last_name, status, address1, address2, city, state, zip, country,
+                       phone, profile_id)
+VALUES ('a', 'a', 'a', 'a', null, 'a', 'a', 'aa', 'a', 'a', 'a', 'a', 1);
+INSERT INTO `account` (username, email, first_name, last_name, status, address1, address2, city, state, zip, country,
+                       phone, profile_id)
 VALUES ('ACID', 'acid@yourdomain.com', 'ABC', 'XYX', 'OK', '901 San Antonio Road', 'MS UCUP02-206', 'Palo Alto', 'CA',
-        '94303', 'USA', '555-555-5555');
-INSERT INTO `account`
+        '94303', 'USA', '555-555-5555', 2);
+INSERT INTO `account` (username, email, first_name, last_name, status, address1, address2, city, state, zip, country,
+                       phone, profile_id)
 VALUES ('j2ee', 'yourname@yourdomain.com', 'ABC', 'XYX', null, '901 San Antonio Road', 'MS UCUP02-206', 'Palo Alto',
-        'CA', '94303', 'USA', '555-555-5555');
+        'CA', '94303', 'USA', '555-555-5555', 3);
 
 -- ----------------------------
 -- Table structure for `bannerdata`
@@ -56,10 +61,10 @@ DROP TABLE IF EXISTS `bannerdata`;
 CREATE TABLE `bannerdata`
 (
     `favcategory` varchar(80) NOT NULL,
-    `bannername`  varchar(255) DEFAULT NULL,
+    banner_name   varchar(255) DEFAULT NULL,
     PRIMARY KEY (`favcategory`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
 -- ----------------------------
 -- Records of bannerdata
@@ -395,24 +400,23 @@ VALUES ('RP-SN-01', 'REPTILES', 'Rattlesnake', '<image src=\"/images/lizard3.gif
 DROP TABLE IF EXISTS `profile`;
 CREATE TABLE `profile`
 (
-    `userid`      varchar(80) REFERENCES account (userid),
+    id            BIGINT PRIMARY KEY AUTO_INCREMENT,
     `langpref`    varchar(80) NOT NULL,
     `favcategory` varchar(30) DEFAULT NULL,
     `mylistopt`   BOOL        DEFAULT NULL,
-    `banneropt`   BOOL        DEFAULT NULL,
-    PRIMARY KEY (`userid`)
+    `banneropt`   BOOL        DEFAULT NULL
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
 -- ----------------------------
 -- Records of profile
 -- ----------------------------
+INSERT INTO `profile`(id, langpref, favcategory, mylistopt, banneropt)
+VALUES (1, 'japanese', 'DOGS', null, null);
 INSERT INTO `profile`
-VALUES ('a', 'japanese', 'DOGS', null, null);
+VALUES (2, 'english', 'CATS', '1', '1');
 INSERT INTO `profile`
-VALUES ('ACID', 'english', 'CATS', '1', '1');
-INSERT INTO `profile`
-VALUES ('j2ee', 'english', 'FISH', '1', '1');
+VALUES (3, 'english', 'FISH', '1', '1');
 
 -- ----------------------------
 -- Table structure for `sequence`
@@ -487,7 +491,7 @@ DROP TABLE IF EXISTS `shopping_cart`;
 CREATE TABLE `shopping_cart`
 (
     id           BIGINT PRIMARY KEY AUTO_INCREMENT,
-    userid       VARCHAR(80) REFERENCES account (userid),
+    userid       VARCHAR(80) REFERENCES account (username),
     item_id      VARCHAR(10) REFERENCES item (item_id),
     quantity     INT  DEFAULT 0,
     in_stock     BOOL DEFAULT TRUE,
