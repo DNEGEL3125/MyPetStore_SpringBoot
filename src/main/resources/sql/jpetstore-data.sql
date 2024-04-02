@@ -48,61 +48,61 @@ VALUES ('REPTILES', 'Reptiles',
 -- ----------------------------
 -- Records of inventory
 -- ----------------------------
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-1', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-10', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-11', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-12', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-13', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-14', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-15', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-16', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-17', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-18', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-19', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-2', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-20', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-21', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-22', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-23', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-24', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-25', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-26', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-27', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-28', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-3', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-4', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-5', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-6', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-7', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-8', '10000');
-INSERT INTO `inventory`
+INSERT INTO `inventory`(item_id, quantity)
 VALUES ('EST-9', '10000');
 
 
@@ -266,11 +266,11 @@ VALUES ('ordernum', '1000');
 -- ----------------------------
 -- Records of signon
 -- ----------------------------
-INSERT INTO `signon`
+INSERT INTO `signon`(username, password)
 VALUES ('a', 'a');
-INSERT INTO `signon`
+INSERT INTO `signon`(username, password)
 VALUES ('ACID', 'ACID');
-INSERT INTO `signon`
+INSERT INTO `signon`(username, password)
 VALUES ('j2ee', 'j2ee');
 
 

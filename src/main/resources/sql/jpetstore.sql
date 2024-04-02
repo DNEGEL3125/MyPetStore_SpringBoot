@@ -76,9 +76,9 @@ CREATE TABLE `category`
 DROP TABLE IF EXISTS `inventory`;
 CREATE TABLE `inventory`
 (
+    id         BIGINT PRIMARY KEY AUTO_INCREMENT,
     `item_id`  varchar(10) NOT NULL REFERENCES item (item_id),
-    `quantity` int         NOT NULL,
-    PRIMARY KEY (`item_id`)
+    `quantity` int         NOT NULL
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -236,7 +236,7 @@ CREATE TABLE `sequence`
 DROP TABLE IF EXISTS `signon`;
 CREATE TABLE `signon`
 (
-    id         BIGINT PRIMARY KEY,
+    id         BIGINT PRIMARY KEY AUTO_INCREMENT,
     `username` varchar(25) REFERENCES account (username),
     `password` varchar(25) NOT NULL
 ) ENGINE = InnoDB

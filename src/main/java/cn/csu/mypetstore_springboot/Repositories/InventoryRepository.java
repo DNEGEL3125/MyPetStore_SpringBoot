@@ -5,14 +5,19 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Available
+ */
+@Repository
 public interface InventoryRepository extends JpaRepository<Inventory, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE INVENTORY SET quantity = :quantity WHERE ITEMID = :itemid", nativeQuery = true)
-    void updateQuantityByItemid(@Param("itemid") String itemid, @Param("quantity") int quantity);
+    @Query(value = "UPDATE INVENTORY SET quantity = :quantity WHERE item_id = :itemId", nativeQuery = true)
+    void updateQuantityByItemId(String itemId, @Param("quantity") int quantity);
 
-    Inventory getInventoryByItemid(String itemid);
+    Inventory getInventoryByItemId(String itemId);
 }

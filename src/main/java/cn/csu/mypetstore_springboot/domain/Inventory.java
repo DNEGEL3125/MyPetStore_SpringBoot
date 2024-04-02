@@ -10,7 +10,7 @@ public class Inventory {
     @GeneratedValue
     private Long id;
 
-    private String itemid;
+    private String itemId;
     private int quantity;
 
     public void setId(Long id) {
