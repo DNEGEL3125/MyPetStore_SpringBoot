@@ -8,13 +8,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+
+/**
+ * Available
+ */
 public interface ProductRepository extends JpaRepository<Product, String> {
     List<Product> getProductsByCategoryId(String categoryId);
 
     Product getProductByProductId(String productId);
 
     @Transactional
-    @Modifying
     @Query(value = """
             select product_id, NAME, description, category_id
              from PRODUCT WHERE lower(name) like :keyword""", nativeQuery = true)

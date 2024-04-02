@@ -191,7 +191,7 @@ CREATE TABLE `product`
     product_id  varchar(10) PRIMARY KEY,
     category_id varchar(10) NOT NULL,
     `name`      varchar(80)  DEFAULT NULL,
-    description     varchar(255) DEFAULT NULL,
+    description varchar(255) DEFAULT NULL,
     KEY `productCat` (category_id),
     KEY `productName` (`name`),
     CONSTRAINT `fk_product_1` FOREIGN KEY (category_id) REFERENCES `category` (category_id)
@@ -236,9 +236,9 @@ CREATE TABLE `sequence`
 DROP TABLE IF EXISTS `signon`;
 CREATE TABLE `signon`
 (
-    `username` varchar(25) NOT NULL,
-    `password` varchar(25) NOT NULL,
-    PRIMARY KEY (`username`)
+    id         BIGINT PRIMARY KEY,
+    `username` varchar(25) REFERENCES account (username),
+    `password` varchar(25) NOT NULL
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
