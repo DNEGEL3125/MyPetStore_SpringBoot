@@ -61,10 +61,9 @@ CREATE TABLE `bannerdata`
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category`
 (
-    category_id varchar(10) NOT NULL,
+    id          BIGINT PRIMARY KEY AUTO_INCREMENT,
     `name`      varchar(80)  DEFAULT NULL,
-    description varchar(255) DEFAULT NULL,
-    PRIMARY KEY (category_id)
+    image_path  varchar(255)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -189,12 +188,12 @@ DROP TABLE IF EXISTS product;
 CREATE TABLE `product`
 (
     product_id  varchar(10) PRIMARY KEY,
-    category_id varchar(10) NOT NULL,
+    category_id BIGINT NOT NULL,
     `name`      varchar(80)  DEFAULT NULL,
     description varchar(255) DEFAULT NULL,
     KEY `productCat` (category_id),
     KEY `productName` (`name`),
-    CONSTRAINT `fk_product_1` FOREIGN KEY (category_id) REFERENCES `category` (category_id)
+    CONSTRAINT `fk_product_1` FOREIGN KEY (category_id) REFERENCES `category` (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -209,8 +208,8 @@ CREATE TABLE `profile`
     id            BIGINT PRIMARY KEY AUTO_INCREMENT,
     `langpref`    varchar(80) NOT NULL,
     `favcategory` varchar(30) DEFAULT NULL,
-    `mylistopt`   BOOL        DEFAULT NULL,
-    `banneropt`   BOOL        DEFAULT NULL
+    `mylistopt`   BOOL        DEFAULT FALSE,
+    `banneropt`   BOOL        DEFAULT FALSE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -265,11 +264,11 @@ CREATE TABLE `supplier`
 
 
 
-DROP TABLE IF EXISTS `shopping_cart`;
-CREATE TABLE `shopping_cart`
+DROP TABLE IF EXISTS cart_item;
+CREATE TABLE cart_item
 (
     id           BIGINT PRIMARY KEY AUTO_INCREMENT,
-    userid       VARCHAR(80) REFERENCES account (username),
+    username     VARCHAR(80) REFERENCES account (username),
     item_id      VARCHAR(10) REFERENCES item (item_id),
     quantity     INT  DEFAULT 0,
     in_stock     BOOL DEFAULT TRUE,

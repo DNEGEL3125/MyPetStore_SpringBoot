@@ -1,0 +1,38 @@
+<table id="account-table" class="table table-striped table-bordered" th:fragment="account-table">
+    <thead>
+    <tr>
+        <th>username</th>
+        <th>first name</th>
+        <th>last name</th>
+        <th>email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="account:${accountsList}">
+        <td>
+            <label>
+                <input th:id="'username-input-' + ${account.id}" th:value="${account.username}"
+                       oninput="onInputChanged(this.id)">
+            </label>
+        </td>
+        <td>
+            <label>
+                <input th:id="'firstName-input-' + ${account.id}" th:value="${account.firstName}"
+                       oninput="onInputChanged(this.id)">
+            </label>
+        </td>
+        <td>
+            <label>
+                <input th:id="'lastName-input-' + ${account.id}" th:value="${account.lastName}"
+                       oninput="onInputChanged(this.id)">
+            </label>
+        </td>
+        <td>
+            <label>
+                <input th:id="'email-input-' + ${account.id}" th:value="${account.email}" type="email"
+                       oninput="onInputChanged(this.id)">
+            </label>
+        </td>
+    </tr>
+    </tbody>
+</table>

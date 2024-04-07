@@ -1,5 +1,12 @@
 SET FOREIGN_KEY_CHECKS = 0;
 
+
+SET @BIRD = 1;
+SET @CAT = 2;
+SET @DOG = 3;
+SET @FISH = 4;
+SET @REPTILE = 5;
+
 -- ----------------------------
 -- Records of account
 -- ----------------------------
@@ -33,17 +40,16 @@ VALUES ('REPTILES', '<image src=\"/images/banner_reptiles.gif\">');
 -- ----------------------------
 -- Records of category
 -- ----------------------------
+INSERT INTO `category`(id, name, image_path)
+VALUES (@BIRD, 'Birds', '/images/birds_icon.gif');
 INSERT INTO `category`
-VALUES ('BIRDS', 'Birds', '<image src=\"/images/birds_icon.gif\"><font size=\"5\" color=\"blue\"> Birds</font>');
+VALUES (@CAT, 'Cats', '/images/cats_icon.gif');
 INSERT INTO `category`
-VALUES ('CATS', 'Cats', '<image src=\"/images/cats_icon.gif\"><font size=\"5\" color=\"blue\"> Cats</font>');
+VALUES (@DOG, 'Dogs', '/images/dogs_icon.gif');
 INSERT INTO `category`
-VALUES ('DOGS', 'Dogs', '<image src=\"/images/dogs_icon.gif\"><font size=\"5\" color=\"blue\"> Dogs</font>');
+VALUES (@FISH, 'Fish', '/images/fish_icon.gif');
 INSERT INTO `category`
-VALUES ('FISH', 'Fish', '<image src=\"/images/fish_icon.gif\"><font size=\"5\" color=\"blue\"> Fish</font>');
-INSERT INTO `category`
-VALUES ('REPTILES', 'Reptiles',
-        '<image src=\"/images/reptiles_icon.gif\"><font size=\"5\" color=\"blue\"> Reptiles</font>');
+VALUES (@REPTILE, 'Reptiles', '/images/reptiles_icon.gif');
 
 -- ----------------------------
 -- Records of inventory
@@ -212,44 +218,44 @@ VALUES ('EST-9', 11, '18.50', '12.00', '1', 'P', 'Spotless Male Puppy', null, nu
 -- Records of product
 -- ----------------------------
 INSERT INTO `product` (product_id, category_id, name, description)
-VALUES ('AV-CB-01', 'BIRDS', 'Amazon Parrot', '<image src=\"/images/bird4.gif\">Great companion for up to 75 years');
+VALUES ('AV-CB-01', @BIRD, 'Amazon Parrot', '<image src=\"/images/bird4.gif\">Great companion for up to 75 years');
 INSERT INTO `product` (product_id, category_id, name, description)
-VALUES ('AV-SB-02', 'BIRDS', 'Finch', '<image src=\"/images/bird1.gif\">Great stress reliever');
+VALUES ('AV-SB-02', @BIRD, 'Finch', '<image src=\"/images/bird1.gif\">Great stress reliever');
 INSERT INTO `product` (product_id, category_id, name, description)
-VALUES ('FI-FW-01', 'FISH', 'Koi', '<image src=\"/images/fish3.gif\">Fresh Water fish from Japan');
+VALUES ('FI-FW-01', @FISH, 'Koi', '<image src=\"/images/fish3.gif\">Fresh Water fish from Japan');
 INSERT INTO `product` (product_id, category_id, name, description)
-VALUES ('FI-FW-02', 'FISH', 'Goldfish', '<image src=\"/images/fish2.gif\">Fresh Water fish from China');
+VALUES ('FI-FW-02', @FISH, 'Goldfish', '<image src=\"/images/fish2.gif\">Fresh Water fish from China');
 INSERT INTO `product` (product_id, category_id, name, description)
-VALUES ('FI-SW-01', 'FISH', 'Angelfish', '<image src=\"/images/fish1.jpg\">Salt Water fish from Australia');
+VALUES ('FI-SW-01', @FISH, 'Angelfish', '<image src=\"/images/fish1.jpg\">Salt Water fish from Australia');
 INSERT INTO `product` (product_id, category_id, name, description)
-VALUES ('FI-SW-02', 'FISH', 'Tiger Shark', '<image src=\"/images/fish4.gif\">Salt Water fish from Australia');
+VALUES ('FI-SW-02', @FISH, 'Tiger Shark', '<image src=\"/images/fish4.gif\">Salt Water fish from Australia');
 INSERT INTO `product` (product_id, category_id, name, description)
-VALUES ('FL-DLH-02', 'CATS', 'Persian', '<image src=\"/images/cat1.gif\">Friendly house cat, doubles as a princess');
+VALUES ('FL-DLH-02', @CAT, 'Persian', '<image src=\"/images/cat1.gif\">Friendly house cat, doubles as a princess');
 INSERT INTO `product` (product_id, category_id, name, description)
-VALUES ('FL-DSH-01', 'CATS', 'Manx', '<image src=\"/images/cat3.gif\">Great for reducing mouse populations');
+VALUES ('FL-DSH-01', @CAT, 'Manx', '<image src=\"/images/cat3.gif\">Great for reducing mouse populations');
 INSERT INTO `product` (product_id, category_id, name, description)
-VALUES ('K9-BD-01', 'DOGS', 'Bulldog', '<image src=\"/images/dog2.gif\">Friendly dog from England');
+VALUES ('K9-BD-01', @DOG, 'Bulldog', '<image src=\"/images/dog2.gif\">Friendly dog from England');
 INSERT INTO `product` (product_id, category_id, name, description)
-VALUES ('K9-CW-01', 'DOGS', 'Chihuahua', '<image src=\"/images/dog4.gif\">Great companion dog');
+VALUES ('K9-CW-01', @DOG, 'Chihuahua', '<image src=\"/images/dog4.gif\">Great companion dog');
 INSERT INTO `product` (product_id, category_id, name, description)
-VALUES ('K9-DL-01', 'DOGS', 'Dalmation', '<image src=\"/images/dog5.gif\">Great dog for a Fire Station');
+VALUES ('K9-DL-01', @DOG, 'Dalmation', '<image src=\"/images/dog5.gif\">Great dog for a Fire Station');
 INSERT INTO `product` (product_id, category_id, name, description)
-VALUES ('K9-PO-02', 'DOGS', 'Poodle', '<image src=\"/images/dog6.gif\">Cute dog from France');
+VALUES ('K9-PO-02', @DOG, 'Poodle', '<image src=\"/images/dog6.gif\">Cute dog from France');
 INSERT INTO `product` (product_id, category_id, name, description)
-VALUES ('K9-RT-01', 'DOGS', 'Golden Retriever', '<image src=\"/images/dog1.gif\">Great family dog');
+VALUES ('K9-RT-01', @DOG, 'Golden Retriever', '<image src=\"/images/dog1.gif\">Great family dog');
 INSERT INTO `product` (product_id, category_id, name, description)
-VALUES ('K9-RT-02', 'DOGS', 'Labrador Retriever', '<image src=\"/images/dog5.gif\">Great hunting dog');
+VALUES ('K9-RT-02', @DOG, 'Labrador Retriever', '<image src=\"/images/dog5.gif\">Great hunting dog');
 INSERT INTO `product` (product_id, category_id, name, description)
-VALUES ('RP-LI-02', 'REPTILES', 'Iguana', '<image src=\"/images/lizard2.gif\">Friendly green friend');
+VALUES ('RP-LI-02', @REPTILE, 'Iguana', '<image src=\"/images/lizard2.gif\">Friendly green friend');
 INSERT INTO `product` (product_id, category_id, name, description)
-VALUES ('RP-SN-01', 'REPTILES', 'Rattlesnake', '<image src=\"/images/lizard3.gif\">Doubles as a watch dog');
+VALUES ('RP-SN-01', @REPTILE, 'Rattlesnake', '<image src=\"/images/lizard3.gif\">Doubles as a watch dog');
 
 
 -- ----------------------------
 -- Records of profile
 -- ----------------------------
 INSERT INTO `profile`(id, langpref, favcategory, mylistopt, banneropt)
-VALUES (1, 'japanese', 'DOGS', null, null);
+VALUES (1, 'japanese', 'DOGS', FALSE, false);
 INSERT INTO `profile` (id, langpref, favcategory, mylistopt, banneropt)
 VALUES (2, 'english', 'CATS', '1', '1');
 INSERT INTO `profile`(id, langpref, favcategory, mylistopt, banneropt)

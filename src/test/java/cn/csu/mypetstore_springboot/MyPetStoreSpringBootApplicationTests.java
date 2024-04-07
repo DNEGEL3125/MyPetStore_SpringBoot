@@ -20,7 +20,7 @@ class MyPetStoreSpringBootApplicationTests {
     @Test
     void contextLoads() {
 
-        Account root = accountService.accountRepository.getAccountByUsername("root");
+
 
     }
 

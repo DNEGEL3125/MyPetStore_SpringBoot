@@ -1,9 +1,15 @@
 package cn.csu.mypetstore_springboot.domain;
 
+import cn.csu.mypetstore_springboot.Repositories.AccountRepository;
 import jakarta.persistence.*;
+import org.springframework.core.DefaultParameterNameDiscoverer;
+import org.springframework.core.ParameterNameDiscoverer;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 //import net.sourceforge.stripes.validation.Validate;
 

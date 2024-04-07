@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{/admin/head}">
+</div>
+
+<body>
+
+<div>
+    <label for="search-input">Search: </label>
+    <input id="search-input">
+    <button class="btn btn-primary" id="search-category-btn"
+            onclick="displaySearchCategoryTable($(`#search-input`), $(`#select-search-for`))">
+        Search
+    </button>
+    <label for="select-search-for">
+        Search for:
+    </label>
+
+    <!-- Notice: Only Strings can be selected here   -->
+    <select class="search-select col-2" id="select-search-for">
+        <option value="search-name">name</option>
+    </select>
+</div>
+
+
+<div>
+    <div id="category-table-container" th:insert="~{/admin/CategoryTable}"></div>
+    <div class="position-fixed start-50 translate-middle bottom-0">
+        <button onclick="sendCategoriesChange()" class="btn btn-primary">保存更改</button>
+        <button onclick="resetCategoriesChange()" class="btn btn-primary">还原更改</button>
+    </div>
+</div>
+
+
+<div id="toasts-container" class="toast-container position-fixed top-0 start-50 translate-middle-x">
+
+</div>
+
+
+
+
+<script src="/js/commonToast.js" type="text/javascript" defer></script>
+<script src="/js/category.js" defer></script>
+</body>
+
+

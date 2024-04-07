@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {
-    List<CartItem> getCartItemsByUserId(String userId);
+    List<CartItem> getCartItemsByUsername(String username);
 
     @Transactional
     @Modifying
@@ -28,4 +28,15 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long> {
     @Modifying
     @Query(value = "UPDATE shopping_cart SET quantity = :quantity WHERE id = :id", nativeQuery = true)
     void updateQuantityById(@Param("id") Long id, @Param("quantity") int quantity);
+
+
+    @Transactional
+    @Modifying
+    @Query(value = """
+            UPDATE cart_item SET
+             quantity = :#{#cartItem.quantity},
+              in_stock = :#{#cartItem.inStock} 
+              WHERE username = :username"""
+            , nativeQuery = true)
+    int updateCartItemByUsername(String username, CartItem cartItem);
 }

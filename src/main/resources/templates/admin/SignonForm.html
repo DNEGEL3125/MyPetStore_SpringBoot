@@ -1,0 +1,44 @@
+<head>
+    <link rel="StyleSheet" href="/css/jpetstore.css" type="text/css" media="screen"/>
+    <title>SignonForm</title>
+</head>
+
+<div id="Content">
+    <ul class="messages">
+        <li>${sessionScope.messageSignOn}</li>
+    </ul>
+
+    <div id="Catalog">
+        <form action="/admin/signon" method="post">
+            <p>Please enter your username and password.</p>
+            <div>
+                <label for="username-input">
+                    Username:
+                </label>
+                <input id="username-input" type="text" name="username" value="j2ee" maxlength="32" required/>
+            </div>
+
+            <div>
+                <label for="password-input">
+                    Password:
+                </label>
+                <input id="password-input" type="password" name="password" value="j2ee" maxlength="64" required/>
+            </div>
+
+
+            <div>
+                <label for="v-code-input">
+                    VerificationCode:
+                </label>
+                <input id="v-code-input" type="text" name="vCode" size="5" maxlength="4" required/>
+                <a href="/admin/signon/form">
+                    <img alt="verification code" src="/images/error/image_error.png"
+                         th:src="@{/admin/signon/v-code}">
+                </a>
+            </div>
+
+            <input type="submit" name="signon" value="Login"/>
+        </form>
+    </div>
+
+</div>

@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class Cart implements Serializable {
-
     private static final long serialVersionUID = 8329559983943337176L;
     private final CartItemRepository cartItemDAO;
     private List<CartItem> itemList = new ArrayList<>();
@@ -24,7 +23,7 @@ public class Cart implements Serializable {
         if (userId == null) {
             return;
         }
-        itemList = cartItemDAO.getCartItemsByUserId(userId);
+        itemList = cartItemDAO.getCartItemsByUsername(userId);
     }
 
     public Iterator<CartItem> getCartItems() {
@@ -53,7 +52,7 @@ public class Cart implements Serializable {
         cartItem.setItem(item);
         cartItem.setQuantity(0);
         cartItem.setInStock(isInStock);
-        cartItem.setUserId(this.userId);
+        cartItem.setUsername(this.userId);
         cartItem.incrementQuantity();
         itemList.add(cartItem);
 
@@ -64,7 +63,7 @@ public class Cart implements Serializable {
         Item item = new Item();
         item.setItemId(itemId);
         CartItem cartItem = new CartItem();
-        cartItem.setUserId(userId);
+        cartItem.setUsername(userId);
         cartItem.setItem(item);
         cartItem.setQuantity(0);
         int result = cartItemDAO.updateInStockById(cartItem.getId(), false);
@@ -79,7 +78,7 @@ public class Cart implements Serializable {
         Item item = new Item();
         item.setItemId(itemId);
         CartItem cartItem = new CartItem();
-        cartItem.setUserId(userId);
+        cartItem.setUsername(userId);
         cartItem.setItem(item);
         cartItem.setQuantity(quantity);
         cartItemDAO.updateQuantityById(cartItem.getId(), quantity);

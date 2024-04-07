@@ -18,7 +18,7 @@ public class CartItem implements Serializable {
     private int quantity;
     private boolean inStock;
     private BigDecimal total;
-    private String userId;
+    private String username;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -66,12 +66,12 @@ public class CartItem implements Serializable {
         }
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUsername(String userId) {
+        this.username = userId;
     }
 
     public void setId(Long id) {
