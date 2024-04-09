@@ -93,17 +93,12 @@ CREATE TABLE pet_breed
 DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product`
 (
-    id           BIGINT PRIMARY KEY AUTO_INCREMENT,
+    product_id   BIGINT PRIMARY KEY AUTO_INCREMENT,
     pet_breed_id BIGINT NOT NULL,
     list_price   decimal(10, 2) DEFAULT NULL,
     unit_cost    decimal(10, 2) DEFAULT NULL,
     supplier_id  int REFERENCES supplier (suppid),
     `status`     varchar(2)     DEFAULT NULL,
-    attribute1   varchar(80)    DEFAULT NULL,
-    attribute2   varchar(80)    DEFAULT NULL,
-    attribute3   varchar(80)    DEFAULT NULL,
-    attribute4   varchar(80)    DEFAULT NULL,
-    attribute5   varchar(80)    DEFAULT NULL,
     quantity     INT            DEFAULT 0,
     KEY `fk_product_2` (supplier_id),
     KEY `productProd` (pet_breed_id),
@@ -112,6 +107,17 @@ CREATE TABLE `product`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
+-- ----------------------------
+-- Table structure for `product_attribute`
+-- ----------------------------
+DROP TABLE IF EXISTS `product_attribute`;
+CREATE TABLE `product_attribute`
+(
+    id         BIGINT PRIMARY KEY AUTO_INCREMENT,
+    product_id BIGINT REFERENCES product (product_id),
+    content    varchar(127) DEFAULT NULL
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;
 
 
 -- ----------------------------
@@ -122,7 +128,7 @@ CREATE TABLE `lineitem`
 (
     `orderid`    bigint REFERENCES orders (orderid),
     `linenum`    int            NOT NULL,
-    `product_id` bigint         NOT NULL REFERENCES product (id),
+    `product_id` bigint         NOT NULL REFERENCES product (product_id),
     `quantity`   int            NOT NULL,
     `unitprice`  decimal(10, 2) NOT NULL,
     PRIMARY KEY (`orderid`, `linenum`)
@@ -254,7 +260,7 @@ CREATE TABLE cart_item
 (
     id           BIGINT PRIMARY KEY AUTO_INCREMENT,
     username     VARCHAR(80) REFERENCES account (username),
-    product_id   BIGINT REFERENCES product (id),
+    product_id   BIGINT REFERENCES product (product_id),
     quantity     INT  DEFAULT 0,
     in_stock     BOOL DEFAULT TRUE,
     is_purchased BOOL DEFAULT FALSE

@@ -63,7 +63,7 @@ public class Cart implements Serializable {
 
     public Product removeItemById(Long productId) {
         Product product = new Product();
-        product.setId(productId);
+        product.setProductId(productId);
         CartItem cartItem = new CartItem();
         cartItem.setUsername(userId);
         cartItem.setItem(product);
@@ -78,7 +78,7 @@ public class Cart implements Serializable {
 
     public void setQuantityByProductId(Long productId, int quantity) {
         Product product = new Product();
-        product.setId(productId);
+        product.setProductId(productId);
         CartItem cartItem = new CartItem();
         cartItem.setUsername(userId);
         cartItem.setItem(product);
@@ -101,7 +101,7 @@ public class Cart implements Serializable {
 
     public CartItem getCartItemByProductId(Long productId) {
         for (CartItem cartItem : this.getCartItemList()) {
-            if (Objects.equals(cartItem.getProduct().getId(), productId)) {
+            if (Objects.equals(cartItem.getProduct().getProductId(), productId)) {
                 return cartItem;
             }
         }

@@ -7,7 +7,7 @@ let searchFor = "";
 // 遭到更改的元素id
 const changedIdSet = new Set();
 
-function sendAccountsChange() {
+function sendProductsChange() {
     if (changedIdSet.size === 0) {
         // Nothing changed
         showInfoToast("Nothing changed");
@@ -16,14 +16,14 @@ function sendAccountsChange() {
     let jsonData = {};
     for (const id of changedIdSet) {
         const splitRes = id.split('-');
-        const accountId = splitRes[2];
+        const productId = splitRes[2];
         const attrName = splitRes[0];
 
-        // Check if jsonData[accountId] exists, if not, initialize it
-        if (!jsonData[accountId]) {
-            jsonData[accountId] = {};
+        // Check if jsonData[productId] exists, if not, initialize it
+        if (!jsonData[productId]) {
+            jsonData[productId] = {};
         }
-        jsonData[accountId][attrName] = $(`#${id}`).val();
+        jsonData[productId][attrName] = $(`#${id}`).val();
     }
 
     // Convert the changedIdList to JSON string
@@ -31,24 +31,27 @@ function sendAccountsChange() {
 
 
     $.ajax({
-        url: `/admin/accounts/update`,
+        url: `/admin/products/update`,
         type: 'POST',
         contentType: 'application/json', // Set content type to JSON
         data: jsonData,
         success: function (response) {
             showSuccessToast(response);
-            resetAccountsChange();
+            resetProductsChange();
         },
         error: function (xhr, status, error) {
+            if (!error) {
+                error = "Failed to update the products";
+            }
             showErrorToast(error);
         }
     });
 }
 
 
-function resetAccountsChange() {
+function resetProductsChange() {
     changedIdSet.clear();
-    displaySearchAccountTable(searchKeyword, searchFor, currentPage);
+    displaySearchProductTable(searchKeyword, searchFor, currentPage);
     $("#table-change-btn-container").hide();
 }
 
@@ -73,7 +76,7 @@ function switchPage(page) {
     if (!setRes) {
         return;
     }
-    displaySearchAccountTable(searchKeyword, searchFor, page);
+    displaySearchProductTable(searchKeyword, searchFor, page);
 }
 
 $(document).ready(function () {
@@ -87,18 +90,18 @@ $(document).ready(function () {
     // keydown event of search-input
     $("#search-input").keypress(function (ev) {
         if (ev.keyCode === 13) {
-            displaySearchAccountTable($(this).val(), $(`#select-search-for`).val());
+            onSearchProductBtnClicked();
         }
     });
 
-    displayAccountTable();
+    displayProductTable();
 
     pagePreviousBtn.prop("disabled", true);
     pageNextBtn.prop("disabled", true);
 
 });
 
-function displayAccountTable(pageNumber = 1) {
+function displayProductTable(pageNumber = 1) {
     if (pageNumber < 1) {
         return;
     }
@@ -109,35 +112,38 @@ function displayAccountTable(pageNumber = 1) {
         "pageNumber": pageNumber
     };
     $.ajax({
-        url: `/admin/accounts/view/table`,
+        url: `/admin/products/view/table`,
         type: 'GET',
         contentType: 'application/json', // Set content type to JSON
         data: jsonData,
         success: function (tableHtml) {
-            $("#account-table").replaceWith(tableHtml);
+            $("#product-table").replaceWith(tableHtml);
         },
         error: function (xhr, status, error) {
+            if (!error) {
+                error = "An error occurred while fetching the table";
+            }
             showErrorToast(error);
         }
     });
 
-    $.get("/admin/accounts/view/maxPageNumber", function (response) {
+    $.get("/admin/products/view/maxPageNumber", function (response) {
         MAX_PAGES = response;
         // update button status
         setCurrentPage(currentPage);
     });
 }
 
-function onSearchAccountBtnClicked() {
+function onSearchProductBtnClicked() {
     searchKeyword = $("#search-input").val();
     // Example: `username` of `search-username`
     searchFor = $("#select-search-for").val().split('-')[1];
-    displaySearchAccountTable(searchKeyword, searchFor);
+    displaySearchProductTable(searchKeyword, searchFor);
 }
 
-function displaySearchAccountTable(keyword, searchFor, pageNumber = 1) {
+function displaySearchProductTable(keyword, searchFor, pageNumber = 1) {
     if (!keyword) {
-        displayAccountTable(pageNumber);
+        displayProductTable(pageNumber);
         return;
     }
 
@@ -150,24 +156,35 @@ function displaySearchAccountTable(keyword, searchFor, pageNumber = 1) {
     // Construct the relative URL with the query parameter
     // Navigate to the search results page
     $.ajax({
-        url: `/admin/accounts/search/view/table`,
+        url: `/admin/products/search/view/table`,
         type: 'GET',
         contentType: 'application/json', // Set content type to JSON
         data: jsonData,
         success: function (tableHtml) {
-            $("#account-table").replaceWith(tableHtml);
+            $("#product-table").replaceWith(tableHtml);
         },
         error: function (xhr, status, error) {
+            if (!error) {
+                error = "An error occurred while fetching the table";
+            }
             showErrorToast(error);
         }
     });
 
-
-    $.get("/admin/accounts/search/view/maxPageNumber", function (response) {
-        MAX_PAGES = response;
-        // update button status
-        setCurrentPage(currentPage);
-    });
+    $.ajax({
+        url: "/admin/products/search/view/maxPageNumber",
+        type: "GET",
+        contentType: 'application/json',
+        data: jsonData,
+        success: function (response) {
+            MAX_PAGES = response;
+            // update button status
+            setCurrentPage(currentPage);
+        },
+        error: function (xhr, status, error) {
+            showErrorToast("Failed to get maximum page number");
+        }
+    })
 
 }
 

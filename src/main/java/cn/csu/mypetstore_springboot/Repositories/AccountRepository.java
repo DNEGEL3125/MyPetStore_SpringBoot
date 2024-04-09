@@ -42,6 +42,4 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 
 
     Account getAccountById(Long id);
-
-    List<Account> searchAccountsByUsernameContains(String keyword);
 }

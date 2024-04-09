@@ -18,6 +18,34 @@ $(document).ready(function () {
     });
 });
 
+function setCurrentPage(page) {
+    const pagePreviousBtn = $(".page-previous");
+    const pageNextBtn = $(".page-next");
+
+
+    if (page > MAX_PAGES || page < 1) {
+        return false;
+    }
+
+    pagePreviousBtn.prop("disabled", false);
+    pageNextBtn.prop("disabled", false);
+
+    currentPage = page;
+
+    if (currentPage === 1) {
+        pagePreviousBtn.prop("disabled", true);
+    }
+    if (currentPage === MAX_PAGES) {
+        pageNextBtn.prop("disabled", true);
+    }
+
+    showPageNumbers(MAX_PAGES, currentPage);
+
+    console.log("current page number is ", currentPage);
+
+    return true;
+}
+
 // 当前页数 <= 4:显示1~6...n-1,n; 当前页数 >= n-3:显示1,2...n-5~n; else 显示1...中间5个...n
 function showPageNumbers(maxPageNumber, currentPageNumber) {
     const pageIconContainer = $(".page-number-icon-container");

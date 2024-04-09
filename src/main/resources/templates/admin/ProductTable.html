@@ -1,0 +1,39 @@
+<table id="product-table" class="table table-striped table-bordered" th:fragment="product-table">
+    <thead>
+    <tr>
+        <th>breed name</th>
+        <th>list price</th>
+        <th>unit cost</th>
+        <th>quantity</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!--/*@thymesVar id="productsList" type="java.util.List<Product>"*/-->
+    <tr th:each="product:${productsList}">
+        <td>
+            <label>
+                <input th:id="'petBreed.name-input-' + ${product.productId}" th:value="${product.petBreed.name}"
+                       oninput="onInputChanged(this.id)">
+            </label>
+        </td>
+        <td>
+            <label>
+                <input th:id="'listPrice-input-' + ${product.productId}" th:value="${product.listPrice}"
+                       oninput="onInputChanged(this.id)">
+            </label>
+        </td>
+        <td>
+            <label>
+                <input th:id="'unitCost-input-' + ${product.productId}" th:value="${product.unitCost}"
+                       oninput="onInputChanged(this.id)">
+            </label>
+        </td>
+        <td>
+            <label>
+                <input th:id="'quantity-input-' + ${product.productId}" th:value="${product.quantity}"
+                       oninput="onInputChanged(this.id)">
+            </label>
+        </td>
+    </tr>
+    </tbody>
+</table>
