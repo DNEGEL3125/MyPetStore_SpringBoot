@@ -61,9 +61,9 @@ CREATE TABLE `bannerdata`
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category`
 (
-    id          BIGINT PRIMARY KEY AUTO_INCREMENT,
-    `name`      varchar(80)  DEFAULT NULL,
-    image_path  varchar(255)
+    id         BIGINT PRIMARY KEY AUTO_INCREMENT,
+    `name`     varchar(80) DEFAULT NULL,
+    image_path varchar(255)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -82,6 +82,23 @@ CREATE TABLE `inventory`
   DEFAULT CHARSET = utf8mb4;
 
 
+-- ----------------------------
+-- Table structure for pet_breed
+-- ----------------------------
+DROP TABLE IF EXISTS pet_breed;
+CREATE TABLE pet_breed
+(
+    id          BIGINT PRIMARY KEY AUTO_INCREMENT,
+    category_id BIGINT NOT NULL,
+    `name`      varchar(80)  DEFAULT NULL,
+    description varchar(255) DEFAULT NULL,
+    image_path  varchar(255) DEFAULT NULL,
+    KEY `petBreedCat` (category_id),
+    KEY `petBreedName` (`name`),
+    CONSTRAINT `fk_pet_breed_1` FOREIGN KEY (category_id) REFERENCES `category` (id)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;
+
 
 -- ----------------------------
 -- Table structure for `item`
@@ -91,7 +108,7 @@ CREATE TABLE `item`
 (
     id          BIGINT PRIMARY KEY AUTO_INCREMENT,
     `item_id`   varchar(10) NOT NULL UNIQUE KEY,
-    product_id  VARCHAR(10) NOT NULL, -- REFERENCES product(product_id)
+    pet_breed_id  BIGINT      NOT NULL,
     list_price  decimal(10, 2) DEFAULT NULL,
     unit_cost   decimal(10, 2) DEFAULT NULL,
     supplier_id int REFERENCES supplier (suppid),
@@ -103,8 +120,8 @@ CREATE TABLE `item`
     attribute5  varchar(80)    DEFAULT NULL,
     quantity    INT            DEFAULT 0,
     KEY `fk_item_2` (supplier_id),
-    KEY `itemProd` (product_id),
-    CONSTRAINT `fk_item_1` FOREIGN KEY (product_id) REFERENCES `product` (product_id),
+    KEY `itemProd` (pet_breed_id),
+    CONSTRAINT `fk_item_1` FOREIGN KEY (pet_breed_id) REFERENCES pet_breed (id),
     CONSTRAINT `fk_item_2` FOREIGN KEY (supplier_id) REFERENCES `supplier` (`suppid`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
@@ -176,24 +193,6 @@ CREATE TABLE `orderstatus`
     `timestamp` date       NOT NULL,
     `status`    varchar(2) NOT NULL,
     PRIMARY KEY (`orderid`, `linenum`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4;
-
-
-
--- ----------------------------
--- Table structure for `product`
--- ----------------------------
-DROP TABLE IF EXISTS product;
-CREATE TABLE `product`
-(
-    product_id  varchar(10) PRIMARY KEY,
-    category_id BIGINT NOT NULL,
-    `name`      varchar(80)  DEFAULT NULL,
-    description varchar(255) DEFAULT NULL,
-    KEY `productCat` (category_id),
-    KEY `productName` (`name`),
-    CONSTRAINT `fk_product_1` FOREIGN KEY (category_id) REFERENCES `category` (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 

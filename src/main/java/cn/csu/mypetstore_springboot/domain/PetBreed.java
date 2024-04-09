@@ -6,26 +6,19 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
-public class Product implements Serializable {
-
+public class PetBreed implements Serializable {
     @Serial
     private static final long serialVersionUID = -7492639752670189553L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id")
-    private String productId;
+    @Column(name = "id")
+    private Long id;
     private String categoryId;
     private String name;
     private String description;
+    private String imagePath;
 
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId.trim();
-    }
 
     public String getCategoryId() {
         return categoryId;
@@ -53,5 +46,21 @@ public class Product implements Serializable {
 
     public String toString() {
         return getName();
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

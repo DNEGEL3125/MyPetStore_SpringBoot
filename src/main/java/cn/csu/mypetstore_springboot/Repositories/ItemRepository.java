@@ -8,5 +8,5 @@ import java.util.List;
 public interface ItemRepository extends JpaRepository<Item, Long> {
     Item getItemByItemId(String itemId);
 
-    List<Item> getItemsByProductProductId(String productId);
+    List<Item> getItemsByPetBreedId(Long petBreed_id);
 }
