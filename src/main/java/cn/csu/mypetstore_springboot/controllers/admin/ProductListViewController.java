@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+// TODO 添加和删除Product的功能
+// TODO 显示并能够修改Product的attributes
 @Controller
 @RequestMapping("/admin/products")
 public class ProductListViewController {
