@@ -2,7 +2,6 @@ package cn.csu.mypetstore_springboot.Services;
 
 import cn.csu.mypetstore_springboot.Repositories.AccountRepository;
 import cn.csu.mypetstore_springboot.Repositories.AccountRepositoryC;
-import cn.csu.mypetstore_springboot.Repositories.SignonRepository;
 import cn.csu.mypetstore_springboot.domain.Account;
 import cn.csu.mypetstore_springboot.utils.CamelToSnakeConverter;
 import org.slf4j.Logger;

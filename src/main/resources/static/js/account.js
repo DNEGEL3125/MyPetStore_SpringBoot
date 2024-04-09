@@ -7,21 +7,28 @@ function setCurrentPage(page) {
     const pagePreviousBtn = $(".page-previous");
     const pageNextBtn = $(".page-next");
 
-    pagePreviousBtn.prop("disabled", true);
-    pageNextBtn.prop("disabled", true);
 
     if (page > MAX_PAGES || page < 1) {
-        return;
+        return false;
     }
+
+    pagePreviousBtn.prop("disabled", false);
+    pageNextBtn.prop("disabled", false);
 
     currentPage = page;
 
-    if (currentPage !== 1) {
-        pagePreviousBtn.prop("disabled", false);
+    if (currentPage === 1) {
+        pagePreviousBtn.prop("disabled", true);
     }
-    if (currentPage !== MAX_PAGES) {
-        pageNextBtn.prop("disabled", false);
+    if (currentPage === MAX_PAGES) {
+        pageNextBtn.prop("disabled", true);
     }
+
+    showPageNumbers(MAX_PAGES, currentPage);
+
+    console.log("current page number is ", currentPage);
+
+    return true;
 }
 
 
@@ -71,12 +78,15 @@ function sendAccountsChange() {
 function resetAccountsChange() {
     changedIdSet.clear();
     displayAccountTable(currentPage);
+    $("#table-change-btn-container").hide();
 }
 
 function onInputChanged(id) {
     changedIdSet.add(id);
     // 标注被修改的cell
     $(`#${id}`).closest("td").addClass("table-info");
+    // 更改帮助按钮栏
+    $("#table-change-btn-container").show();
 }
 
 function nextPage() {
@@ -88,8 +98,11 @@ function previousPage() {
 }
 
 function switchPage(page) {
-    setCurrentPage(page);
-    displaySearchAccountTable(searchKeyword, searchFor, currentPage);
+    let setRes = setCurrentPage(page);
+    if (!setRes) {
+        return;
+    }
+    displaySearchAccountTable(searchKeyword, searchFor, page);
 }
 
 $(document).ready(function () {
@@ -97,6 +110,8 @@ $(document).ready(function () {
     const pageNextBtn = $(".page-next");
 
     $(".search-select").select2();
+
+    $("#table-change-btn-container").hide();
 
     // keydown event of search-input
     $("#search-input").keypress(function (ev) {
@@ -116,8 +131,6 @@ function displayAccountTable(pageNumber = 1) {
     if (pageNumber < 1) {
         return;
     }
-
-    console.log("page number in displayAccountTable is ", pageNumber);
 
     searchFor = searchKeyword = "";
 

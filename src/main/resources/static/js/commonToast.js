@@ -5,11 +5,6 @@ const ToastBgColor = {
 };
 
 class ToastQueue {
-    ToastType = {
-        Success: 1,
-        Info: 2,
-        Danger: 3
-    }
 
     constructor(size = 8) {
         this.qPointer = 0;
@@ -51,7 +46,7 @@ const toastQueue = new ToastQueue();
 $(document).ready(function () {
     const allToasts = $(".toast");
 
-    let _ = toastQueue.init();
+    void toastQueue.init();
 
     // 在显示 Toast 时可点击
     allToasts.on('show.bs.toast', function () {

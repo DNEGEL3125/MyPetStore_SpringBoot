@@ -27,7 +27,7 @@
 
 <div>
     <div id="account-table-container" th:insert="~{/admin/AccountTable}"></div>
-    <div class="position-fixed start-50 translate-middle bottom-0">
+    <div class="position-fixed start-50 translate-middle bottom-0" id="table-change-btn-container">
         <button onclick="sendAccountsChange()" class="btn btn-primary">保存更改</button>
         <button onclick="resetAccountsChange()" class="btn btn-primary">还原更改</button>
     </div>
@@ -43,17 +43,22 @@
     <button onclick="previousPage()" class="page-previous">« previous</button>
 
     <!-- 当前页数 <= 4:显示1~6...n-1,n; 当前页数 >= n-3:显示1,2...n-5~n; else 显示1...中间5个...n -->
+    <span class="page-number-icon-container">
+
+    </span>
 
     <button onclick="nextPage()" class="page-next">next »</button>
 
     <div class="page-number-input-container">
-        <input type="number" class="page-number-input" placeholder="page">
+        <label for="page-number-input-bottom"></label>
+        <input type="number" class="page-number-input" id="page-number-input-bottom" placeholder="page">
         <button class="go-to-page-button">Go</button>
     </div>
 </div>
 
 
 <script src="/js/commonToast.js" type="text/javascript" defer></script>
+<script src="/js/page.js" defer></script>
 <script src="/js/account.js" defer></script>
 </body>
 
