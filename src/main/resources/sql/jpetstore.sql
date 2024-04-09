@@ -70,19 +70,6 @@ CREATE TABLE `category`
 
 
 -- ----------------------------
--- Table structure for `inventory`
--- ----------------------------
-DROP TABLE IF EXISTS `inventory`;
-CREATE TABLE `inventory`
-(
-    id         BIGINT PRIMARY KEY AUTO_INCREMENT,
-    `item_id`  varchar(10) NOT NULL REFERENCES item (item_id),
-    `quantity` int         NOT NULL
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4;
-
-
--- ----------------------------
 -- Table structure for pet_breed
 -- ----------------------------
 DROP TABLE IF EXISTS pet_breed;
@@ -101,28 +88,27 @@ CREATE TABLE pet_breed
 
 
 -- ----------------------------
--- Table structure for `item`
+-- Table structure for `product`
 -- ----------------------------
-DROP TABLE IF EXISTS `item`;
-CREATE TABLE `item`
+DROP TABLE IF EXISTS `product`;
+CREATE TABLE `product`
 (
-    id          BIGINT PRIMARY KEY AUTO_INCREMENT,
-    `item_id`   varchar(10) NOT NULL UNIQUE KEY,
-    pet_breed_id  BIGINT      NOT NULL,
-    list_price  decimal(10, 2) DEFAULT NULL,
-    unit_cost   decimal(10, 2) DEFAULT NULL,
-    supplier_id int REFERENCES supplier (suppid),
-    `status`    varchar(2)     DEFAULT NULL,
-    attribute1  varchar(80)    DEFAULT NULL,
-    attribute2  varchar(80)    DEFAULT NULL,
-    attribute3  varchar(80)    DEFAULT NULL,
-    attribute4  varchar(80)    DEFAULT NULL,
-    attribute5  varchar(80)    DEFAULT NULL,
-    quantity    INT            DEFAULT 0,
-    KEY `fk_item_2` (supplier_id),
-    KEY `itemProd` (pet_breed_id),
-    CONSTRAINT `fk_item_1` FOREIGN KEY (pet_breed_id) REFERENCES pet_breed (id),
-    CONSTRAINT `fk_item_2` FOREIGN KEY (supplier_id) REFERENCES `supplier` (`suppid`)
+    id           BIGINT PRIMARY KEY AUTO_INCREMENT,
+    pet_breed_id BIGINT NOT NULL,
+    list_price   decimal(10, 2) DEFAULT NULL,
+    unit_cost    decimal(10, 2) DEFAULT NULL,
+    supplier_id  int REFERENCES supplier (suppid),
+    `status`     varchar(2)     DEFAULT NULL,
+    attribute1   varchar(80)    DEFAULT NULL,
+    attribute2   varchar(80)    DEFAULT NULL,
+    attribute3   varchar(80)    DEFAULT NULL,
+    attribute4   varchar(80)    DEFAULT NULL,
+    attribute5   varchar(80)    DEFAULT NULL,
+    quantity     INT            DEFAULT 0,
+    KEY `fk_product_2` (supplier_id),
+    KEY `productProd` (pet_breed_id),
+    CONSTRAINT `fk_product_1` FOREIGN KEY (pet_breed_id) REFERENCES pet_breed (id),
+    CONSTRAINT `fk_product_2` FOREIGN KEY (supplier_id) REFERENCES `supplier` (`suppid`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -134,11 +120,11 @@ CREATE TABLE `item`
 DROP TABLE IF EXISTS `lineitem`;
 CREATE TABLE `lineitem`
 (
-    `orderid`   bigint REFERENCES orders (orderid),
-    `linenum`   int            NOT NULL,
-    `item_id`   varchar(10)    NOT NULL REFERENCES item (item_id),
-    `quantity`  int            NOT NULL,
-    `unitprice` decimal(10, 2) NOT NULL,
+    `orderid`    bigint REFERENCES orders (orderid),
+    `linenum`    int            NOT NULL,
+    `product_id` bigint         NOT NULL REFERENCES product (id),
+    `quantity`   int            NOT NULL,
+    `unitprice`  decimal(10, 2) NOT NULL,
     PRIMARY KEY (`orderid`, `linenum`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
@@ -268,7 +254,7 @@ CREATE TABLE cart_item
 (
     id           BIGINT PRIMARY KEY AUTO_INCREMENT,
     username     VARCHAR(80) REFERENCES account (username),
-    item_id      VARCHAR(10) REFERENCES item (item_id),
+    product_id   BIGINT REFERENCES product (id),
     quantity     INT  DEFAULT 0,
     in_stock     BOOL DEFAULT TRUE,
     is_purchased BOOL DEFAULT FALSE

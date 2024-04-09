@@ -14,7 +14,7 @@ public class CartItem implements Serializable {
     @Serial
     private static final long serialVersionUID = 6620528781626504362L;
 
-    private Item item;
+    private Product product;
     private int quantity;
     private boolean inStock;
     private BigDecimal total;
@@ -35,12 +35,12 @@ public class CartItem implements Serializable {
         return total;
     }
 
-    public Item getItem() {
-        return item;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    public void setItem(Product product) {
+        this.product = product;
         calculateTotal();
     }
 
@@ -59,8 +59,8 @@ public class CartItem implements Serializable {
     }
 
     private void calculateTotal() {
-        if (item != null && item.getListPrice() != null) {
-            total = item.getListPrice().multiply(new BigDecimal(quantity));
+        if (product != null && product.getListPrice() != null) {
+            total = product.getListPrice().multiply(new BigDecimal(quantity));
         } else {
             total = null;
         }

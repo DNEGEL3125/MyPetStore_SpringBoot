@@ -1,7 +1,5 @@
 package cn.csu.mypetstore_springboot.controllers;
 
-import cn.csu.mypetstore_springboot.Repositories.InventoryRepository;
-import cn.csu.mypetstore_springboot.domain.Inventory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;

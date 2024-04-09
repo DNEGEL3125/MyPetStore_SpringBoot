@@ -15,12 +15,12 @@ public class LineItem implements Serializable {
     private int orderId;
     private int lineNumber;
     private int quantity;
-    @Column(name = "item_id", insertable = false, updatable = false)
-    private String itemId;
+    @Column(name = "product_id", insertable = false, updatable = false)
+    private Long productId;
     private BigDecimal unitPrice;
 
     @ManyToOne
-    private Item item;
+    private Product product;
     private BigDecimal total;
     @Id
     @GeneratedValue
@@ -32,9 +32,9 @@ public class LineItem implements Serializable {
     public LineItem(int lineNumber, CartItem cartItem) {
         this.lineNumber = lineNumber;
         this.quantity = cartItem.getQuantity();
-        this.itemId = cartItem.getItem().getItemId();
-        this.unitPrice = cartItem.getItem().getListPrice();
-        this.item = cartItem.getItem();
+        this.productId = cartItem.getProduct().getId();
+        this.unitPrice = cartItem.getProduct().getListPrice();
+        this.product = cartItem.getProduct();
     }
 
     public int getOrderId() {
@@ -53,12 +53,12 @@ public class LineItem implements Serializable {
         this.lineNumber = lineNumber;
     }
 
-    public String getItemId() {
-        return itemId;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setItemId(String itemId) {
-        this.itemId = itemId;
+    public void setProductId(Long itemId) {
+        this.productId = itemId;
     }
 
     public BigDecimal getUnitPrice() {
@@ -73,12 +73,12 @@ public class LineItem implements Serializable {
         return total;
     }
 
-    public Item getItem() {
-        return item;
+    public Product getItem() {
+        return product;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    public void setItem(Product product) {
+        this.product = product;
         calculateTotal();
     }
 
@@ -92,8 +92,8 @@ public class LineItem implements Serializable {
     }
 
     private void calculateTotal() {
-        if (item != null && item.getListPrice() != null) {
-            total = item.getListPrice().multiply(new BigDecimal(quantity));
+        if (product != null && product.getListPrice() != null) {
+            total = product.getListPrice().multiply(new BigDecimal(quantity));
         } else {
             total = null;
         }

@@ -7,12 +7,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
-public class Item implements Serializable {
+public class Product implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -2159121673445254631L;
-
-    private String itemId;
 
     private BigDecimal listPrice;
     private BigDecimal unitCost;
@@ -31,13 +29,6 @@ public class Item implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public String getItemId() {
-        return itemId;
-    }
-
-    public void setItemId(String itemId) {
-        this.itemId = itemId.trim();
-    }
 
     public int getQuantity() {
         return quantity;
@@ -47,11 +38,11 @@ public class Item implements Serializable {
         this.quantity = quantity;
     }
 
-    public PetBreed getProduct() {
+    public PetBreed getPetBreed() {
         return petBreed;
     }
 
-    public void setProduct(PetBreed petBreed) {
+    public void setPetBreed(PetBreed petBreed) {
         this.petBreed = petBreed;
     }
 
@@ -128,7 +119,7 @@ public class Item implements Serializable {
     }
 
     public String toString() {
-        return "(" + getItemId() + "-" + petBreed.getId() + ")";
+        return "(" + getId() + "-" + petBreed.getId() + ")";
     }
 
     public void setId(Long id) {

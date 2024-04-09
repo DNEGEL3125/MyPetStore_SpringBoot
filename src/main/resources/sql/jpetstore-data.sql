@@ -68,154 +68,122 @@ VALUES (@FISH, 'Fish', '/images/fish_icon.gif');
 INSERT INTO `category`
 VALUES (@REPTILE, 'Reptiles', '/images/reptiles_icon.gif');
 
--- ----------------------------
--- Records of inventory
--- ----------------------------
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-1', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-10', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-11', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-12', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-13', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-14', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-15', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-16', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-17', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-18', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-19', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-2', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-20', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-21', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-22', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-23', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-24', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-25', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-26', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-27', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-28', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-3', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-4', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-5', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-6', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-7', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-8', '10000');
-INSERT INTO `inventory`(item_id, quantity)
-VALUES ('EST-9', '10000');
 
 
 -- ----------------------------
--- Records of item
+-- Records of product
 -- ----------------------------
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5, quantity)
-VALUES ('EST-1', @Labrador_Retriever_id, '16.50', '10.00', '1', 'P', 'Large', null, null, null, null, 3);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (1, @Labrador_Retriever_id, '16.50', '10.00', '1', 'P', 'Large', null, null, null, null, 3);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-10', @Golden_Retriever_id, '18.50', '12.00', '1', 'P', 'Spotted Adult Female', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (2, @Golden_Retriever_id, '18.50', '12.00', '1', 'P', 'Spotted Adult Female', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3, attribute4, attribute5, quantity)
+VALUES (3, @Tiger_Shark_id, '18.50', '12.00', '1', 'P', 'Venomless', null, null, null, null, 99);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-11', @Tiger_Shark_id, '18.50', '12.00', '1', 'P', 'Venomless', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (4, @Tiger_Shark_id, '18.50', '12.00', '1', 'P', 'Rattleless', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-12', @Tiger_Shark_id, '18.50', '12.00', '1', 'P', 'Rattleless', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (5, @Rattlesnake_id, '18.50', '12.00', '1', 'P', 'Green Adult', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-13', @Rattlesnake_id, '18.50', '12.00', '1', 'P', 'Green Adult', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (6, @Chihuahua_id, '58.50', '12.00', '1', 'P', 'Tailless', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-14', @Chihuahua_id, '58.50', '12.00', '1', 'P', 'Tailless', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (7, @Chihuahua_id, '23.50', '12.00', '1', 'P', 'With tail', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-15', @Chihuahua_id, '23.50', '12.00', '1', 'P', 'With tail', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (8, @Bulldog_id, '93.50', '12.00', '1', 'P', 'Adult Female', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-16', @Bulldog_id, '93.50', '12.00', '1', 'P', 'Adult Female', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (9, @Bulldog_id, '93.50', '12.00', '1', 'P', 'Adult Male', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-17', @Bulldog_id, '93.50', '12.00', '1', 'P', 'Adult Male', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (10, @Amazon_Parrot_id, '193.50', '92.00', '1', 'P', 'Adult Male', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-18', @Amazon_Parrot_id, '193.50', '92.00', '1', 'P', 'Adult Male', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (11, @Angelfish_id, '15.50', '2.00', '1', 'P', 'Adult Male', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-19', @Angelfish_id, '15.50', '2.00', '1', 'P', 'Adult Male', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (12, @Persian_id, '16.50', '10.00', '1', 'P', 'Small', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-2', @Persian_id, '16.50', '10.00', '1', 'P', 'Small', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (13, @Manx_id, '5.50', '2.00', '1', 'P', 'Adult Male', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-20', @Manx_id, '5.50', '2.00', '1', 'P', 'Adult Male', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (14, @Manx_id, '5.29', '1.00', '1', 'P', 'Adult Female', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-21', @Manx_id, '5.29', '1.00', '1', 'P', 'Adult Female', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (15, @Koi_id, '135.50', '100.00', '1', 'P', 'Adult Male', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-22', @Koi_id, '135.50', '100.00', '1', 'P', 'Adult Male', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (16, @Koi_id, '145.49', '100.00', '1', 'P', 'Adult Female', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-23', @Koi_id, '145.49', '100.00', '1', 'P', 'Adult Female', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (17, @Koi_id, '255.50', '92.00', '1', 'P', 'Adult Male', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-24', @Koi_id, '255.50', '92.00', '1', 'P', 'Adult Male', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (18, @Koi_id, '325.29', '90.00', '1', 'P', 'Adult Female', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-25', @Koi_id, '325.29', '90.00', '1', 'P', 'Adult Female', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (19, @Finch_id, '125.50', '92.00', '1', 'P', 'Adult Male', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-26', @Finch_id, '125.50', '92.00', '1', 'P', 'Adult Male', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (20, @Finch_id, '155.29', '90.00', '1', 'P', 'Adult Female', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-27', @Finch_id, '155.29', '90.00', '1', 'P', 'Adult Female', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (21, @Iguana_id, '155.29', '90.00', '1', 'P', 'Adult Female', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-28', @Iguana_id, '155.29', '90.00', '1', 'P', 'Adult Female', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (22, @Poodle_id, '18.50', '12.00', '1', 'P', 'Toothless', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-3', @Poodle_id, '18.50', '12.00', '1', 'P', 'Toothless', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (23, @Labrador_Retriever_id, '18.50', '12.00', '1', 'P', 'Spotted', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-4', @Labrador_Retriever_id, '18.50', '12.00', '1', 'P', 'Spotted', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (24, @Labrador_Retriever_id, '18.50', '12.00', '1', 'P', 'Spotless', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-5', @Labrador_Retriever_id, '18.50', '12.00', '1', 'P', 'Spotless', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (25, @Dalmation_id, '18.50', '12.00', '1', 'P', 'Male Adult', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-6', @Dalmation_id, '18.50', '12.00', '1', 'P', 'Male Adult', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (26, @Dalmation_id, '18.50', '12.00', '1', 'P', 'Female Puppy', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-7', @Dalmation_id, '18.50', '12.00', '1', 'P', 'Female Puppy', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
+VALUES (27, @Goldfish_id, '18.50', '12.00', '1', 'P', 'Male Puppy', null, null, null, null);
+INSERT INTO `product`(id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2,
+                   attribute3,
                    attribute4, attribute5)
-VALUES ('EST-8', @Goldfish_id, '18.50', '12.00', '1', 'P', 'Male Puppy', null, null, null, null);
-INSERT INTO `item`(item_id, pet_breed_id, list_price, unit_cost, supplier_id, status, attribute1, attribute2, attribute3,
-                   attribute4, attribute5)
-VALUES ('EST-9', 11, '18.50', '12.00', '1', 'P', 'Spotless Male Puppy', null, null, null, null);
+VALUES (28, 11, '18.50', '12.00', '1', 'P', 'Spotless Male Puppy', null, null, null, null);
 
 -- ----------------------------
 -- Records of lineitem

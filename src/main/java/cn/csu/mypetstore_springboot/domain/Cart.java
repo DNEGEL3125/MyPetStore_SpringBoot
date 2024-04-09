@@ -2,6 +2,7 @@ package cn.csu.mypetstore_springboot.domain;
 
 import cn.csu.mypetstore_springboot.Repositories.CartItemRepository;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Cart implements Serializable {
+    @Serial
     private static final long serialVersionUID = 8329559983943337176L;
     private final CartItemRepository cartItemDAO;
     private List<CartItem> itemList = new ArrayList<>();
@@ -47,9 +49,9 @@ public class Cart implements Serializable {
     }
 
 
-    public void addItem(Item item, boolean isInStock) {
+    public void addItem(Product product, boolean isInStock) {
         CartItem cartItem = new CartItem();
-        cartItem.setItem(item);
+        cartItem.setItem(product);
         cartItem.setQuantity(0);
         cartItem.setInStock(isInStock);
         cartItem.setUsername(this.userId);
@@ -59,27 +61,27 @@ public class Cart implements Serializable {
         cartItemDAO.addItemToShoppingCart(cartItem);
     }
 
-    public Item removeItemById(String itemId) {
-        Item item = new Item();
-        item.setItemId(itemId);
+    public Product removeItemById(Long productId) {
+        Product product = new Product();
+        product.setId(productId);
         CartItem cartItem = new CartItem();
         cartItem.setUsername(userId);
-        cartItem.setItem(item);
+        cartItem.setItem(product);
         cartItem.setQuantity(0);
         int result = cartItemDAO.updateInStockById(cartItem.getId(), false);
         if (result > 0) {
-            return item;
+            return product;
         } else {
             return null;
         }
     }
 
-    public void setQuantityByItemId(String itemId, int quantity) {
-        Item item = new Item();
-        item.setItemId(itemId);
+    public void setQuantityByProductId(Long productId, int quantity) {
+        Product product = new Product();
+        product.setId(productId);
         CartItem cartItem = new CartItem();
         cartItem.setUsername(userId);
-        cartItem.setItem(item);
+        cartItem.setItem(product);
         cartItem.setQuantity(quantity);
         cartItemDAO.updateQuantityById(cartItem.getId(), quantity);
     }
@@ -89,17 +91,17 @@ public class Cart implements Serializable {
         Iterator<CartItem> items = getAllCartItems();
         while (items.hasNext()) {
             CartItem cartItem = items.next();
-            Item item = cartItem.getItem();
-            BigDecimal listPrice = item.getListPrice();
+            Product product = cartItem.getProduct();
+            BigDecimal listPrice = product.getListPrice();
             BigDecimal quantity = new BigDecimal(String.valueOf(cartItem.getQuantity()));
             subTotal = subTotal.add(listPrice.multiply(quantity));
         }
         return subTotal;
     }
 
-    public CartItem getCartItemByItemId(String itemId) {
+    public CartItem getCartItemByProductId(Long productId) {
         for (CartItem cartItem : this.getCartItemList()) {
-            if (Objects.equals(cartItem.getItem().getItemId(), itemId)) {
+            if (Objects.equals(cartItem.getProduct().getId(), productId)) {
                 return cartItem;
             }
         }
