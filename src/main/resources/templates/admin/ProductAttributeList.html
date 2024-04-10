@@ -2,8 +2,8 @@
     <li th:id="'show-attr-li-' + ${productAttr.id}" class="attr-item" th:each="productAttr:${attributesList}">
         <input th:value="${productAttr.content}" class="attr-input" th:id="'attr-input-' + ${productAttr.id}"
                oninput="onAttrInputChanged($(this))">
-        <button th:id="'delete-attr-btn-' + ${productAttr.id}" class="btn delete-attr-btn btn-danger"
-                onclick="deleteAttributeByBtn($(this))">-
+        <button th:id="'delete-attr-btn-' + ${productAttr.id}" class="btn delete-attr-btn btn-outline-danger"
+                onclick="deleteAttributeByBtn($(this))">&times;
         </button>
     </li>
 </ul>
