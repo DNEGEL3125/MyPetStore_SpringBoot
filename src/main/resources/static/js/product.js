@@ -52,15 +52,15 @@ function sendProductsChange() {
 function resetProductsChange() {
     changedIdSet.clear();
     displaySearchProductTable(searchKeyword, searchFor, currentPage);
-    $("#table-change-btn-container").hide();
+    $("#table-change-btn-container").collapse("hide");
 }
 
 function onInputChanged(id) {
     changedIdSet.add(id);
     // 标注被修改的cell
     $(`#${id}`).closest("td").addClass("table-info");
-    // 更改帮助按钮栏
-    $("#table-change-btn-container").show();
+    // 显示更改帮助按钮栏
+    $("#table-change-btn-container").collapse("show");
 }
 
 function nextPage() {
@@ -85,8 +85,6 @@ $(document).ready(function () {
     const pageNextBtn = $(".page-next");
 
     $(".search-select").select2();
-
-    $("#table-change-btn-container").hide();
 
     // keydown event of search-input
     $("#search-input").keypress(function (ev) {
@@ -127,9 +125,9 @@ function displayProductTable(pageNumber = 1) {
                     showModal(
                         productAttributeListHtml,
                         "Product Attributes",
-                        function () {
-                            alert(404)
-                        });
+                        sendProductAttributeChanges,
+                        resetAttrInputChanges
+                    );
                     addAddAttributeBtn();
                 })
             });
@@ -147,10 +145,6 @@ function displayProductTable(pageNumber = 1) {
         // update button status
         setCurrentPage(currentPage);
     });
-}
-
-function sendAttributesChange() {
-
 }
 
 function onSearchProductBtnClicked() {
@@ -188,9 +182,7 @@ function displaySearchProductTable(keyword, searchFor, pageNumber = 1) {
                     showModal(
                         productAttributeListHtml,
                         "Product Attributes",
-                        function () {
-                            alert(404)
-                        });
+                        sendProductAttributeChanges);
                     addAddAttributeBtn();
                 })
 

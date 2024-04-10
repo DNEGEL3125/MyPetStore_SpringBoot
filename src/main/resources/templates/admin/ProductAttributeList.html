@@ -1,11 +1,10 @@
-<!--/*@thymesVar id="attributesList" type="List<ProductAttribute>"*/-->
-
-<ul th:each="productAttr:${attributesList}">
-    <li th:id="'show-attr-li-' + ${productAttr.id}" class="attr-item">
-        <input th:value="${productAttr.content}" class="attr-input" th:id="'attr-input-' + ${productAttr.id}">
+<ul th:id="'attribute-ul-' + ${productId}">
+    <li th:id="'show-attr-li-' + ${productAttr.id}" class="attr-item" th:each="productAttr:${attributesList}">
+        <input th:value="${productAttr.content}" class="attr-input" th:id="'attr-input-' + ${productAttr.id}"
+               oninput="onAttrInputChanged($(this))">
         <button th:id="'delete-attr-btn-' + ${productAttr.id}" class="btn delete-attr-btn btn-danger"
-                onclick="$(this).parent().hide()">-
+                onclick="deleteAttributeByBtn($(this))">-
         </button>
     </li>
 </ul>
-<button id="add-attribute-btn" class="btn btn-primary">Add Attribute</button>
+<button id="add-attribute-btn" class="btn btn-outline-add">Add Attribute</button>

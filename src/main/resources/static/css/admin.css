@@ -1,0 +1,35 @@
+/* 定义按钮出场动画 */
+.animate-out {
+    animation: animateOut 1s forwards; /* 使用 CSS 动画，在1秒内向上移动并隐藏 */
+}
+
+/* 关键帧动画 */
+@keyframes animateOut {
+    from {
+        transform: translateY(0); /* 初始位置：按钮位于屏幕底部 */
+    }
+    to {
+        transform: translateY(-100vh); /* 终点位置：按钮移动到屏幕之外 */
+        opacity: 0; /* 渐隐 */
+    }
+}
+
+.attributes-btn {
+    background-color: #5489B2;
+    color: white;
+}
+
+.btn-add {
+    background-color: #FFD823;
+    color: white;
+}
+
+.btn-outline-add {
+    color: #FFD823;
+    border-color: #FFD823;
+}
+
+.btn-outline-add:hover {
+    background-color: #FFD823;
+    color: white;
+}
