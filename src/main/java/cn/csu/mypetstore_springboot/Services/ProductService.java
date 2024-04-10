@@ -1,8 +1,10 @@
 package cn.csu.mypetstore_springboot.Services;
 
+import cn.csu.mypetstore_springboot.Repositories.ProductAttributeRepository;
 import cn.csu.mypetstore_springboot.Repositories.ProductRepository;
 import cn.csu.mypetstore_springboot.Repositories.ProductRepositoryC;
 import cn.csu.mypetstore_springboot.domain.Product;
+import cn.csu.mypetstore_springboot.domain.ProductAttribute;
 import cn.csu.mypetstore_springboot.utils.CamelToSnakeConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +21,7 @@ public class ProductService {
     private final static String AVAILABLE_SEARCH_FOR_REGEX = "[a-zA-Z0-9_.]+";
     private final ProductRepository productRepository;
     private final ProductRepositoryC productRepositoryC;
+
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -139,4 +142,6 @@ public class ProductService {
 
         return (recordsCount - 1) / limit + 1;
     }
+
+
 }

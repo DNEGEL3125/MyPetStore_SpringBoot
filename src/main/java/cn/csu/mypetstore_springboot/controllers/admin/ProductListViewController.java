@@ -2,6 +2,7 @@ package cn.csu.mypetstore_springboot.controllers.admin;
 
 import cn.csu.mypetstore_springboot.Services.ProductService;
 import cn.csu.mypetstore_springboot.domain.Product;
+import cn.csu.mypetstore_springboot.domain.ProductAttribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -72,7 +73,7 @@ public class ProductListViewController {
     }
 
 
-    @RequestMapping("search/view/maxPageNumber")
+    @RequestMapping("/search/view/maxPageNumber")
     public ResponseEntity<Long> getMaxPageNumber(@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
                                                  @RequestParam(value = "searchFor") String searchFor) {
         Long maxPageNumber = productService.getMaxPageNumber(PRODUCTS_PER_PAGE, keyword, searchFor);

@@ -22,7 +22,7 @@ public class Product implements Serializable {
     private PetBreed petBreed;
     private int quantity;
 
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = ProductAttribute.class, mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = ProductAttribute.class, mappedBy = "productId")
     private List<ProductAttribute> attributes;
 
     @Id

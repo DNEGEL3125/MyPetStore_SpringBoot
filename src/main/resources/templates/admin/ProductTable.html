@@ -5,6 +5,7 @@
         <th>list price</th>
         <th>unit cost</th>
         <th>quantity</th>
+        <th>Attributes</th>
     </tr>
     </thead>
     <tbody>
@@ -33,6 +34,11 @@
                 <input th:id="'quantity-input-' + ${product.productId}" th:value="${product.quantity}"
                        oninput="onInputChanged(this.id)">
             </label>
+        </td>
+        <td>
+            <button class="btn btn-secondary attributes-btn" th:id="'attributes-btn-' + ${product.productId}">
+                Edit
+            </button>
         </td>
     </tr>
     </tbody>

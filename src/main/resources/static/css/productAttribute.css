@@ -1,0 +1,33 @@
+/* Style for the attribute input */
+.attr-input {
+    width: calc(100% - 40px); /* Adjust input width */
+    padding: 5px; /* Adjust input padding */
+    margin-right: 5px; /* Adjust margin between input and button */
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 5px; /* Add border-radius */
+    height: 30px; /* Set input height to match button height */
+    vertical-align: middle;
+}
+
+/* Style for the delete attribute button */
+.delete-attr-btn {
+    width: 30px; /* Set button width */
+    height: 30px; /* Set button height */
+    border-radius: 50%; /* Make it circular */
+    background-color: #dc3545; /* Button background color */
+    color: #fff; /* Text color */
+    border: none; /* Remove border */
+    outline: none; /* Remove outline */
+    cursor: pointer; /* Cursor on hover */
+    vertical-align: middle; /* Align button vertically */
+    padding: 0;
+    font-size: x-large;
+    line-height: 0;
+}
+
+
+/* Style for the attribute list */
+.attr-item {
+    list-style: none; /* Remove default bullet points */
+    margin-bottom: 10px; /* Adjust spacing between list items */
+}

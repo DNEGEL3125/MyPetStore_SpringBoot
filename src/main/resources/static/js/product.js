@@ -80,6 +80,7 @@ function switchPage(page) {
 }
 
 $(document).ready(function () {
+    console.log("product.js is ready");
     const pagePreviousBtn = $(".page-previous");
     const pageNextBtn = $(".page-next");
 
@@ -98,6 +99,7 @@ $(document).ready(function () {
 
     pagePreviousBtn.prop("disabled", true);
     pageNextBtn.prop("disabled", true);
+
 
 });
 
@@ -118,6 +120,19 @@ function displayProductTable(pageNumber = 1) {
         data: jsonData,
         success: function (tableHtml) {
             $("#product-table").replaceWith(tableHtml);
+            $(".attributes-btn").click(function (event) {
+                const $targetButton = $(event.target);
+                const productId = $targetButton.attr("id").split("-")[2];
+                getProductAttributeListHtml(productId).then(function (productAttributeListHtml) {
+                    showModal(
+                        productAttributeListHtml,
+                        "Product Attributes",
+                        function () {
+                            alert(404)
+                        });
+                    addAddAttributeBtn();
+                })
+            });
         },
         error: function (xhr, status, error) {
             if (!error) {
@@ -132,6 +147,10 @@ function displayProductTable(pageNumber = 1) {
         // update button status
         setCurrentPage(currentPage);
     });
+}
+
+function sendAttributesChange() {
+
 }
 
 function onSearchProductBtnClicked() {
@@ -162,6 +181,20 @@ function displaySearchProductTable(keyword, searchFor, pageNumber = 1) {
         data: jsonData,
         success: function (tableHtml) {
             $("#product-table").replaceWith(tableHtml);
+            $(".attributes-btn").click(function (event) {
+                const $targetButton = $(event.target);
+                const productId = $targetButton.attr("id").split("-")[2];
+                getProductAttributeListHtml(productId).then(function (productAttributeListHtml) {
+                    showModal(
+                        productAttributeListHtml,
+                        "Product Attributes",
+                        function () {
+                            alert(404)
+                        });
+                    addAddAttributeBtn();
+                })
+
+            });
         },
         error: function (xhr, status, error) {
             if (!error) {

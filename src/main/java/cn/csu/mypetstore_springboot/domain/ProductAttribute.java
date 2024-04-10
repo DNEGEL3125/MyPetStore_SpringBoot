@@ -8,9 +8,7 @@ public class ProductAttribute {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    private Long productId;
 
     private String content;
 
@@ -22,13 +20,6 @@ public class ProductAttribute {
         return id;
     }
 
-    public Long getProductId() {
-        return product.getProductId();
-    }
-
-    public void setProductId(Long productId) {
-        this.product.setProductId(productId);
-    }
 
     public String getContent() {
         return content;
@@ -36,5 +27,13 @@ public class ProductAttribute {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 }
