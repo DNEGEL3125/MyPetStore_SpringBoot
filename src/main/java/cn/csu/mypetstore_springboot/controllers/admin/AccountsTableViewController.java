@@ -17,13 +17,13 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/accounts")
-public class AccountsListViewController {
+public class AccountsTableViewController {
     final static int ACCOUNTS_PER_PAGE = 16;
     private static final String ACCOUNT_LIST_PAGE = "admin/AccountsView";
     private final AccountService accountService;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public AccountsListViewController(AccountService accountService) {
+    public AccountsTableViewController(AccountService accountService) {
         this.accountService = accountService;
     }
 

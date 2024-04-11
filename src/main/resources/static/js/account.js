@@ -40,7 +40,7 @@ function sendAccountsChange() {
             resetAccountsChange();
         },
         error: function (xhr, status, error) {
-            showErrorToast(error);
+            showErrorToast(xhr.responseText);
         }
     });
 }
@@ -118,7 +118,7 @@ function displayAccountTable(pageNumber = 1) {
             $("#account-table").replaceWith(tableHtml);
         },
         error: function (xhr, status, error) {
-            showErrorToast(error);
+            showErrorToast(xhr.responseText);
         }
     });
 
@@ -159,7 +159,7 @@ function displaySearchAccountTable(keyword, searchFor, pageNumber = 1) {
             $("#account-table").replaceWith(tableHtml);
         },
         error: function (xhr, status, error) {
-            showErrorToast(error);
+            showErrorToast(xhr.responseText);
         }
     });
 

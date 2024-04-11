@@ -57,10 +57,11 @@ function sendProductsChange() {
             resetProductsChange();
         },
         error: function (xhr, status, error) {
-            if (!error) {
-                error = "Failed to update the products";
+            let response = xhr.responseText;
+            if (!response) {
+                response = "Failed to update the products";
             }
-            showErrorToast(error);
+            showErrorToast(response);
         }
     });
 }
@@ -190,10 +191,11 @@ function displayProductTable(pageNumber = 1) {
             $(".petBreed-select").select2();
         },
         error: function (xhr, status, error) {
-            if (!error) {
-                error = "An error occurred while fetching the table";
+            let response = xhr.responseText;
+            if (!response) {
+                response = "An error occurred while fetching the table";
             }
-            showErrorToast(error);
+            showErrorToast(response);
         }
     });
 
@@ -235,10 +237,11 @@ function displaySearchProductTable(keyword, searchFor, pageNumber = 1) {
             $(".petBreed-select").select2();
         },
         error: function (xhr, status, error) {
-            if (!error) {
-                error = "An error occurred while fetching the table";
+            let response = xhr.responseText;
+            if (!response) {
+                response = "An error occurred while fetching the table";
             }
-            showErrorToast(error);
+            showErrorToast(response);
         }
     });
 

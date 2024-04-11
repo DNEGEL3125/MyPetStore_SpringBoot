@@ -27,10 +27,10 @@ public class VerificationCodeService {
     // Utility method to generate the image bytes (replace this with your actual image generation logic)
     public byte[] getImageBytes(String text) {
 
-        BufferedImage image = new BufferedImage(200, 50, BufferedImage.TYPE_INT_RGB);
+        BufferedImage image = new BufferedImage(100, 50, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics = image.createGraphics();
         graphics.setColor(Color.WHITE);
-        graphics.fillRect(0, 0, 200, 50);
+        graphics.fillRect(0, 0, 100, 50);
         graphics.setColor(Color.BLACK);
         graphics.drawString(text, 10, 25);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

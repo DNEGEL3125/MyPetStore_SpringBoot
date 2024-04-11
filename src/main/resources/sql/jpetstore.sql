@@ -276,8 +276,5 @@ CREATE TABLE admin
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
-INSERT INTO admin(username, password)
-VALUES ('Admin', '[Admin]');
-
 
 SET FOREIGN_KEY_CHECKS = 1;

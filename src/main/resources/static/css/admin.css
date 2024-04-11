@@ -33,3 +33,7 @@
     background-color: #FFD823;
     color: white;
 }
+
+.toast {
+    opacity: 0.9; /* Set the opacity level between 0 (fully transparent) and 1 (fully opaque) */
+}
