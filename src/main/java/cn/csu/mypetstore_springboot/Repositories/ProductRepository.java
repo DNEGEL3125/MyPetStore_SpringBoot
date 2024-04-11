@@ -22,4 +22,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Transactional
     @Query(value = "SELECT * FROM product LIMIT :limit OFFSET :offset", nativeQuery = true)
     List<Product> getProductsByLimitAndOffset(int limit, int offset);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE product SET pet_breed_id = :petBreedId WHERE product_id = :productId", nativeQuery = true)
+    void updatePetBreedIdByProductId(Long productId, @Param("petBreedId") Long petBreedId);
 }

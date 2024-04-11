@@ -24,6 +24,10 @@ public class PetBreedService {
         this.petBreedRepositoryC = petBreedRepositoryC;
     }
 
+    public List<PetBreed> getPetBreeds() {
+        return petBreedRepository.findAll();
+    }
+
     public List<PetBreed> getPetBreeds(Integer page, int limit) {
         if (page == null) {
             page = 1;

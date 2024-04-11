@@ -13,14 +13,20 @@ public class Product implements Serializable {
     @Serial
     private static final long serialVersionUID = -2159121673445254631L;
 
+    private static Long newIdTempValue = Long.MIN_VALUE;
+
     private BigDecimal listPrice;
     private BigDecimal unitCost;
-    private int supplierId;
+    private Integer supplierId;
     private String status;
+
+    @Column(name = "pet_breed_id")
+    private Long petBreedId;
+
     @ManyToOne
-    @JoinColumn(name = "pet_breed_id")
+    @JoinColumn(name = "pet_breed_id", insertable = false, updatable = false)
     private PetBreed petBreed;
-    private int quantity;
+    private Integer quantity;
 
     @OneToMany(cascade = CascadeType.ALL, targetEntity = ProductAttribute.class, mappedBy = "productId")
     private List<ProductAttribute> attributes;
@@ -33,13 +39,13 @@ public class Product implements Serializable {
 
     }
 
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public static Long getNewIdTempValue() {
+        newIdTempValue++;
+        if (newIdTempValue == 0) {
+            // 进入循环
+            newIdTempValue = Long.MIN_VALUE;
+        }
+        return newIdTempValue;
     }
 
     public PetBreed getPetBreed() {
@@ -83,6 +89,9 @@ public class Product implements Serializable {
     }
 
     public String toString() {
+        if (petBreed == null) {
+            return "Product(id = %d)".formatted(productId);
+        }
         return "(" + getProductId() + "-" + petBreed.getId() + ")";
     }
 
@@ -101,5 +110,21 @@ public class Product implements Serializable {
 
     public void setProductId(Long productId) {
         this.productId = productId;
+    }
+
+    public Long getPetBreedId() {
+        return petBreedId;
+    }
+
+    public void setPetBreedId(Long petBreedId) {
+        this.petBreedId = petBreedId;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

@@ -52,10 +52,11 @@ function resetAccountsChange() {
     $("#table-change-btn-container").hide();
 }
 
-function onInputChanged(id) {
+function onInputChanged($targetInput) {
+    const id = $targetInput.attr("id");
     changedIdSet.add(id);
     // 标注被修改的cell
-    $(`#${id}`).closest("td").addClass("table-info");
+    $targetInput.closest("td").addClass("table-info");
     // 更改帮助按钮栏
     $("#table-change-btn-container").show();
 }

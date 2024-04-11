@@ -4,7 +4,10 @@ let attributeList;
 let productAttrContentChangedMap = {};
 
 async function getProductAttributeListHtml(productId) {
-    let resHtml = await $.get(`/admin/product-attributes/view/list/productId/${productId}`);
+    let resHtml;
+
+    resHtml = await $.get(`/admin/product-attributes/view/list/productId/${productId}`);
+
 
     return $(resHtml);
 }

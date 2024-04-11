@@ -16,6 +16,15 @@ $(document).ready(function () {
         const selectedPageNumber = Number($targetButton.siblings(".page-number-input").val());
         switchPage(selectedPageNumber);
     });
+
+    $(".page-number-input").keydown(function (event) {
+        // Enter 页面跳转
+        if (event.key !== 'Enter')
+            return;
+        const $targetInput = $(event.target);
+        const selectedPageNumber = Number($targetInput.val());
+        switchPage(selectedPageNumber)
+    });
 });
 
 function setCurrentPage(page) {

@@ -1,8 +1,9 @@
 package cn.csu.mypetstore_springboot.controllers.admin;
 
+import cn.csu.mypetstore_springboot.Services.PetBreedService;
 import cn.csu.mypetstore_springboot.Services.ProductService;
+import cn.csu.mypetstore_springboot.domain.PetBreed;
 import cn.csu.mypetstore_springboot.domain.Product;
-import cn.csu.mypetstore_springboot.domain.ProductAttribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +21,16 @@ import java.util.Map;
 // TODO 显示并能够修改Product的attributes
 @Controller
 @RequestMapping("/admin/products")
-public class ProductListViewController {
+public class ProductTableViewController {
     final static int PRODUCTS_PER_PAGE = 16;
     private static final String PRODUCT_LIST_PAGE = "admin/ProductsView";
     private final ProductService productService;
+    private final PetBreedService petBreedService;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public ProductListViewController(ProductService productService) {
+    public ProductTableViewController(ProductService productService, PetBreedService petBreedService) {
         this.productService = productService;
+        this.petBreedService = petBreedService;
     }
 
     @RequestMapping("/view")
@@ -38,9 +41,22 @@ public class ProductListViewController {
     }
 
     @RequestMapping("/update")
-    public ResponseEntity<String> updateProductsByIds(@RequestBody Map<String, Map<String, String>> changedAttrMap) {
+    public ResponseEntity<String> updateProductsByIds(@RequestBody Map<String, Product> changedAttrMap) {
         logger.info("Modified id: " + changedAttrMap.toString());
         return productService.updateProductsByIds(changedAttrMap);
+    }
+
+    @RequestMapping("/view/table/row/empty")
+    public String getProductTableEmptyRow(
+            Model model
+    ) {
+        List<Product> products = new ArrayList<>();
+        List<PetBreed> petBreeds = petBreedService.getPetBreeds();
+        products.add(new Product());
+        model.addAttribute("productsList", products);
+        model.addAttribute("petBreedsList", petBreeds);
+
+        return "/admin/ProductTableRow";
     }
 
     @RequestMapping("/view/table")
@@ -49,7 +65,9 @@ public class ProductListViewController {
             Model model
     ) {
         List<Product> products = productService.getProducts(pageNumber, PRODUCTS_PER_PAGE);
+        List<PetBreed> petBreeds = petBreedService.getPetBreeds();
         model.addAttribute("productsList", products);
+        model.addAttribute("petBreedsList", petBreeds);
 
         return "/admin/ProductTable";
     }
@@ -62,7 +80,9 @@ public class ProductListViewController {
             Model model
     ) {
         List<Product> products = productService.searchProducts(page, PRODUCTS_PER_PAGE, searchFor, keyword);
+        List<PetBreed> petBreeds = petBreedService.getPetBreeds();
         model.addAttribute("productsList", products);
+        model.addAttribute("petBreedsList", petBreeds);
         return "/admin/ProductTable";
     }
 

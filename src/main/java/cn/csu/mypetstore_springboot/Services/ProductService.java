@@ -1,17 +1,15 @@
 package cn.csu.mypetstore_springboot.Services;
 
-import cn.csu.mypetstore_springboot.Repositories.ProductAttributeRepository;
 import cn.csu.mypetstore_springboot.Repositories.ProductRepository;
 import cn.csu.mypetstore_springboot.Repositories.ProductRepositoryC;
 import cn.csu.mypetstore_springboot.domain.Product;
-import cn.csu.mypetstore_springboot.domain.ProductAttribute;
 import cn.csu.mypetstore_springboot.utils.CamelToSnakeConverter;
+import cn.csu.mypetstore_springboot.utils.ObjectFieldCopier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -70,39 +68,41 @@ public class ProductService {
     }
 
     /**
+     * for i in range(fields.len){
+     * if(a.fields[i] == null){
+     * b.fields[i] = a.fields[i];
+     * }
+     * }
+     *
      * @param changedAttrMap productId to attrName to changedVal
      * @return Update result
      */
-    public ResponseEntity<String> updateProductsByIds(Map<String, Map<String, String>> changedAttrMap) {
+    public ResponseEntity<String> updateProductsByIds(Map<String, Product> changedAttrMap) {
         try {
             for (var productIdKeyEntry : changedAttrMap.entrySet()) {
-                Long productId = Long.valueOf(productIdKeyEntry.getKey());
-                for (var entry : productIdKeyEntry.getValue().entrySet()) {
-                    String attr = entry.getKey();
+                String entryKey = productIdKeyEntry.getKey();
+                Product changedAttrs = productIdKeyEntry.getValue();
 
-                    Field attributeField = Product.class.getDeclaredField(attr);
-                    attributeField.setAccessible(true); // Make the field accessible
-
-                    Class<?> attributeType = attributeField.getType(); // Get the attribute type
-
-                    Object newVal;
-                    if (attributeType == String.class) {
-                        newVal = entry.getValue();
-                    } else if (attributeType == Integer.class || attributeType == int.class) {
-                        newVal = Integer.parseInt(entry.getValue());
-                    } else if (attributeType == Long.class || attributeType == long.class) {
-                        newVal = Long.parseLong(entry.getValue());
-                    } else {
-                        throw new RuntimeException("Can't resolve the entry %s".formatted(entry));
-                    }
-
-                    Product productById = productRepository.getProductByProductId(productId);
-                    // accountById[attr] = newVal;
-                    attributeField.set(productById, newVal);
-
-                    // Update the account
-                    productRepository.save(productById);
+                // New product
+                if (entryKey.contains("new")) {
+                    productRepository.save(changedAttrs);
+                    continue;
                 }
+
+                long productId = Long.parseLong(entryKey);
+
+                // New product
+                if (productId < 0) {
+                    productRepository.save(changedAttrs);
+                    continue;
+                }
+
+                Product product = productRepository.getProductByProductId(productId);
+
+                ObjectFieldCopier.copyFieldsIfNotNullRecursively(changedAttrs, product);
+
+                // Update the account
+                productRepository.save(product);
             }
         } catch (Exception e) {
             logger.error(e.toString());

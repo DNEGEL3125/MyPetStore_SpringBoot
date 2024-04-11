@@ -12,25 +12,25 @@
         <td>
             <label>
                 <input th:id="'username-input-' + ${account.id}" th:value="${account.username}"
-                       oninput="onInputChanged(this.id)">
+                       oninput="onInputChanged($(this))">
             </label>
         </td>
         <td>
             <label>
                 <input th:id="'firstName-input-' + ${account.id}" th:value="${account.firstName}"
-                       oninput="onInputChanged(this.id)">
+                       oninput="onInputChanged($(this))">
             </label>
         </td>
         <td>
             <label>
                 <input th:id="'lastName-input-' + ${account.id}" th:value="${account.lastName}"
-                       oninput="onInputChanged(this.id)">
+                       oninput="onInputChanged($(this))">
             </label>
         </td>
         <td>
             <label>
                 <input th:id="'email-input-' + ${account.id}" th:value="${account.email}" type="email"
-                       oninput="onInputChanged(this.id)">
+                       oninput="onInputChanged($(this))">
             </label>
         </td>
     </tr>

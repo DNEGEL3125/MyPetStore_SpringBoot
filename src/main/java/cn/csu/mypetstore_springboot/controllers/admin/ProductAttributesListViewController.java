@@ -2,6 +2,7 @@ package cn.csu.mypetstore_springboot.controllers.admin;
 
 import cn.csu.mypetstore_springboot.Services.ProductAttributeService;
 import cn.csu.mypetstore_springboot.domain.ProductAttribute;
+import cn.csu.mypetstore_springboot.utils.BasicTypeHelper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,9 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+// TODO Delete product
 @Controller
 @RequestMapping("/admin/product-attributes")
 public class ProductAttributesListViewController {
@@ -27,10 +30,21 @@ public class ProductAttributesListViewController {
         return ResponseEntity.ok(productAttributesByProductId);
     }
 
+    @RequestMapping("/view/list/empty")
+    public String getProductAttributeList(Model model) {
+        model.addAttribute("attributesList", new ArrayList<ProductAttribute>());
+        return "admin/ProductAttributeList";
+    }
+
+
     @RequestMapping("/view/list/productId/{productId}")
-    public String getProductAttributeList(@PathVariable Long productId, Model model) {
-        List<ProductAttribute> productAttributesByProductId = productAttributeService.getProductAttributesByProductId(productId);
-        model.addAttribute("attributesList", productAttributesByProductId);
+    public String getProductAttributeList(@PathVariable String productId, Model model) {
+        List<ProductAttribute> productAttributes = new ArrayList<>();
+        if (BasicTypeHelper.isUnsignedNumber(productId))
+            productAttributes = productAttributeService
+                    .getProductAttributesByProductId(Long.valueOf(productId));
+        model.addAttribute("attributesList", productAttributes);
+        model.addAttribute("productId", productId);
         return "admin/ProductAttributeList";
     }
 

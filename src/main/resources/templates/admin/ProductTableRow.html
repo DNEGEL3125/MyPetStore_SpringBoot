@@ -1,0 +1,42 @@
+<!--/*@thymesVar id="productsList" type="java.util.List<Product>"*/-->
+<tr th:each="product:${productsList}">
+    <td>
+        <select class="petBreed-select" th:id="'petBreedId-select-' + ${product.productId}"
+                onchange="onInputChanged($(this))">
+            <option th:value="${petBreed.id}" th:text="${petBreed.name}"
+                    th:each="petBreed : ${petBreedsList}"
+                    th:id="'petBreed.name-option-' + ${product.productId} + '-' + ${petBreed.id}"
+                    th:selected="${product.petBreed != null && product.petBreed.id == petBreed.id}">
+                <!-- Use th:selected to set the selected option -->
+            </option>
+        </select>
+        <!--            <label>-->
+        <!--                <input th:id="'petBreed.name-input-' + ${product.productId}" th:value="${product.petBreed.name}"-->
+        <!--                       oninput="onInputChanged($(this))">-->
+        <!--            </label>-->
+    </td>
+    <td>
+        <label>
+            <input th:id="'listPrice-input-' + ${product.productId}" th:value="${product.listPrice}"
+                   oninput="onInputChanged($(this))">
+        </label>
+    </td>
+    <td>
+        <label>
+            <input th:id="'unitCost-input-' + ${product.productId}" th:value="${product.unitCost}"
+                   oninput="onInputChanged($(this))">
+        </label>
+    </td>
+    <td>
+        <label>
+            <input th:id="'quantity-input-' + ${product.productId}" th:value="${product.quantity}"
+                   oninput="onInputChanged($(this))">
+        </label>
+    </td>
+    <td>
+        <button class="btn attributes-btn" th:id="'attributes-btn-' + ${product.productId}"
+                onclick="onAttributesBtnClick($(this))">
+            Edit
+        </button>
+    </td>
+</tr>
