@@ -1,5 +1,7 @@
 package cn.csu.mypetstore_springboot.Services;
 
+import cn.csu.mypetstore_springboot.DTO.AccountCountDTO;
+import cn.csu.mypetstore_springboot.DTO.OrderCountDTO;
 import cn.csu.mypetstore_springboot.Repositories.AccountRepository;
 import cn.csu.mypetstore_springboot.Repositories.AccountRepositoryC;
 import cn.csu.mypetstore_springboot.domain.Account;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -122,6 +125,29 @@ public class AccountService {
 
         Long countedAccountsByContains = accountRepositoryC.countAccountsByContains(colName, keyword);
         return (countedAccountsByContains - 1) / limit + 1;
+    }
+
+    public Long getAccountCount() {
+        return accountRepository.count();
+    }
+
+    public List<AccountCountDTO> getAccountCountData(String timeScale) {
+        List<AccountCountDTO> accountCountData = new ArrayList<>();
+        LocalDate dateNow = LocalDate.now();
+        int currentYear = dateNow.getYear();
+
+        switch (timeScale.toLowerCase()) {
+            case "year" -> {
+                accountCountData = accountRepository.countAccountsByRegisterYear(currentYear);
+            }
+            case "month" -> {
+            }
+            case "day" -> {
+            }
+            default -> logger.error("Invalid time scale: " + timeScale);
+        }
+
+        return accountCountData;
     }
 
     public static void main(String[] args) {

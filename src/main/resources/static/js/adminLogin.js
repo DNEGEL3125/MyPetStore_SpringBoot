@@ -12,17 +12,17 @@ $(document).ready(function () {
             url: '/admin/login',
             data: formData,
             success: function (response) {
-                // Handle the successful response from the server
-                console.log('Form submitted successfully!');
-                alert(response);
+                window.location.href = "/admin";
             },
             error: function (xhr, status, error) {
                 let response = xhr.responseText;
                 if (!response) {
-                    response = "账号或密码错误";
+                    response = "Incorrect username or password";
                 }
                 showErrorToast(response);
                 renewVerificationCode();
+                // 清空验证码输入
+                $("#v-code-input").val("");
             }
         });
     });

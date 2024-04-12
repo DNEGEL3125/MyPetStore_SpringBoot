@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-// TODO 管理员登录
 @Controller
 @RequestMapping("/admin/login")
 public class LoginController {
@@ -35,6 +34,7 @@ public class LoginController {
                 returnVal = ResponseEntity.badRequest().body("Incorrect username or password");
             } else {
                 returnVal = ResponseEntity.ok("Log in successfully!");
+                session.setAttribute("admin", admin);
             }
         }
 

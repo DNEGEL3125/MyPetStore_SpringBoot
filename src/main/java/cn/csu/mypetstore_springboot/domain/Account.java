@@ -8,6 +8,7 @@ import org.springframework.core.ParameterNameDiscoverer;
 import java.io.Serial;
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class Account implements Serializable {
     private String country;
     private String phone;
     private String favouriteCategoryId;
+    private LocalDateTime registerDate;
     @OneToOne
     private Profile profile;
     @Id
@@ -160,5 +162,13 @@ public class Account implements Serializable {
 
     public void setProfile(Profile profile) {
         this.profile = profile;
+    }
+
+    public LocalDateTime getRegisterDate() {
+        return registerDate;
+    }
+
+    public void setRegisterDate(LocalDateTime registerDate) {
+        this.registerDate = registerDate;
     }
 }

@@ -1,9 +1,6 @@
 package cn.csu.mypetstore_springboot.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Admin {
@@ -12,6 +9,8 @@ public class Admin {
     private Long id;
 
     private String username;
+
+    @Column(name = "password")
     private String password;
 
     public Admin() {
@@ -44,5 +43,10 @@ public class Admin {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "Admin(%s)".formatted(this.username);
     }
 }

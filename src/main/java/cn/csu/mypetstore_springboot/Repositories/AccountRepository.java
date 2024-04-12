@@ -1,6 +1,7 @@
 package cn.csu.mypetstore_springboot.Repositories;
 
 
+import cn.csu.mypetstore_springboot.DTO.AccountCountDTO;
 import cn.csu.mypetstore_springboot.domain.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -39,7 +40,10 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     @Query(value = "SELECT * FROM account LIMIT :limit OFFSET :offset", nativeQuery = true)
     List<Account> getAccountsByLimitAndOffset(int limit, int offset);
 
-
-
     Account getAccountById(Long id);
+
+    @Query("""
+            SELECT NEW cn.csu.mypetstore_springboot.DTO.AccountCountDTO(YEAR(a.registerDate), COUNT(a))
+             FROM Account a GROUP BY YEAR(a.registerDate) ORDER BY YEAR(a.registerDate)""")
+    List<AccountCountDTO> countAccountsByRegisterYear(int year);
 }

@@ -20,7 +20,7 @@ public class VerificationCodeService {
 
     public String randGenerateCode() {
         return Integer.toString(
-                Math.abs(randomGenerator.nextInt()) % 1000000
+                Math.abs(randomGenerator.nextInt()) % 900000 + 100000
         );
     }
 

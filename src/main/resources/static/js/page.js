@@ -59,7 +59,7 @@ function setCurrentPage(page) {
 function showPageNumbers(maxPageNumber, currentPageNumber) {
     const pageIconContainer = $(".page-number-icon-container");
     const availablePageNumberHtml = "<button class='page-number-icon-btn btn page-number-icon-btn-{0}' >{0}</button>";
-    const ellipsisSpan = "<span>...</span>";
+    const ellipsisSpan = "<span class='ellipsis-span'>...</span>";
     pageIconContainer.empty();
     if (maxPageNumber < 8) {
         for (let i = 1; i <= maxPageNumber; i++) {

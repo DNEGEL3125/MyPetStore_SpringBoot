@@ -5,5 +5,21 @@
 </div>
 <body>
 <header th:replace="~{/admin/Header}"></header>
+
+<h1 th:text="'你好，' + ${admin.username}"></h1>
+
+<!-- Display "Start the server" button if server is not running -->
+<button class="btn btn-success" th:if="${isRequestsStopped}" onclick="startServer()">Start the server</button>
+
+<!-- Display "Stop the server" button if server is running -->
+<button class="btn btn-danger" th:if="${not isRequestsStopped}" onclick="stopServer()">Stop the server</button>
+
+<div id="toasts-container" class="toast-container position-fixed top-0 start-50 translate-middle-x">
+
+</div>
+
+<script src="/js/admin.js" defer></script>
+<script src="/js/commonToast.js" defer></script>
+<script src="/js/commonModal.js" defer></script>
 </body>
 </html>

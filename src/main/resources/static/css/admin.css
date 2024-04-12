@@ -37,3 +37,21 @@
 .toast {
     opacity: 0.9; /* Set the opacity level between 0 (fully transparent) and 1 (fully opaque) */
 }
+
+#account-count-display {
+    font-weight: bold;
+    text-align: center;
+    font-size: x-large;
+    margin-top: 10px;
+}
+
+#order-count-chart {
+    margin-top: 20px;
+}
+
+.ellipsis-span {
+    width: 36px;
+    display: inline-block;
+    height: 38px;
+    font-size: 1rem;
+}

@@ -12,16 +12,16 @@ public class LineItem implements Serializable {
     @Serial
     private static final long serialVersionUID = 6804536240033522156L;
 
-    private int orderId;
-    private int lineNumber;
-    private int quantity;
-    @Column(name = "product_id", insertable = false, updatable = false)
+    @Column(name = "order_id")
+    private Long orderId;
+    private Integer quantity;
+    @Column(name = "product_id")
     private Long productId;
     private BigDecimal unitPrice;
 
     @ManyToOne
+    @JoinColumn(name = "product_id", insertable = false, updatable = false)
     private Product product;
-    private BigDecimal total;
     @Id
     @GeneratedValue
     private Long id;
@@ -29,28 +29,11 @@ public class LineItem implements Serializable {
     public LineItem() {
     }
 
-    public LineItem(int lineNumber, CartItem cartItem) {
-        this.lineNumber = lineNumber;
+    public LineItem(CartItem cartItem) {
         this.quantity = cartItem.getQuantity();
         this.productId = cartItem.getProduct().getProductId();
         this.unitPrice = cartItem.getProduct().getListPrice();
         this.product = cartItem.getProduct();
-    }
-
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
-    public int getLineNumber() {
-        return lineNumber;
-    }
-
-    public void setLineNumber(int lineNumber) {
-        this.lineNumber = lineNumber;
     }
 
     public Long getProductId() {
@@ -70,7 +53,8 @@ public class LineItem implements Serializable {
     }
 
     public BigDecimal getTotal() {
-        return total;
+        return product.getListPrice().multiply(new BigDecimal(quantity))
+                ;
     }
 
     public Product getItem() {
@@ -79,7 +63,6 @@ public class LineItem implements Serializable {
 
     public void setItem(Product product) {
         this.product = product;
-        calculateTotal();
     }
 
     public int getQuantity() {
@@ -88,15 +71,6 @@ public class LineItem implements Serializable {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-        calculateTotal();
-    }
-
-    private void calculateTotal() {
-        if (product != null && product.getListPrice() != null) {
-            total = product.getListPrice().multiply(new BigDecimal(quantity));
-        } else {
-            total = null;
-        }
     }
 
     public void setId(Long id) {
@@ -105,5 +79,13 @@ public class LineItem implements Serializable {
 
     public Long getId() {
         return id;
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 }

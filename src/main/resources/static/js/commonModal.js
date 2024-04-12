@@ -6,7 +6,7 @@ async function loadModal() {
     $("#modal-container").html($modal);
 }
 
-function showModal(htmlBody, title = "", yesFunction = null, closeFunction = null) {
+function showModal(htmlBody, title = "", yesBtnText = "OK", yesFunction = null, closeFunction = null) {
     const $yesBtn = $modal.find(".yes-btn");
     const $closeBtn = $modal.find(".close");
     $modal.modal("show");
@@ -17,7 +17,7 @@ function showModal(htmlBody, title = "", yesFunction = null, closeFunction = nul
         $yesBtn.off("click");
         $closeBtn.off("click");
         $modal.modal("hide");
-    })
+    }).text(yesBtnText);
     if (yesFunction)
         $yesBtn.click(yesFunction);
     if (closeFunction)

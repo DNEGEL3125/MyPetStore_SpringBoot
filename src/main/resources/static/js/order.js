@@ -2,13 +2,13 @@ let MAX_PAGES = 1;
 let currentPage = 1;
 let searchKeyword = "";
 let searchFor = "";
-let newProductCnt = 0;
+let newOrderCnt = 0;
 
 
 // 遭到更改的元素id
 const changedInputSet = new Set();
 
-function sendProductsChange() {
+function sendOrdersChange() {
     if (changedInputSet.size === 0) {
         // Nothing changed
         showInfoToast("Nothing changed");
@@ -18,19 +18,19 @@ function sendProductsChange() {
     for (const $targetInput of changedInputSet) {
         const id = $targetInput.attr("id");
         const splitRes = id.split('-');
-        const productId = splitRes[2];
+        const orderId = splitRes[2];
         const attrName = splitRes[0];
 
         // Split attrName by dots to handle nested properties
         const attrNames = attrName.split('.');
 
-        // Check if jsonData[productId] exists, if not, initialize it
-        if (!jsonData[productId]) {
-            jsonData[productId] = {};
+        // Check if jsonData[orderId] exists, if not, initialize it
+        if (!jsonData[orderId]) {
+            jsonData[orderId] = {};
         }
 
         // Assign value recursively for nested properties
-        let tempObj = jsonData[productId];
+        let tempObj = jsonData[orderId];
         for (let i = 0; i < attrNames.length - 1; i++) {
             const propName = attrNames[i];
             if (!tempObj[propName]) {
@@ -48,18 +48,18 @@ function sendProductsChange() {
 
 
     $.ajax({
-        url: `/admin/products/update`,
+        url: `/admin/orders/update`,
         type: 'POST',
         contentType: 'application/json', // Set content type to JSON
         data: jsonData,
         success: function (response) {
             showSuccessToast(response);
-            resetProductsChange();
+            resetOrdersChange();
         },
         error: function (xhr, status, error) {
             let response = xhr.responseText;
             if (!response) {
-                response = "Failed to update the products";
+                response = "Failed to update the orders";
             }
             showErrorToast(response);
         }
@@ -67,9 +67,9 @@ function sendProductsChange() {
 }
 
 
-function resetProductsChange() {
+function resetOrdersChange() {
     changedInputSet.clear();
-    displaySearchProductTable(searchKeyword, searchFor, currentPage);
+    displaySearchOrderTable(searchKeyword, searchFor, currentPage);
     $("#table-change-btn-container").collapse("hide");
 }
 
@@ -86,7 +86,7 @@ function structInputTdHtml(attrName) {
     newCol.append(
         $('<label>').append(
             $('<input>', {
-                'id': `${attrName}-input-new${newProductCnt}`,
+                'id': `${attrName}-input-new${newOrderCnt}`,
                 'oninput': 'onInputChanged($(this))'
             })
         )
@@ -96,27 +96,27 @@ function structInputTdHtml(attrName) {
 }
 
 function addRowToTable() {
-    $.get("/admin/products/view/table/row/empty", function (response) {
-        newProductCnt++;
+    $.get("/admin/orders/view/table/row/empty", function (response) {
+        newOrderCnt++;
         let $newRow = $(response);
         // Iterate over elements with id attribute containing "null"
         $newRow.find('[id*="-null-"], [id$="-null"]').each(function () {
             // Get the current id attribute value
             const currentId = $(this).attr('id');
 
-            // Replace "null" with newProductCnt in the id attribute value
-            const newId = currentId.replace(/-null(?=-|$)/g, '-new' + newProductCnt);
+            // Replace "null" with newOrderCnt in the id attribute value
+            const newId = currentId.replace(/-null(?=-|$)/g, '-new' + newOrderCnt);
 
             // Set the new id attribute value
             $(this).attr('id', newId);
         });
-        $('#product-table tbody').append($newRow);
+        $('#order-table tbody').append($newRow);
         $newRow.find("select").select2();
         const $attributesBtn = $newRow.find(".attributes-btn").prop("disabled", true);
         // 设置按钮的 data-toggle 和 title 属性
         $attributesBtn.attr('data-toggle', 'tooltip');
         $attributesBtn.attr('title', 'You need to save changes first.');
-        showSuccessToast("The product has been added to the bottom of the table");
+        showSuccessToast("The order has been added to the bottom of the table");
     });
 }
 
@@ -133,11 +133,11 @@ function switchPage(page) {
     if (!setRes) {
         return;
     }
-    displaySearchProductTable(searchKeyword, searchFor, page);
+    displaySearchOrderTable(searchKeyword, searchFor, page);
 }
 
 $(document).ready(function () {
-    console.log("product.js is ready");
+    console.log("order.js is ready");
     const pagePreviousBtn = $(".page-previous");
     const pageNextBtn = $(".page-next");
 
@@ -146,11 +146,11 @@ $(document).ready(function () {
     // keydown event of search-input
     $("#search-input").keydown(function (ev) {
         if (ev.key === "Enter") {
-            onSearchProductBtnClicked();
+            onSearchOrderBtnClicked();
         }
     });
 
-    displayProductTable();
+    displayOrderTable();
 
     pagePreviousBtn.prop("disabled", true);
     pageNextBtn.prop("disabled", true);
@@ -158,21 +158,7 @@ $(document).ready(function () {
 
 });
 
-function onAttributesBtnClick($targetButton) {
-    const productId = $targetButton.attr("id").split("-")[2];
-    getProductAttributeListHtml(productId).then(function (productAttributeListHtml) {
-        showModal(
-            productAttributeListHtml,
-            "Product Attributes",
-            "Save changes",
-            sendProductAttributeChanges,
-            resetAttrInputChanges
-        );
-        addAddAttributeBtn();
-    })
-}
-
-function displayProductTable(pageNumber = 1) {
+function displayOrderTable(pageNumber = 1) {
     if (pageNumber < 1) {
         return;
     }
@@ -183,12 +169,12 @@ function displayProductTable(pageNumber = 1) {
         "pageNumber": pageNumber
     };
     $.ajax({
-        url: `/admin/products/view/table`,
+        url: `/admin/orders/view/table`,
         type: 'GET',
         contentType: 'application/json', // Set content type to JSON
         data: jsonData,
         success: function (tableHtml) {
-            $("#product-table").replaceWith(tableHtml);
+            $("#order-table").replaceWith(tableHtml);
             $(".petBreed-select").select2();
         },
         error: function (xhr, status, error) {
@@ -200,23 +186,23 @@ function displayProductTable(pageNumber = 1) {
         }
     });
 
-    $.get("/admin/products/view/maxPageNumber", function (response) {
+    $.get("/admin/orders/view/maxPageNumber", function (response) {
         MAX_PAGES = response;
         // update button status
         setCurrentPage(currentPage);
     });
 }
 
-function onSearchProductBtnClicked() {
+function onSearchOrderBtnClicked() {
     searchKeyword = $("#search-input").val();
     // Example: `username` of `search-username`
     searchFor = $("#select-search-for").val().split('-')[1];
-    displaySearchProductTable(searchKeyword, searchFor);
+    displaySearchOrderTable(searchKeyword, searchFor);
 }
 
-function displaySearchProductTable(keyword, searchFor, pageNumber = 1) {
+function displaySearchOrderTable(keyword, searchFor, pageNumber = 1) {
     if (!keyword) {
-        displayProductTable(pageNumber);
+        displayOrderTable(pageNumber);
         return;
     }
 
@@ -229,12 +215,12 @@ function displaySearchProductTable(keyword, searchFor, pageNumber = 1) {
     // Construct the relative URL with the query parameter
     // Navigate to the search results page
     $.ajax({
-        url: `/admin/products/search/view/table`,
+        url: `/admin/orders/search/view/table`,
         type: 'GET',
         contentType: 'application/json', // Set content type to JSON
         data: jsonData,
         success: function (tableHtml) {
-            $("#product-table").replaceWith(tableHtml);
+            $("#order-table").replaceWith(tableHtml);
             $(".petBreed-select").select2();
         },
         error: function (xhr, status, error) {
@@ -247,7 +233,7 @@ function displaySearchProductTable(keyword, searchFor, pageNumber = 1) {
     });
 
     $.ajax({
-        url: "/admin/products/search/view/maxPageNumber",
+        url: "/admin/orders/search/view/maxPageNumber",
         type: "GET",
         contentType: 'application/json',
         data: jsonData,

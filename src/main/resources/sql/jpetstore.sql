@@ -26,16 +26,17 @@ CREATE TABLE `account`
     `email`               varchar(80) NOT NULL,
     `first_name`          varchar(80) NOT NULL,
     `last_name`           varchar(80) NOT NULL,
-    `status`              varchar(2)  DEFAULT NULL,
+    `status`              varchar(2)           DEFAULT NULL,
     address1              varchar(80) NOT NULL,
-    address2              varchar(40) DEFAULT NULL,
+    address2              varchar(40)          DEFAULT NULL,
     `city`                varchar(80) NOT NULL,
     `state`               varchar(80) NOT NULL,
     `zip`                 varchar(20) NOT NULL,
     `country`             varchar(20) NOT NULL,
     `phone`               varchar(80) NOT NULL,
     favourite_category_id varchar(80) REFERENCES bannerdata (favcategory),
-    profile_id            BIGINT REFERENCES profile (id)
+    profile_id            BIGINT REFERENCES profile (id),
+    register_date         DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -121,17 +122,16 @@ CREATE TABLE `product_attribute`
 
 
 -- ----------------------------
--- Table structure for `lineitem`
+-- Table structure for `line_item`
 -- ----------------------------
-DROP TABLE IF EXISTS `lineitem`;
-CREATE TABLE `lineitem`
+DROP TABLE IF EXISTS line_item;
+CREATE TABLE line_item
 (
-    `orderid`    bigint REFERENCES orders (orderid),
-    `linenum`    int            NOT NULL,
+    id           bigint PRIMARY KEY AUTO_INCREMENT,
+    order_id     bigint REFERENCES orders (order_id),
     `product_id` bigint         NOT NULL REFERENCES product (product_id),
     `quantity`   int            NOT NULL,
-    `unitprice`  decimal(10, 2) NOT NULL,
-    PRIMARY KEY (`orderid`, `linenum`)
+    unit_price   decimal(10, 2) NOT NULL
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -140,35 +140,19 @@ CREATE TABLE `lineitem`
 -- ----------------------------
 -- Table structure for `orders`
 -- ----------------------------
-DROP TABLE IF EXISTS `orders`;
-CREATE TABLE `orders`
+DROP TABLE IF EXISTS orders;
+CREATE TABLE orders
 (
-    `orderid`         bigint         NOT NULL,
-    `userid`          varchar(80)    NOT NULL,
-    `orderdate`       date           NOT NULL,
-    `shipaddr1`       varchar(80)    NOT NULL,
-    `shipaddr2`       varchar(80) DEFAULT NULL,
-    `shipcity`        varchar(80)    NOT NULL,
-    `shipstate`       varchar(80)    NOT NULL,
-    `shipzip`         varchar(20)    NOT NULL,
-    `shipcountry`     varchar(20)    NOT NULL,
-    `billaddr1`       varchar(80)    NOT NULL,
-    `billaddr2`       varchar(80) DEFAULT NULL,
-    `billcity`        varchar(80)    NOT NULL,
-    `billstate`       varchar(80)    NOT NULL,
-    `billzip`         varchar(20)    NOT NULL,
-    `billcountry`     varchar(20)    NOT NULL,
-    `courier`         varchar(80)    NOT NULL,
-    `totalprice`      decimal(10, 2) NOT NULL,
-    `billtofirstname` varchar(80)    NOT NULL,
-    `billtolastname`  varchar(80)    NOT NULL,
-    `shiptofirstname` varchar(80)    NOT NULL,
-    `shiptolastname`  varchar(80)    NOT NULL,
-    `creditcard`      varchar(80)    NOT NULL,
-    `exprdate`        varchar(7)     NOT NULL,
-    `cardtype`        varchar(80)    NOT NULL,
-    `locale`          varchar(80)    NOT NULL,
-    PRIMARY KEY (`orderid`)
+    order_id       bigint AUTO_INCREMENT,
+    `user_id`      bigint REFERENCES account (id),
+    `order_date`   date           NOT NULL,
+    `ship_address` varchar(80)    NOT NULL,
+    `ship_city`    varchar(80)    NOT NULL,
+    `ship_state`   varchar(80)    NOT NULL,
+    `ship_country` varchar(20)    NOT NULL,
+    `total_price`  decimal(10, 2) NOT NULL,
+    status         INT            NOT NULL,
+    PRIMARY KEY (order_id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -180,7 +164,7 @@ CREATE TABLE `orders`
 DROP TABLE IF EXISTS `orderstatus`;
 CREATE TABLE `orderstatus`
 (
-    `orderid`   bigint REFERENCES orders (orderid),
+    `orderid`   bigint REFERENCES orders (order_id),
     `linenum`   bigint     NOT NULL,
     `timestamp` date       NOT NULL,
     `status`    varchar(2) NOT NULL,
@@ -271,10 +255,11 @@ DROP TABLE IF EXISTS admin;
 CREATE TABLE admin
 (
     id       BIGINT PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(32),
-    password VARCHAR(64)
+    username VARCHAR(32) NOT NULL UNIQUE,
+    password VARCHAR(64) NOT NULL
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4;
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_zh_0900_as_cs;
 
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -246,7 +246,7 @@ INSERT INTO product_attribute (product_id, content)
 VALUES ('28', 'Spotless Male Puppy');
 
 -- ----------------------------
--- Records of lineitem
+-- Records of line_item
 -- ----------------------------
 
 -- ----------------------------

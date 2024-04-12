@@ -37,6 +37,8 @@ public class ProductRepositoryC {
         String sql = """
                 SELECT * FROM product WHERE %s LIKE ? LIMIT ? OFFSET ?;""";
 
+        sql = sql.formatted(colName);
+
         return jdbcTemplate.query(
                 sql,
                 BeanPropertyRowMapper.newInstance(Product.class),
