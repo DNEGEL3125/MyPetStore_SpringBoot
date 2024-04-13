@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "pet_order")
+@Table(name = "orders")
 public class Order implements Serializable {
     public LocalDateTime getOrderDate() {
         return orderDate;
