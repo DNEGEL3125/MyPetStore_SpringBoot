@@ -18,7 +18,12 @@ function stopServer() {
                 // Reload only the HTML content of the page
                 $.get(location.href, function (html) {
                     $('html').html(html);
+                    toastQueue.init().then(function () {
+                        showSuccessToast(response);
+                    })
+
                 });
+
             },
             error: function () {
                 showErrorToast('Failed to stop requests');

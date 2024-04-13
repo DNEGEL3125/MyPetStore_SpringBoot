@@ -26,7 +26,7 @@ CREATE TABLE `account`
     `email`               varchar(80) NOT NULL,
     `first_name`          varchar(80) NOT NULL,
     `last_name`           varchar(80) NOT NULL,
-    `status`              varchar(2)           DEFAULT NULL,
+    `status`              INT                  DEFAULT 0,
     address1              varchar(80) NOT NULL,
     address2              varchar(40)          DEFAULT NULL,
     `city`                varchar(80) NOT NULL,

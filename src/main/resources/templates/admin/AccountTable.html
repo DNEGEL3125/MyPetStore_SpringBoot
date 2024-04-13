@@ -5,6 +5,7 @@
         <th>first name</th>
         <th>last name</th>
         <th>email</th>
+        <th>status</th>
     </tr>
     </thead>
     <tbody>
@@ -33,6 +34,7 @@
                        oninput="onInputChanged($(this))">
             </label>
         </td>
+        <td th:text="${account.status}"></td>
     </tr>
     </tbody>
 </table>

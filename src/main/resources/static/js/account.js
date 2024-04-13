@@ -49,7 +49,7 @@ function sendAccountsChange() {
 function resetAccountsChange() {
     changedIdSet.clear();
     displaySearchAccountTable(searchKeyword, searchFor, currentPage);
-    $("#table-change-btn-container").hide();
+
 }
 
 function onInputChanged($targetInput) {
@@ -58,7 +58,7 @@ function onInputChanged($targetInput) {
     // 标注被修改的cell
     $targetInput.closest("td").addClass("table-info");
     // 更改帮助按钮栏
-    $("#table-change-btn-container").show();
+    $("#table-change-btn-container").collapse('show');
 }
 
 function nextPage() {
@@ -82,8 +82,6 @@ $(document).ready(function () {
     const pageNextBtn = $(".page-next");
 
     $(".search-select").select2();
-
-    $("#table-change-btn-container").hide();
 
     // keydown event of search-input
     $("#search-input").keypress(function (ev) {
@@ -116,6 +114,7 @@ function displayAccountTable(pageNumber = 1) {
         data: jsonData,
         success: function (tableHtml) {
             $("#account-table").replaceWith(tableHtml);
+            $("#table-change-btn-container").collapse('hide');
         },
         error: function (xhr, status, error) {
             showErrorToast(xhr.responseText);
@@ -157,6 +156,7 @@ function displaySearchAccountTable(keyword, searchFor, pageNumber = 1) {
         data: jsonData,
         success: function (tableHtml) {
             $("#account-table").replaceWith(tableHtml);
+            $("#table-change-btn-container").collapse('hide');
         },
         error: function (xhr, status, error) {
             showErrorToast(xhr.responseText);

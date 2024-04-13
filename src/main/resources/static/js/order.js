@@ -70,7 +70,7 @@ function sendOrdersChange() {
 function resetOrdersChange() {
     changedInputSet.clear();
     displaySearchOrderTable(searchKeyword, searchFor, currentPage);
-    $("#table-change-btn-container").collapse("hide");
+
 }
 
 function onInputChanged($targetInput) {
@@ -176,6 +176,7 @@ function displayOrderTable(pageNumber = 1) {
         success: function (tableHtml) {
             $("#order-table").replaceWith(tableHtml);
             $(".petBreed-select").select2();
+            $("#table-change-btn-container").collapse("hide");
         },
         error: function (xhr, status, error) {
             let response = xhr.responseText;
@@ -222,6 +223,7 @@ function displaySearchOrderTable(keyword, searchFor, pageNumber = 1) {
         success: function (tableHtml) {
             $("#order-table").replaceWith(tableHtml);
             $(".petBreed-select").select2();
+            $("#table-change-btn-container").collapse("hide");
         },
         error: function (xhr, status, error) {
             let response = xhr.responseText;

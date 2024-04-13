@@ -8,12 +8,19 @@ let newProductCnt = 0;
 // 遭到更改的元素id
 const changedInputSet = new Set();
 
-function sendProductsChange() {
+function sendProductsChange($sender) {
     if (changedInputSet.size === 0) {
         // Nothing changed
         showInfoToast("Nothing changed");
         return;
     }
+
+    // 检查表单合法
+    const $form = $sender.closest("form");
+    if (!$form[0].checkValidity()) {
+        return;
+    }
+
     let jsonData = {};
     for (const $targetInput of changedInputSet) {
         const id = $targetInput.attr("id");
@@ -70,7 +77,7 @@ function sendProductsChange() {
 function resetProductsChange() {
     changedInputSet.clear();
     displaySearchProductTable(searchKeyword, searchFor, currentPage);
-    $("#table-change-btn-container").collapse("hide");
+
 }
 
 function onInputChanged($targetInput) {
@@ -190,6 +197,7 @@ function displayProductTable(pageNumber = 1) {
         success: function (tableHtml) {
             $("#product-table").replaceWith(tableHtml);
             $(".petBreed-select").select2();
+            $("#table-change-btn-container").collapse("hide");
         },
         error: function (xhr, status, error) {
             let response = xhr.responseText;
@@ -236,6 +244,7 @@ function displaySearchProductTable(keyword, searchFor, pageNumber = 1) {
         success: function (tableHtml) {
             $("#product-table").replaceWith(tableHtml);
             $(".petBreed-select").select2();
+            $("#table-change-btn-container").collapse("hide");
         },
         error: function (xhr, status, error) {
             let response = xhr.responseText;

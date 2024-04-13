@@ -45,9 +45,11 @@ public class OrderTableViewController {
     public String getOrderTableEmptyRow(
             Model model
     ) {
+
         List<Order> orders = new ArrayList<>();
         orders.add(new Order());
         model.addAttribute("ordersList", orders);
+        model.addAttribute("orderStatusList", Order.OrderStatus.values());
 
         return "/admin/OrderTableRow";
     }
@@ -59,6 +61,7 @@ public class OrderTableViewController {
     ) {
         List<Order> orders = orderService.getOrders(pageNumber, PRODUCTS_PER_PAGE);
         model.addAttribute("ordersList", orders);
+        model.addAttribute("orderStatusList", Order.OrderStatus.values());
 
         return "/admin/OrderTable";
     }
@@ -72,6 +75,7 @@ public class OrderTableViewController {
     ) {
         List<Order> orders = orderService.searchOrders(page, PRODUCTS_PER_PAGE, searchFor, keyword);
         model.addAttribute("ordersList", orders);
+        model.addAttribute("orderStatusList", Order.OrderStatus.values());
         return "/admin/OrderTable";
     }
 

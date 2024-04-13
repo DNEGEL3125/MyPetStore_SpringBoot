@@ -8,8 +8,15 @@
     </td>
     <td>
         <label>
-            <input th:id="'status-input-' + ${order.orderId}" th:value="${order.status}"
-                   oninput="onInputChanged($(this))">
+            <select class="status-select" th:id="'status-select-' + ${order.orderId}"
+                    onchange="onInputChanged($(this))">
+                <option th:value="${orderStatus}" th:text="${orderStatus}"
+                        th:each="orderStatus : ${orderStatusList}"
+                        th:id="'status-option-' + ${order.orderId} + '-' + ${orderStatus.ordinal()}"
+                        th:selected="${order.status == orderStatus}">
+                    <!-- Use th:selected to set the selected option -->
+                </option>
+            </select>
         </label>
     </td>
     <td>

@@ -21,6 +21,18 @@ class ToastQueue {
         // Convert the HTML string to a jQuery object
         const $toastHtml = $(htmlData);
 
+        // 在显示 Toast 时可点击
+        $toastHtml.on('show.bs.toast', function () {
+            $(this).show();
+        });
+
+        // 在隐藏 Toast 时不可点击
+        $toastHtml.on('hidden.bs.toast', function () {
+            $(this).hide();
+        });
+
+        this.data = [];
+
         for (let i = 0; i < this.size; i++) {
             const $toastClone = $toastHtml.clone();
             this.data.push($toastClone);
@@ -44,21 +56,7 @@ class ToastQueue {
 const toastQueue = new ToastQueue();
 
 $(document).ready(function () {
-    const allToasts = $(".toast");
-
     void toastQueue.init();
-
-    // 在显示 Toast 时可点击
-    allToasts.on('show.bs.toast', function () {
-        $(this).show();
-    });
-
-    // 在隐藏 Toast 时不可点击
-    allToasts.on('hidden.bs.toast', function () {
-        $(this).hide();
-    });
-
-
 });
 
 function showInfoToast(text) {

@@ -16,6 +16,20 @@ import java.util.List;
 
 @Entity
 public class Account implements Serializable {
+    public AccountStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(AccountStatus status) {
+        this.status = status;
+    }
+
+    enum AccountStatus {
+        Offline,
+        Online,
+        Cancelled,
+        Suspended // due to a violation of terms of service or other reasons.
+    }
 
     @Serial
     private static final long serialVersionUID = 8751282105532159742L;
@@ -24,7 +38,7 @@ public class Account implements Serializable {
     private String email;
     private String firstName;
     private String lastName;
-    private String status;
+    private AccountStatus status;
     private String address1;
     private String address2;
     private String city;
@@ -74,14 +88,6 @@ public class Account implements Serializable {
     /////////////////////@Validate(required=true, on={"newAccount", "editAccount"})
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public String getAddress1() {
