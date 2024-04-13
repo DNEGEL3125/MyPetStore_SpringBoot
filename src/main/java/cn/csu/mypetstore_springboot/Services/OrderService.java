@@ -1,5 +1,6 @@
 package cn.csu.mypetstore_springboot.Services;
 
+import cn.csu.mypetstore_springboot.DTO.CategorySalesDTO;
 import cn.csu.mypetstore_springboot.DTO.OrderCountDTO;
 import cn.csu.mypetstore_springboot.DTO.TotalRevenueDTO;
 import cn.csu.mypetstore_springboot.Repositories.OrderRepository;
@@ -189,5 +190,17 @@ public class OrderService {
         }
 
         return totalRevenueData;
+    }
+
+    public List<CategorySalesDTO> getCategorySales(String timeScale) {
+        List<CategorySalesDTO> categorySalesData = new ArrayList<>();
+        LocalDate dateNow = LocalDate.now();
+        int currentYear = dateNow.getYear();
+
+        //            case "year" -> categorySalesData = orderRepository.sumTotalPriceByYear();
+        //            case "month" -> categorySalesData = orderRepository.sumTotalPriceByMonth(currentYear);
+        logger.error("Invalid time scale: " + timeScale);
+
+        return categorySalesData;
     }
 }

@@ -1,5 +1,6 @@
 package cn.csu.mypetstore_springboot.Repositories;
 
+import cn.csu.mypetstore_springboot.DTO.CategorySalesDTO;
 import cn.csu.mypetstore_springboot.DTO.OrderCountDTO;
 import cn.csu.mypetstore_springboot.DTO.TotalRevenueDTO;
 import cn.csu.mypetstore_springboot.domain.Order;
@@ -50,4 +51,9 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             SELECT NEW cn.csu.mypetstore_springboot.DTO.TotalRevenueDTO(YEAR(o.orderDate), SUM(o.totalPrice))
              FROM Order o WHERE YEAR(o.orderDate) = :year ORDER BY MONTH (o.orderDate)""")
     List<TotalRevenueDTO> sumTotalPriceByMonth(int year);
+
+    @Query("""
+            SELECT NEW cn.csu.mypetstore_springboot.DTO.TotalRevenueDTO(YEAR(o.orderDate), SUM(o.totalPrice))
+             FROM Order o GROUP BY YEAR(o.orderDate) ORDER BY YEAR(o.orderDate)""")
+    List<CategorySalesDTO> sumTotalPriceByYearAndCategoryId();
 }
