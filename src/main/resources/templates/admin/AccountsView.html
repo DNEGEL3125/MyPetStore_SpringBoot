@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:replace="~{/admin/head}">
+<div th:replace="~{admin/head}">
 </div>
 
 <body>
-<header th:replace="~{/admin/Header}"></header>
+<header th:replace="~{admin/Header}"></header>
 
 <div style="margin-top: 10px">
     <label for="search-input">Search: </label>
@@ -28,7 +28,7 @@
 
 
 <div>
-    <div id="account-table-container" th:insert="~{/admin/AccountTable}"></div>
+    <div id="account-table-container" th:insert="~{admin/AccountTable}"></div>
     <div class="position-fixed start-50 translate-middle bottom-0 collapse" id="table-change-btn-container">
         <button onclick="sendAccountsChange()" class="btn btn-primary">保存更改</button>
         <button onclick="resetAccountsChange()" class="btn btn-primary">还原更改</button>

@@ -16,7 +16,7 @@ public class CategoryListViewController {
 
     private final CategoryService categoryService;
 
-    private final static String CATEGORY_LIST_PAGE = "/admin/CategoriesView";
+    private final static String CATEGORY_LIST_PAGE = "admin/CategoriesView";
 
     public CategoryListViewController(CategoryService categoryService) {
         this.categoryService = categoryService;

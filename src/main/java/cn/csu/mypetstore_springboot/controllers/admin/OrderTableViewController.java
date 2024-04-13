@@ -51,7 +51,7 @@ public class OrderTableViewController {
         model.addAttribute("ordersList", orders);
         model.addAttribute("orderStatusList", Order.OrderStatus.values());
 
-        return "/admin/OrderTableRow";
+        return "admin/OrderTableRow";
     }
 
     @RequestMapping("/view/table")
@@ -63,7 +63,7 @@ public class OrderTableViewController {
         model.addAttribute("ordersList", orders);
         model.addAttribute("orderStatusList", Order.OrderStatus.values());
 
-        return "/admin/OrderTable";
+        return "admin/OrderTable";
     }
 
     @RequestMapping("/search/view/table")
@@ -76,7 +76,7 @@ public class OrderTableViewController {
         List<Order> orders = orderService.searchOrders(page, PRODUCTS_PER_PAGE, searchFor, keyword);
         model.addAttribute("ordersList", orders);
         model.addAttribute("orderStatusList", Order.OrderStatus.values());
-        return "/admin/OrderTable";
+        return "admin/OrderTable";
     }
 
     @RequestMapping("/view/maxPageNumber")

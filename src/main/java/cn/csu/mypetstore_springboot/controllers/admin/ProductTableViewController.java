@@ -56,7 +56,7 @@ public class ProductTableViewController {
         model.addAttribute("productsList", products);
         model.addAttribute("petBreedsList", petBreeds);
 
-        return "/admin/ProductTableRow";
+        return "admin/ProductTableRow";
     }
 
     @RequestMapping("/view/table")
@@ -69,7 +69,7 @@ public class ProductTableViewController {
         model.addAttribute("productsList", products);
         model.addAttribute("petBreedsList", petBreeds);
 
-        return "/admin/ProductTable";
+        return "admin/ProductTable";
     }
 
     @RequestMapping("/search/view/table")
@@ -83,7 +83,7 @@ public class ProductTableViewController {
         List<PetBreed> petBreeds = petBreedService.getPetBreeds();
         model.addAttribute("productsList", products);
         model.addAttribute("petBreedsList", petBreeds);
-        return "/admin/ProductTable";
+        return "admin/ProductTable";
     }
 
     @RequestMapping("/view/maxPageNumber")

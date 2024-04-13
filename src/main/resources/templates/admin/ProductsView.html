@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:replace="~{/admin/head}">
+<div th:replace="~{admin/head}">
 </div>
 <link rel="stylesheet" href="/css/productAttribute.css"/>
 
 <body>
-<header th:replace="~{/admin/Header}"></header>
+<header th:replace="~{admin/Header}"></header>
 
 <div style="margin-top: 10px">
     <label for="search-input">Search: </label>
@@ -28,7 +28,7 @@
 
 <div>
     <form id="product-table-form">
-        <div id="product-table-container" th:insert="~{/admin/ProductTable}"></div>
+        <div id="product-table-container" th:insert="~{admin/ProductTable}"></div>
         <div class="position-fixed start-50 translate-middle bottom-0 collapse" id="table-change-btn-container">
             <button onclick="sendProductsChange($(this))" class="btn btn-primary" type="submit">保存更改</button>
             <button onclick="resetProductsChange()" class="btn btn-primary">还原更改</button>

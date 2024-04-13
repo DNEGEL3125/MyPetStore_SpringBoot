@@ -48,7 +48,7 @@ public class AccountsTableViewController {
         List<Account> accountsByPage = accountService.getAccounts(pageNumber, ACCOUNTS_PER_PAGE);
         model.addAttribute("accountsList", accountsByPage);
 
-        return "/admin/AccountTable";
+        return "admin/AccountTable";
     }
 
     @RequestMapping("/search/view/table")
@@ -60,7 +60,7 @@ public class AccountsTableViewController {
     ) {
         List<Account> accountsByPage = accountService.searchAccounts(page, ACCOUNTS_PER_PAGE, searchFor, keyword);
         model.addAttribute("accountsList", accountsByPage);
-        return "/admin/AccountTable";
+        return "admin/AccountTable";
     }
 
     @RequestMapping("/view/maxPageNumber")
@@ -72,7 +72,7 @@ public class AccountsTableViewController {
 
     @RequestMapping("search/view/maxPageNumber")
     public ResponseEntity<Long> getMaxPageNumber(@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
-                                            @RequestParam(value = "searchFor") String searchFor) {
+                                                 @RequestParam(value = "searchFor") String searchFor) {
         Long maxPages = accountService.getMaxPageNumber(ACCOUNTS_PER_PAGE, keyword, searchFor);
         return ResponseEntity.ok(maxPages);
     }

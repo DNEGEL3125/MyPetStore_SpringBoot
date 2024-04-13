@@ -45,7 +45,7 @@ public class LoginController {
     @RequestMapping("/form/view")
     public String logInView(Model model) {
         model.addAttribute("pageTitle", "LoginForm");
-        return "/admin/LoginForm";
+        return "admin/LoginForm";
     }
 
     @RequestMapping("/form/v-code")
