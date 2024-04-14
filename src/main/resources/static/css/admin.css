@@ -175,3 +175,7 @@ td.text-center {
 td.text-right {
     text-align: right;
 }
+
+#toasts-container {
+    z-index: 99999999;
+}

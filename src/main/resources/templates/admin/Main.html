@@ -53,6 +53,7 @@
     </table>
 </div>
 
+<button class="btn btn-primary" onclick="showAddAdminModal()">Add Administrator</button>
 
 <!-- Display "Start the server" button if server is not running -->
 <button class="btn btn-success" th:if="${isRequestsStopped}" onclick="startServer()">Start the server</button>
@@ -60,9 +61,13 @@
 <!-- Display "Stop the server" button if server is running -->
 <button class="btn btn-danger" th:if="${not isRequestsStopped}" onclick="stopServer()">Stop the server</button>
 
+<button class="btn btn-secondary" onclick="logOut()">Log Out</button>
+
 <div id="toasts-container" class="toast-container position-fixed top-0 start-50 translate-middle-x">
 
 </div>
+
+<div id="modal-container"></div>
 
 <script src="/js/admin.js" defer></script>
 <script src="/js/commonToast.js" defer></script>

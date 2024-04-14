@@ -1,0 +1,33 @@
+<div class="modal fade" id="add-admin-modal" tabindex="-1" role="dialog" aria-labelledby="add-admin-modal-title"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="add-admin-modal-title">Add Administrator</h4>
+                <button type="button" class="close btn" data-dismiss="modal" aria-hidden="true"
+                        onclick="$('#add-admin-modal').modal('toggle')">
+                    &times;
+                </button>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <label for="admin-username-input">Username</label>
+                    <input id="admin-username-input" class="form-control" minlength="1" maxlength="32">
+                    <label for="admin-password-input">Password</label>
+                    <input id="admin-password-input" class="form-control" minlength="6" maxlength="64" type="password">
+                    <label for="admin-password-repeat-input">Repeat Password</label>
+                    <input id="admin-password-repeat-input" class="form-control" minlength="6" maxlength="64"
+                           type="password">
+                    <small class="text-danger" id="add-admin-form-error"></small>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn border close" data-dismiss="modal"
+                            onclick="$('#add-admin-modal').modal('toggle')">Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary yes-btn">Save changes</button>
+                </div>
+            </form>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>

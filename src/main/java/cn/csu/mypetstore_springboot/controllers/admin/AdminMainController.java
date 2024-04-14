@@ -8,6 +8,7 @@ import cn.csu.mypetstore_springboot.domain.Admin;
 import cn.csu.mypetstore_springboot.domain.Order;
 import cn.csu.mypetstore_springboot.enums.HeaderSelection;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,5 +46,11 @@ public class AdminMainController {
         model.addAttribute("ordersList", orders);
         model.addAttribute("accountsList", accounts);
         return "admin/Main";
+    }
+
+    @RequestMapping("/logOut")
+    public ResponseEntity<String> logOut(HttpSession session) {
+        session.removeAttribute("admin");
+        return ResponseEntity.ok("Log out successfully");
     }
 }

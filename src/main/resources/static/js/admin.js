@@ -49,3 +49,53 @@ function startServer() {
     });
 }
 
+async function showAddAdminModal() {
+    const addAdminModal = await $.get("/admin/add/modal");
+    const $addAdminModal = $(addAdminModal);
+    $("#modal-container").html($addAdminModal);
+    $addAdminModal.modal('show');
+    $addAdminModal.find('form').submit(function (event) {
+        event.preventDefault();
+        const username = $addAdminModal.find("#admin-username-input").val();
+        const password = $addAdminModal.find("#admin-password-input").val();
+        const passwordRepeat = $addAdminModal.find("#admin-password-repeat-input").val();
+        if (password !== passwordRepeat) {
+            showErrorToast("Passwords don't match")
+            return;
+        }
+
+        const jsonData = {
+            "password": password,
+            "username": username
+        };
+
+        $.ajax({
+            url: "/admin/add",
+            data: jsonData,
+            success: function (response) {
+                showSuccessToast(response);
+                // Close modal
+                $addAdminModal.modal("toggle");
+            },
+            error: function (xhr) {
+                showErrorToast(xhr.responseText);
+            }
+        });
+    });
+}
+
+function logOut() {
+    $.ajax({
+        url: "/admin/logOut",
+        success: function (response) {
+
+            showSuccessToast(response);
+            setTimeout(function () {
+                window.location.href = "/admin/login/form/view";
+            }, 900);
+        },
+        error: function (xhr) {
+            showErrorToast(xhr.responseText);
+        }
+    })
+}
