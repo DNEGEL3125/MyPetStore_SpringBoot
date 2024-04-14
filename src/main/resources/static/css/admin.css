@@ -14,7 +14,7 @@
     }
 }
 
-.attributes-btn {
+.btn-table-blue {
     background-color: #5489B2;
     color: white;
 }
@@ -65,4 +65,10 @@
     margin-top: .1rem;
     font-size: .875rem;
     color: #dc3545;
+}
+
+.small-table {
+    width: 45%;
+    margin: 2%;
+    display: inline-table;
 }

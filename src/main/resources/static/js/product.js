@@ -167,7 +167,8 @@ $(document).ready(function () {
 
 function onAttributesBtnClick($targetButton) {
     const productId = $targetButton.attr("id").split("-")[2];
-    getProductAttributeListHtml(productId).then(function (productAttributeListHtml) {
+    getProductAttributeListHtml(productId)
+        .then(function (productAttributeListHtml) {
         showModal(
             productAttributeListHtml,
             "Product Attributes",
@@ -175,7 +176,6 @@ function onAttributesBtnClick($targetButton) {
             sendProductAttributeChanges,
             resetAttrInputChanges
         );
-        addAddAttributeBtn();
     })
 }
 

@@ -251,3 +251,7 @@ function displaySearchOrderTable(keyword, searchFor, pageNumber = 1) {
 
 }
 
+
+function showOrderDetails(orderId) {
+    location.href = `/admin/order/details/view/${orderId}`
+}

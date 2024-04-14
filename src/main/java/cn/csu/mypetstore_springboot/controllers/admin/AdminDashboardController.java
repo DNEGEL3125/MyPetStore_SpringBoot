@@ -6,6 +6,7 @@ import cn.csu.mypetstore_springboot.DTO.TotalRevenueDTO;
 import cn.csu.mypetstore_springboot.Services.AccountService;
 import cn.csu.mypetstore_springboot.Services.CategoryService;
 import cn.csu.mypetstore_springboot.Services.OrderService;
+import cn.csu.mypetstore_springboot.enums.HeaderSelection;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +32,7 @@ public class AdminDashboardController {
     @RequestMapping("/view")
     public String adminDashBoardView(Model model) {
         model.addAttribute("pageTitle", "Dashboard");
+        model.addAttribute("headerSelection", HeaderSelection.Dashboard);
         return "admin/Dashboard";
     }
 

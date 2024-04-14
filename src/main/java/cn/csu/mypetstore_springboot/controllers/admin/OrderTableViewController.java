@@ -2,6 +2,7 @@ package cn.csu.mypetstore_springboot.controllers.admin;
 
 import cn.csu.mypetstore_springboot.Services.OrderService;
 import cn.csu.mypetstore_springboot.domain.Order;
+import cn.csu.mypetstore_springboot.enums.HeaderSelection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,7 @@ public class OrderTableViewController {
     public String orderTableView(Model model) {
         model.addAttribute("pageTitle", "Orders view");
         model.addAttribute("ordersList", new ArrayList<Order>());
+        model.addAttribute("headerSelection", HeaderSelection.Orders);
         return ORDER_LIST_PAGE;
     }
 

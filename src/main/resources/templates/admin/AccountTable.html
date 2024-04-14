@@ -1,15 +1,18 @@
 <table id="account-table" class="table table-striped table-bordered" th:fragment="account-table">
     <thead>
     <tr>
+        <th>user ID</th>
         <th>username</th>
         <th>first name</th>
         <th>last name</th>
         <th>email</th>
         <th>status</th>
+        <th>register date</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="account:${accountsList}">
+        <td th:text="${account.id}"></td>
         <td>
             <label>
                 <input th:id="'username-input-' + ${account.id}" th:value="${account.username}"
@@ -35,6 +38,7 @@
             </label>
         </td>
         <td th:text="${account.status}"></td>
+        <td th:text="${account.registerDate}"></td>
     </tr>
     </tbody>
 </table>

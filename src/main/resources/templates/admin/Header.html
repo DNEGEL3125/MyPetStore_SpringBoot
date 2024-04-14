@@ -40,7 +40,7 @@
                 <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                     <li>
                         <a href="/admin" class="nav-link"
-                           th:classappend="${pageTitle == 'Admin'} ? 'text-primary' : 'text-white'">
+                           th:classappend="${headerSelection == T(cn.csu.mypetstore_springboot.enums.HeaderSelection).Home} ? 'text-primary' : 'text-white'">
                             <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                                 <use xlink:href="#home"/>
                             </svg>
@@ -49,7 +49,7 @@
                     </li>
                     <li>
                         <a href="/admin/dashboard/view" class="nav-link"
-                           th:classappend="${pageTitle == 'Dashboard'} ? 'text-primary' : 'text-white'">
+                           th:classappend="${headerSelection == T(cn.csu.mypetstore_springboot.enums.HeaderSelection).Dashboard} ? 'text-primary' : 'text-white'">
                             <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                                 <use xlink:href="#speedometer2"/>
                             </svg>
@@ -58,7 +58,7 @@
                     </li>
                     <li>
                         <a href="/admin/orders/view" class="nav-link"
-                           th:classappend="${pageTitle == 'Orders view'} ? 'text-primary' : 'text-white'">
+                           th:classappend="${headerSelection == T(cn.csu.mypetstore_springboot.enums.HeaderSelection).Orders} ? 'text-primary' : 'text-white'">
                             <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                                 <use xlink:href="#table"/>
                             </svg>
@@ -67,7 +67,7 @@
                     </li>
                     <li>
                         <a href="/admin/products/view" class="nav-link"
-                           th:classappend="${pageTitle == 'Products view'} ? 'text-primary' : 'text-white'">
+                           th:classappend="${headerSelection == T(cn.csu.mypetstore_springboot.enums.HeaderSelection).Products} ? 'text-primary' : 'text-white'">
                             <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                                 <use xlink:href="#grid"/>
                             </svg>
@@ -76,7 +76,7 @@
                     </li>
                     <li>
                         <a href="/admin/accounts/view" class="nav-link"
-                           th:classappend="${pageTitle == 'Accounts view'} ? 'text-primary' : 'text-white'">
+                           th:classappend="${headerSelection == T(cn.csu.mypetstore_springboot.enums.HeaderSelection).Customers} ? 'text-primary' : 'text-white'">
                             <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                                 <use xlink:href="#people-circle"/>
                             </svg>

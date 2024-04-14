@@ -12,27 +12,32 @@
         </select>
     </td>
     <td>
-        <label>
+        <label th:if="${editable}">
             <input th:id="'listPrice-input-' + ${product.productId}" th:value="${product.listPrice}"
                    oninput="onInputChanged($(this))" required>
         </label>
+        <span th:if="${not editable}" th:text="${product.listPrice}">
+        </span>
     </td>
     <td>
-        <label>
+        <label th:if="${editable}">
             <input th:id="'unitCost-input-' + ${product.productId}" th:value="${product.unitCost}"
                    oninput="onInputChanged($(this))" required>
         </label>
+        <span th:if="${not editable}" th:text="${product.unitCost}"></span>
     </td>
     <td>
-        <label>
+        <label th:if="${editable}">
             <input th:id="'quantity-input-' + ${product.productId}" th:value="${product.quantity}"
                    oninput="onInputChanged($(this))" required>
         </label>
+        <span th:if="${not editable}" th:text="${product.quantity}"></span>
     </td>
     <td>
-        <button class="btn attributes-btn" th:id="'attributes-btn-' + ${product.productId}"
-                onclick="onAttributesBtnClick($(this))">
+        <button class="btn attributes-btn btn-table-blue" th:id="'attributes-btn-' + ${product.productId}"
+                onclick="onAttributesBtnClick($(this))" type="button">
             Edit
         </button>
     </td>
+
 </tr>

@@ -1,11 +1,9 @@
 <!--/*@thymesVar id="ordersList" type="java.util.List<cn.csu.mypetstore_springboot.domain.Order>"*/-->
 <tr th:each="order:${ordersList}">
-    <td th:text="${order.userId}">
-    </td>
-    <td th:text="${order.orderDate}">
-    </td>
-    <td th:text="${order.totalPrice}">
-    </td>
+    <td th:text="${order.orderId}"></td>
+    <td th:text="${order.userId}"></td>
+    <td th:text="${order.orderDate}"></td>
+
     <td>
         <label>
             <select class="status-select" th:id="'status-select-' + ${order.orderId}"
@@ -42,5 +40,8 @@
             <input th:id="'shipCountry-input-' + ${order.orderId}" th:value="${order.shipCountry}"
                    oninput="onInputChanged($(this))">
         </label>
+    </td>
+    <td>
+        <button th:onclick="'showOrderDetails('+${order.orderId}+')'" class="btn-table-blue btn">Details</button>
     </td>
 </tr>

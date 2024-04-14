@@ -27,16 +27,16 @@ SET @Tiger_Shark_id = 16;
 -- ----------------------------
 -- Records of account
 -- ----------------------------
-INSERT INTO `account` (username, email, first_name, last_name, status, address1, address2, city, state, zip, country,
+INSERT INTO `account` (username, email, first_name, last_name, status, address, city, state, zip, country,
                        phone, profile_id)
-VALUES ('a', 'a', 'a', 'a', 0, 'a', 'a', 'aa', 'a', 'a', 'a', 'a', 1);
-INSERT INTO `account` (username, email, first_name, last_name, status, address1, address2, city, state, zip, country,
+VALUES ('a', 'a', 'a', 'a', 0, 'a', 'a', 'aa', 'a', 'a', 'a', 1);
+INSERT INTO `account` (username, email, first_name, last_name, status, address, city, state, zip, country,
                        phone, profile_id)
-VALUES ('ACID', 'acid@yourdomain.com', 'ABC', 'XYX', 0, '901 San Antonio Road', 'MS UCUP02-206', 'Palo Alto', 'CA',
+VALUES ('ACID', 'acid@yourdomain.com', 'ABC', 'XYX', 0, '901 San Antonio Road', 'Palo Alto', 'CA',
         '94303', 'USA', '555-555-5555', 2);
-INSERT INTO `account` (username, email, first_name, last_name, status, address1, address2, city, state, zip, country,
+INSERT INTO `account` (username, email, first_name, last_name, status, address, city, state, zip, country,
                        phone, profile_id)
-VALUES ('j2ee', 'yourname@yourdomain.com', 'ABC', 'XYX', 0, '901 San Antonio Road', 'MS UCUP02-206', 'Palo Alto',
+VALUES ('j2ee', 'yourname@yourdomain.com', 'ABC', 'XYX', 0, '901 San Antonio Road', 'Palo Alto',
         'CA', '94303', 'USA', '555-555-5555', 3);
 
 

@@ -29,7 +29,7 @@ public class OrderRepositoryC {
      */
     public List<Order> searchOrdersByContains(String colName, String keyword, int limit, int offset) {
         String sql = """
-                SELECT * FROM `pet_order` WHERE %s LIKE ? LIMIT ? OFFSET ?;""";
+                SELECT * FROM `orders` WHERE %s LIKE ? LIMIT ? OFFSET ?;""";
 
         sql = sql.formatted(colName);
 
@@ -44,7 +44,7 @@ public class OrderRepositoryC {
 
     public List<Order> getOrderBy(String colName, Object searchFor, int limit, int offset) {
         String sql = """
-                SELECT * FROM `pet_order` WHERE %s = %s LIMIT ? OFFSET ?;""";
+                SELECT * FROM `orders` WHERE %s = %s LIMIT ? OFFSET ?;""";
 
         sql = sql.formatted(colName, searchFor);
 
@@ -58,14 +58,14 @@ public class OrderRepositoryC {
 
     public Long countOrdersByContains(String colName, String keyword) {
         String sql = """
-                SELECT COUNT(order_id) FROM `pet_order` WHERE %s LIKE ?;""";
+                SELECT COUNT(1) FROM `orders` WHERE %s LIKE ?;""";
         sql = sql.formatted(colName);
         return jdbcTemplate.queryForObject(sql, Long.class, "%" + keyword + "%");
     }
 
     public Long countOrderBy(String colName, Object keyword) {
         String sql = """
-                SELECT COUNT(order_id) FROM `pet_order` WHERE %s = ?;""";
+                SELECT COUNT(1) FROM `orders` WHERE %s = ?;""";
         sql = sql.formatted(colName);
         return jdbcTemplate.queryForObject(sql, Long.class, keyword);
     }

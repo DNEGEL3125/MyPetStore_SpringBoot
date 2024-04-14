@@ -1,15 +1,15 @@
-<table id="order-table" class="table table-striped table-bordered" th:fragment="order-table"
-       xmlns:th="http://www.w3.org/1999/html">
+<table id="order-table" class="table table-striped table-bordered" th:fragment="order-table">
     <thead>
     <tr>
-        <th>user id</th>
+        <th>order ID</th>
+        <th>user ID</th>
         <th>order date</th>
-        <th>total price</th>
         <th>status</th>
         <th>ship address</th>
         <th>ship city</th>
         <th>ship state</th>
         <th>ship country</th>
+        <th>line items</th>
     </tr>
     </thead>
     <tbody th:insert="~{admin/OrderTableRow}">

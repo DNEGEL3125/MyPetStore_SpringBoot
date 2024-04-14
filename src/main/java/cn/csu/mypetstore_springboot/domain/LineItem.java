@@ -19,9 +19,18 @@ public class LineItem implements Serializable {
     private Long productId;
     private BigDecimal unitPrice;
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
     @ManyToOne
     @JoinColumn(name = "product_id", insertable = false, updatable = false)
     private Product product;
+
     @Id
     @GeneratedValue
     private Long id;
@@ -53,16 +62,7 @@ public class LineItem implements Serializable {
     }
 
     public BigDecimal getTotal() {
-        return product.getListPrice().multiply(new BigDecimal(quantity))
-                ;
-    }
-
-    public Product getItem() {
-        return product;
-    }
-
-    public void setItem(Product product) {
-        this.product = product;
+        return product.getListPrice().multiply(new BigDecimal(quantity));
     }
 
     public int getQuantity() {

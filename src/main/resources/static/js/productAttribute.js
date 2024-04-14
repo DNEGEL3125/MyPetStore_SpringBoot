@@ -8,7 +8,6 @@ async function getProductAttributeListHtml(productId) {
 
     resHtml = await $.get(`/admin/product-attributes/view/list/productId/${productId}`);
 
-
     return $(resHtml);
 }
 
@@ -25,9 +24,8 @@ function deleteAttributeByBtn($btnField) {
     $btnField.parent().remove();
 }
 
-function addAddAttributeBtn() {
+function solveAddAttributeBtnClick($addAttributeBtn) {
     let newAttrIdCnt = 1;
-    const $addAttributeBtn = $("#add-attribute-btn");
     const $attributesUl = $addAttributeBtn.siblings("ul");
     const productId = $attributesUl.attr("id").split('-')[2];
     $addAttributeBtn.click(function () {

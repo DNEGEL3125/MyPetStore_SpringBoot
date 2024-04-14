@@ -16,7 +16,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Order getOrderByOrderId(Long orderId);
 
     @Transactional
-    @Query(value = "SELECT * FROM orders LIMIT :limit OFFSET :offset", nativeQuery = true)
+    @Query(value = "SELECT * FROM orders ORDER BY order_date DESC LIMIT :limit OFFSET :offset", nativeQuery = true)
     List<Order> getOrdersByLimitAndOffset(int limit, int offset);
 
     @Query("SELECT YEAR(o.orderDate), COUNT(o) FROM Order o WHERE YEAR(o.orderDate) BETWEEN :startYear AND :endYear GROUP BY YEAR(o.orderDate)")

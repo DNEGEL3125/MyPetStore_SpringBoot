@@ -2,6 +2,7 @@ package cn.csu.mypetstore_springboot.controllers.admin;
 
 import cn.csu.mypetstore_springboot.Services.AccountService;
 import cn.csu.mypetstore_springboot.domain.Account;
+import cn.csu.mypetstore_springboot.enums.HeaderSelection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,7 @@ public class AccountsTableViewController {
     public String accountListView(Model model) {
         model.addAttribute("pageTitle", "Accounts view");
         model.addAttribute("accountsList", new ArrayList<Account>());
+        model.addAttribute("headerSelection", HeaderSelection.Customers);
         return ACCOUNT_LIST_PAGE;
     }
 

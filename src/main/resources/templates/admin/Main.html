@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{admin/head}">
 
 </div>
@@ -7,6 +7,52 @@
 <header th:replace="~{admin/Header}"></header>
 
 <h1 th:text="'你好，' + ${admin.username}"></h1>
+
+<div>
+    <table id="small-order-table" class="table table-striped table-bordered small-table">
+        <caption>Orders</caption>
+        <thead>
+        <tr>
+            <th>order ID</th>
+            <th>user ID</th>
+            <th>order date</th>
+            <th>status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--/*@thymesVar id="ordersList" type="java.util.List<cn.csu.mypetstore_springboot.domain.Order>"*/-->
+        <tr th:each="order:${ordersList}">
+            <td th:text="${order.orderId}"></td>
+            <td th:text="${order.userId}"></td>
+            <td th:text="${order.orderDate}"></td>
+            <td th:text="${order.status}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table id="small-account-table" class="table table-striped table-bordered small-table">
+        <caption>Customers</caption>
+        <thead>
+        <tr>
+            <th>user ID</th>
+            <th>username</th>
+            <th>status</th>
+            <th>register date</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <!--/*@thymesVar id="accountsList" type="java.util.List<Account>"*/-->
+        <tr th:each="account:${accountsList}">
+            <td th:text="${account.id}"></td>
+            <td th:text="${account.username}"></td>
+            <td th:text="${account.status}"></td>
+            <td th:text="${account.registerDate}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
 
 <!-- Display "Start the server" button if server is not running -->
 <button class="btn btn-success" th:if="${isRequestsStopped}" onclick="startServer()">Start the server</button>

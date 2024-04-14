@@ -36,6 +36,9 @@ public class OrderService {
         this.orderRepositoryC = orderRepositoryC;
     }
 
+    public Order getOrderByOrderId(Long orderId) {
+        return orderRepository.getOrderByOrderId(orderId);
+    }
 
     public List<Order> getOrders(Integer page, int limit) {
         if (page == null) {

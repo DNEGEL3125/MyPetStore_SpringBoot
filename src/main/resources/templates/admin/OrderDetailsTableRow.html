@@ -1,0 +1,12 @@
+<!--/*@thymesVar id="lineItemsList" type="java.util.List<cn.csu.mypetstore_springboot.domain.LineItem>"*/-->
+<tr th:each="lineItem:${lineItemsList}">
+    <td th:text="${lineItem.product.productId}">
+    </td>
+    <td th:text="${lineItem.product.petBreed.name}">
+    </td>
+    <td th:text="${lineItem.unitPrice}">
+    </td>
+    <td th:text="${lineItem.quantity}">
+    </td>
+    <td th:text="${lineItem.getTotal()}"></td>
+</tr>

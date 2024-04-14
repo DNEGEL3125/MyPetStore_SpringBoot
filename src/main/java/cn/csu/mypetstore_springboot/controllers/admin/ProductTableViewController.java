@@ -4,6 +4,7 @@ import cn.csu.mypetstore_springboot.Services.PetBreedService;
 import cn.csu.mypetstore_springboot.Services.ProductService;
 import cn.csu.mypetstore_springboot.domain.PetBreed;
 import cn.csu.mypetstore_springboot.domain.Product;
+import cn.csu.mypetstore_springboot.enums.HeaderSelection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +38,7 @@ public class ProductTableViewController {
     public String productListView(Model model) {
         model.addAttribute("pageTitle", "Products view");
         model.addAttribute("productsList", new ArrayList<Product>());
+        model.addAttribute("headerSelection", HeaderSelection.Products);
         return PRODUCT_LIST_PAGE;
     }
 
@@ -55,6 +57,7 @@ public class ProductTableViewController {
         products.add(new Product());
         model.addAttribute("productsList", products);
         model.addAttribute("petBreedsList", petBreeds);
+        model.addAttribute("editable", true);
 
         return "admin/ProductTableRow";
     }
@@ -68,6 +71,7 @@ public class ProductTableViewController {
         List<PetBreed> petBreeds = petBreedService.getPetBreeds();
         model.addAttribute("productsList", products);
         model.addAttribute("petBreedsList", petBreeds);
+        model.addAttribute("editable", true);
 
         return "admin/ProductTable";
     }
@@ -83,6 +87,7 @@ public class ProductTableViewController {
         List<PetBreed> petBreeds = petBreedService.getPetBreeds();
         model.addAttribute("productsList", products);
         model.addAttribute("petBreedsList", petBreeds);
+        model.addAttribute("editable", true);
         return "admin/ProductTable";
     }
 
