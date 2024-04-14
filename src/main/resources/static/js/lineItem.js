@@ -34,7 +34,7 @@ $(document).ready(function () {
     // keydown event of search-input
     $("#search-input").keydown(function (ev) {
         if (ev.key === "Enter") {
-            onSearchLineItemBtnClicked();
+            solveSearchLineItemBtnClicked();
         }
     });
 
@@ -54,11 +54,10 @@ function displayLineItemTable(pageNumber = 1) {
     searchFor = searchKeyword = "";
 
     let jsonData = {
-        "pageNumber": pageNumber,
-        "orderId": orderId
+        "pageNumber": pageNumber
     };
     $.ajax({
-        url: `/admin/order/details/view/table`,
+        url: `/admin/order/details/view/${orderId}/table`,
         type: 'GET',
         contentType: 'application/json', // Set content type to JSON
         data: jsonData,
@@ -81,7 +80,7 @@ function displayLineItemTable(pageNumber = 1) {
     });
 }
 
-function onSearchLineItemBtnClicked() {
+function solveSearchLineItemBtnClicked() {
     searchKeyword = $("#search-input").val();
     // Example: `username` of `search-username`
     searchFor = $("#select-search-for").val().split('-')[1];
@@ -96,15 +95,14 @@ function displaySearchLineItemTable(keyword, searchFor, pageNumber = 1) {
 
     let jsonData = {
         "pageNumber": pageNumber,
-        "keyword": keyword,
-        "searchFor": searchFor,
-        "orderId": orderId
+        "searchKeyword": keyword,
+        "searchFor": searchFor
     };
 
     // Construct the relative URL with the query parameter
     // Navigate to the search results page
     $.ajax({
-        url: `/admin/products/search/view/table`,
+        url: `/admin/order/details/search/view/${orderId}/table`,
         type: 'GET',
         contentType: 'application/json', // Set content type to JSON
         data: jsonData,
@@ -121,7 +119,7 @@ function displaySearchLineItemTable(keyword, searchFor, pageNumber = 1) {
     });
 
     $.ajax({
-        url: `/admin/products/search/view/maxPageNumber`,
+        url: `/admin/order/details/search/view/${orderId}/totalPageNumber`,
         type: "GET",
         contentType: 'application/json',
         data: jsonData,

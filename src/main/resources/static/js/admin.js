@@ -1,6 +1,6 @@
 function stopServer() {
     const recheckHtml = `
-    <h3>Input password to continue</h3>
+    <h5>Input password to continue</h5>
     <input id="check-admin-password-input" type="password" required>
     `;
     showModal(recheckHtml, "Input password", "OK", function () {

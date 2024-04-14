@@ -56,15 +56,13 @@ public class ProductService {
             return new ArrayList<>();
         }
 
-        String colName = CamelToSnakeConverter.camelToSnake(searchFor);
 
-        if (colName.startsWith("pet_breed.")) {
-            colName = colName.substring("pet_breed.".length());
-            return productRepositoryC.searchProductsByPetBreedContains(colName, keyword, limit, offset);
+        try {
+            return productRepositoryC.searchProductsByContains(searchFor, keyword, limit, offset);
+        } catch (NoSuchFieldException e) {
+            logger.error(e.toString());
+            return new ArrayList<>();
         }
-
-
-        return productRepositoryC.searchProductsByContains(colName, keyword, limit, offset);
     }
 
     /**
@@ -130,14 +128,19 @@ public class ProductService {
 
         String colName = CamelToSnakeConverter.camelToSnake(searchFor);
 
-        Long recordsCount;
-
-        if (colName.startsWith("pet_breed.")) {
-            colName = colName.substring("pet_breed.".length());
-            recordsCount = productRepositoryC.countProductsByPetBreedContains(colName, keyword);
-        } else {
-            recordsCount = productRepositoryC.countProductsByContains(colName, keyword);
+        Long recordsCount = 1L;
+        try {
+            recordsCount = productRepositoryC.countProductsByContains(searchFor, keyword);
+        } catch (NoSuchFieldException e) {
+            logger.error("getMaxPageNumber " + e.getMessage());
         }
+
+//        if (colName.startsWith("pet_breed.")) {
+//            colName = colName.substring("pet_breed.".length());
+//            recordsCount = productRepositoryC.countProductsByPetBreedContains(colName, keyword);
+//        } else {
+//            recordsCount = productRepositoryC.countProductsByContains(colName, keyword);
+//        }
 
 
         return (recordsCount - 1) / limit + 1;

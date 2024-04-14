@@ -1,32 +1,34 @@
 package cn.csu.mypetstore_springboot.DTO;
 
+import java.math.BigDecimal;
+
 public class CategorySalesDTO {
-    private int timePeriod;
-    private long sales;
+    private String categoryName;
+    private BigDecimal sales;
 
     public CategorySalesDTO() {
 
     }
 
-    // Constructor, getters, and setters
-    public CategorySalesDTO(int timePeriod, long sales) {
-        this.timePeriod = timePeriod;
+
+    public CategorySalesDTO(String categoryName, BigDecimal sales) {
+        this.categoryName = categoryName;
         this.sales = sales;
     }
 
-    public int getTimePeriod() {
-        return timePeriod;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setTimePeriod(int timePeriod) {
-        this.timePeriod = timePeriod;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    public long getSales() {
+    public BigDecimal getSales() {
         return sales;
     }
 
-    public void setSales(long sales) {
+    public void setSales(BigDecimal sales) {
         this.sales = sales;
     }
 }

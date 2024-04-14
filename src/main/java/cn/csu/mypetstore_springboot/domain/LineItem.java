@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
+@Table(name = "line_item")
 public class LineItem implements Serializable {
 
     @Serial
@@ -14,6 +15,7 @@ public class LineItem implements Serializable {
 
     @Column(name = "order_id")
     private Long orderId;
+    @Column(name = "quantity")
     private Integer quantity;
     @Column(name = "product_id")
     private Long productId;

@@ -70,7 +70,6 @@ function sendOrdersChange() {
 function resetOrdersChange() {
     changedInputSet.clear();
     displaySearchOrderTable(searchKeyword, searchFor, currentPage);
-
 }
 
 function onInputChanged($targetInput) {
@@ -154,8 +153,6 @@ $(document).ready(function () {
 
     pagePreviousBtn.prop("disabled", true);
     pageNextBtn.prop("disabled", true);
-
-
 });
 
 function displayOrderTable(pageNumber = 1) {
@@ -190,7 +187,7 @@ function displayOrderTable(pageNumber = 1) {
     $.get("/admin/orders/view/maxPageNumber", function (response) {
         MAX_PAGES = response;
         // update button status
-        setCurrentPage(currentPage);
+        setCurrentPage(pageNumber);
     });
 }
 
@@ -242,7 +239,7 @@ function displaySearchOrderTable(keyword, searchFor, pageNumber = 1) {
         success: function (response) {
             MAX_PAGES = response;
             // update button status
-            setCurrentPage(currentPage);
+            setCurrentPage(pageNumber);
         },
         error: function (xhr, status, error) {
             showErrorToast("Failed to get maximum page number");

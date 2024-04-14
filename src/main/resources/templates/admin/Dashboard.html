@@ -1,18 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <div th:replace="~{admin/head}"></div>
-<body>
+<body style="background-color: aliceblue;">
 <header th:replace="~{admin/Header}"></header>
 
-<div id="account-count-display" class="paper-text-3d">
-    数据加载中...
+<div class="start-50 translate-middle-x"
+     style="width: fit-content; position: relative;">
+    <span id="account-count-text" class="dashboard-text">
+        网站注册总人数：
+        <span id="account-count-number" style="font-size: xx-large">
+            Loading...
+        </span>
+    </span>
+    <span id="order-count-text" class="dashboard-text">
+        订单数：
+        <span id="order-count-number" style="font-size: xx-large">
+            Loading...
+        </span>
+    </span>
+    <span id="total-revenue-text" class="dashboard-text">
+        订单额：
+        <span id="total-revenue-number" style="font-size: xx-large">
+            Loading...
+        </span>
+    </span>
 </div>
-<div style="margin: 20px 5% 10px 5%;">
+<div style="width: 49%; display: inline-block;">
     <canvas id="order-count-chart" width="400" height="200"></canvas>
 </div>
 
-<div style="margin: 20px 5% 10px 5%;">
+<div style="width: 49%; display: inline-block;">
     <canvas id="total-revenue-chart" width="400" height="200"></canvas>
+</div>
+
+<div style="margin: 20px 25% 10% 25%;">
+    <canvas id="category-sales-chart" width="400" height="200"></canvas>
 </div>
 
 

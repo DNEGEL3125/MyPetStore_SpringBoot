@@ -13,7 +13,7 @@ import java.util.List;
  * Available
  */
 public interface PetBreedRepository extends JpaRepository<PetBreed, Long> {
-    List<PetBreed> getPetBreedsByCategoryId(String categoryId);
+    List<PetBreed> getPetBreedsByCategoryId(Long categoryId);
 
     PetBreed getPetBreedById(Long id);
 

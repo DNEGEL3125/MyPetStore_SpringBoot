@@ -13,4 +13,8 @@ public interface LineItemRepository extends JpaRepository<LineItem, Long> {
     List<LineItem> getLineItemsByOrderId(Long orderId, int limit, int offset);
 
     Long countByOrderId(Long orderId);
+
+    @Transactional
+    @Query(value = "SELECT * FROM line_item INNER JOIN product p on line_item.product_id = p.product_id INNER JOIN pet_breed pb on p.pet_breed_id = pb.id", nativeQuery = true)
+    List<LineItem> getLineItemsByOrder(Long orderId, int limit, int offset);
 }

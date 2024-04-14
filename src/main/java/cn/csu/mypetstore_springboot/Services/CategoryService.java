@@ -1,6 +1,7 @@
 package cn.csu.mypetstore_springboot.Services;
 
 import cn.csu.mypetstore_springboot.DTO.CategorySalesDTO;
+import cn.csu.mypetstore_springboot.DTO.OrderCountDTO;
 import cn.csu.mypetstore_springboot.DTO.TotalRevenueDTO;
 import cn.csu.mypetstore_springboot.Repositories.CategoryRepository;
 import cn.csu.mypetstore_springboot.domain.Account;
@@ -28,5 +29,19 @@ public class CategoryService {
         return categoryRepository.getCategoriesByLimitAndOffset(limit, offset);
     }
 
+    public List<CategorySalesDTO> getCategorySalesData(String timeScale) {
+        List<CategorySalesDTO> categorySalesData = new ArrayList<>();
+        LocalDate dateNow = LocalDate.now();
+        int currentYear = dateNow.getYear();
+
+        if (timeScale == null) {
+            return categoryRepository.getCategorySalesData();
+        }
+
+        if (timeScale.toLowerCase().equals("year")) {//                categorySalesData = categoryRepository.getCategorySalesData();
+        }
+
+        return categorySalesData;
+    }
 
 }

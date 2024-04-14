@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
@@ -42,10 +43,14 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
              GROUP BY YEAR(o.orderDate), MONTH(o.orderDate), DAY(o.orderDate)""")
     List<Object[]> countOrdersByDay(int year, int month);
 
+    @Transactional
+    @Query(value = "SELECT SUM(orders.total_price) FROM orders", nativeQuery = true)
+    BigDecimal sumTotalPrice();
+
     @Query("""
             SELECT NEW cn.csu.mypetstore_springboot.DTO.TotalRevenueDTO(YEAR(o.orderDate), SUM(o.totalPrice))
              FROM Order o GROUP BY YEAR(o.orderDate) ORDER BY YEAR(o.orderDate)""")
-    List<TotalRevenueDTO> sumTotalPriceByYear();
+    List<TotalRevenueDTO> sumTotalPriceGroupByYear();
 
     @Query("""
             SELECT NEW cn.csu.mypetstore_springboot.DTO.TotalRevenueDTO(YEAR(o.orderDate), SUM(o.totalPrice))

@@ -6,16 +6,17 @@
 <body th:onload="'setOrderId('+${order.orderId}+')'">
 <header th:replace="~{admin/Header}"></header>
 
-<div style="font-size: xx-large">
+<div style="font-size: xx-large; text-align: center">
     <span th:text="'Order ID: '+${order.orderId}" style="margin-left: 1em"></span>
     <span th:text="'Total revenue: $'+${order.totalPrice}" style="margin-left: 1em"></span>
 </div>
 
-<div style="margin-top: 10px">
+<div style="margin-top: 10px; text-align: center">
+    <button class="btn btn-secondary" onclick="window.history.back()">Back</button>
     <label for="search-input">Search: </label>
     <input id="search-input">
     <button class="btn btn-primary" id="search-lineItem-btn"
-            onclick="onSearchLineItemBtnClicked()">
+            onclick="solveSearchLineItemBtnClicked()">
         Search
     </button>
     <label for="select-search-for">
@@ -23,7 +24,7 @@
     </label>
 
     <select class="search-select col-2" id="select-search-for">
-        <option value="search-petBreed.name">breed name</option>
+        <option value="search-product.petBreed.name">breed name</option>
     </select>
 </div>
 

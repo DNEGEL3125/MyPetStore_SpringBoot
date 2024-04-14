@@ -31,7 +31,6 @@ function setCurrentPage(page) {
     const pagePreviousBtn = $(".page-previous");
     const pageNextBtn = $(".page-next");
 
-
     if (page > MAX_PAGES || page < 1) {
         return false;
     }

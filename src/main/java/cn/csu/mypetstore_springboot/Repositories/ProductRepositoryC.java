@@ -1,7 +1,9 @@
 package cn.csu.mypetstore_springboot.Repositories;
 
+import cn.csu.mypetstore_springboot.domain.Category;
 import cn.csu.mypetstore_springboot.domain.PetBreed;
 import cn.csu.mypetstore_springboot.domain.Product;
+import cn.csu.mypetstore_springboot.utils.DynamicSqlConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,6 +22,7 @@ public class ProductRepositoryC {
 
     public final static RowMapper<Product> productRowMapper = BeanPropertyRowMapper.newInstance(Product.class);
     public final static RowMapper<PetBreed> petBreedRowMapper = BeanPropertyRowMapper.newInstance(PetBreed.class);
+    public final static RowMapper<Category> categoryRowMapper = BeanPropertyRowMapper.newInstance(Category.class);
 
 
     public ProductRepositoryC(JdbcTemplate jdbcTemplate) {
@@ -33,25 +36,37 @@ public class ProductRepositoryC {
      * @param keyword Search keyword
      * @return List of Product
      */
-    public List<Product> searchProductsByContains(String colName, String keyword, int limit, int offset) {
+    public List<Product> searchProductsByContains(String colName, String keyword, int limit, int offset) throws NoSuchFieldException {
         String sql = """
                 SELECT * FROM product WHERE %s LIKE ? LIMIT ? OFFSET ?;""";
 
-        sql = sql.formatted(colName);
+        sql = DynamicSqlConstructor.constructMemberSql(sql, colName, Product.class);
 
         return jdbcTemplate.query(
                 sql,
-                BeanPropertyRowMapper.newInstance(Product.class),
+                (rs, rowNum) -> {
+                    Product product = productRowMapper.mapRow(rs, rowNum);
+                    PetBreed petBreed = petBreedRowMapper.mapRow(rs, rowNum);
+                    Category category = categoryRowMapper.mapRow(rs, rowNum);
+
+                    assert product != null;
+                    assert petBreed != null;
+                    petBreed.setCategory(category);
+                    product.setPetBreed(petBreed);
+
+
+                    return product;
+                },
                 "%" + keyword + "%",
                 limit,
                 offset
         );
     }
 
-    public Long countProductsByContains(String colName, String keyword) {
+    public Long countProductsByContains(String colName, String keyword) throws NoSuchFieldException {
         String sql = """
-                SELECT COUNT(product_id) FROM product WHERE %s LIKE ? LIMIT ? OFFSET ?;""";
-        sql = sql.formatted(colName);
+                SELECT COUNT(product_id) FROM product WHERE %s LIKE ?;""";
+        sql = DynamicSqlConstructor.constructMemberSql(sql, colName, Product.class);
         return jdbcTemplate.queryForObject(sql, Long.class, "%" + keyword + "%");
     }
 

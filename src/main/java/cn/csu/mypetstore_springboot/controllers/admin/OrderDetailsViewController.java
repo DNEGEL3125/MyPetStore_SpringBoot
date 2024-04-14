@@ -35,10 +35,10 @@ public class OrderDetailsViewController {
         return "admin/OrderDetails";
     }
 
-    @RequestMapping("/view/table")
+    @RequestMapping("/view/{orderId}/table")
     public String getTable(
+            @PathVariable Long orderId,
             @RequestParam(value = "pageNumber", required = false, defaultValue = "1") Integer pageNumber,
-            @RequestParam(value = "orderId") Long orderId,
             Model model
     ) {
         List<LineItem> lineItemsByOrderId = lineItemService.getLineItemsByOrderId(orderId, pageNumber, LINE_ITEMS_PER_PAGE);
@@ -54,5 +54,28 @@ public class OrderDetailsViewController {
         Long totalPageNumber = lineItemService.getTotalPageNumberByOrderId(orderId, LINE_ITEMS_PER_PAGE);
 
         return ResponseEntity.ok(totalPageNumber);
+    }
+
+    @RequestMapping("/search/view/{orderId}/totalPageNumber")
+    public ResponseEntity<Long> totalPageNumber(@PathVariable Long orderId, @RequestParam("searchKeyword") String searchKeyword, @RequestParam("searchFor") String searchFor) {
+        Long totalPageNumber = lineItemService.getTotalPageNumber(orderId, searchKeyword, searchFor, LINE_ITEMS_PER_PAGE);
+
+        return ResponseEntity.ok(totalPageNumber);
+    }
+
+    @RequestMapping("/search/view/{orderId}/table")
+    public String getTable(
+            @RequestParam(value = "pageNumber", required = false, defaultValue = "1") Integer pageNumber,
+            @PathVariable Long orderId,
+            @RequestParam("searchKeyword") String searchKeyword,
+            @RequestParam("searchFor") String searchFor,
+            Model model
+    ) {
+        List<LineItem> lineItemsByOrderId = lineItemService.searchLineItems(orderId, searchKeyword, searchFor, pageNumber, LINE_ITEMS_PER_PAGE);
+
+        model.addAttribute("orderId", orderId);
+        model.addAttribute("lineItemsList", lineItemsByOrderId);
+
+        return "admin/OrderDetailsTable";
     }
 }

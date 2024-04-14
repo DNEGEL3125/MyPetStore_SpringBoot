@@ -1,5 +1,7 @@
-<!--/*@thymesVar id="productsList" type="java.util.List<Product>"*/-->
+<!--/*@thymesVar id="productsList" type="java.util.List<cn.csu.mypetstore_springboot.domain.Product>"*/-->
 <tr th:each="product:${productsList}">
+    <td th:text="${product.productId}"></td>
+    <td th:text="${product.petBreed.category.name}"></td>
     <td>
         <select class="petBreed-select" th:id="'petBreedId-select-' + ${product.productId}"
                 onchange="onInputChanged($(this))">

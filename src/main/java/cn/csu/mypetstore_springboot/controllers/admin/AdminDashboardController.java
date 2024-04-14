@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,15 +55,27 @@ public class AdminDashboardController {
         return ResponseEntity.ok(accountCount);
     }
 
+    @RequestMapping("/data/orderCount")
+    public ResponseEntity<Long> orderCount() {
+        Long orderCount = orderService.orderCount();
+        return ResponseEntity.ok(orderCount);
+    }
+
+    @RequestMapping("/data/totalRevenue")
+    public ResponseEntity<BigDecimal> totalRevenue() {
+        BigDecimal totalRevenue = orderService.getTotalRevenue();
+        return ResponseEntity.ok(totalRevenue);
+    }
+
     @RequestMapping("/data/totalRevenue/{timeScale}")
     public ResponseEntity<List<TotalRevenueDTO>> totalRevenueData(@PathVariable String timeScale) {
         List<TotalRevenueDTO> totalRevenueData = orderService.getTotalRevenueData(timeScale);
         return ResponseEntity.ok(totalRevenueData);
     }
 
-    @RequestMapping("/data/categorySales/{timeScale}")
-    public ResponseEntity<List<CategorySalesDTO>> categorySalesData(@PathVariable String timeScale) {
-        List<CategorySalesDTO> totalRevenueData = new ArrayList<>();
+    @RequestMapping(path = {"/data/categorySales/{timeScale}", "/data/categorySales"})
+    public ResponseEntity<List<CategorySalesDTO>> categorySalesData(@PathVariable(required = false) String timeScale) {
+        List<CategorySalesDTO> totalRevenueData = categoryService.getCategorySalesData(timeScale);
         return ResponseEntity.ok(totalRevenueData);
     }
 

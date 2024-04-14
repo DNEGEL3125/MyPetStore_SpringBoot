@@ -1,6 +1,5 @@
 package cn.csu.mypetstore_springboot.Services;
 
-import cn.csu.mypetstore_springboot.DTO.CategorySalesDTO;
 import cn.csu.mypetstore_springboot.DTO.OrderCountDTO;
 import cn.csu.mypetstore_springboot.DTO.TotalRevenueDTO;
 import cn.csu.mypetstore_springboot.Repositories.OrderRepository;
@@ -14,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -187,7 +187,7 @@ public class OrderService {
         int currentYear = dateNow.getYear();
 
         switch (timeScale.toLowerCase()) {
-            case "year" -> totalRevenueData = orderRepository.sumTotalPriceByYear();
+            case "year" -> totalRevenueData = orderRepository.sumTotalPriceGroupByYear();
             case "month" -> totalRevenueData = orderRepository.sumTotalPriceByMonth(currentYear);
             default -> logger.error("Invalid time scale: " + timeScale);
         }
@@ -195,15 +195,11 @@ public class OrderService {
         return totalRevenueData;
     }
 
-    public List<CategorySalesDTO> getCategorySales(String timeScale) {
-        List<CategorySalesDTO> categorySalesData = new ArrayList<>();
-        LocalDate dateNow = LocalDate.now();
-        int currentYear = dateNow.getYear();
+    public Long orderCount() {
+        return orderRepository.count();
+    }
 
-        //            case "year" -> categorySalesData = orderRepository.sumTotalPriceByYear();
-        //            case "month" -> categorySalesData = orderRepository.sumTotalPriceByMonth(currentYear);
-        logger.error("Invalid time scale: " + timeScale);
-
-        return categorySalesData;
+    public BigDecimal getTotalRevenue() {
+        return orderRepository.sumTotalPrice();
     }
 }
