@@ -41,5 +41,10 @@
             Edit
         </button>
     </td>
+    <td>
+        <button class="btn btn-outline-danger delete-btn" onclick="solveDeleteProductBtnClick($(this))" type="button"
+                th:id="'delete-btn-'+${product.productId}">&times;
+        </button>
+    </td>
 
 </tr>

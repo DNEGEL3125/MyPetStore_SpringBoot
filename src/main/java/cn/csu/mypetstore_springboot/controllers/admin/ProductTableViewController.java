@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,7 +54,7 @@ public class ProductTableViewController {
     ) {
         List<Product> products = new ArrayList<>();
         List<PetBreed> petBreeds = petBreedService.getPetBreeds();
-        products.add(new Product());
+        products.add(Product.NoNullEntity());
         model.addAttribute("productsList", products);
         model.addAttribute("petBreedsList", petBreeds);
         model.addAttribute("editable", true);
@@ -102,5 +103,10 @@ public class ProductTableViewController {
                                                  @RequestParam(value = "searchFor") String searchFor) {
         Long maxPageNumber = productService.getMaxPageNumber(PRODUCTS_PER_PAGE, keyword, searchFor);
         return ResponseEntity.ok(maxPageNumber);
+    }
+
+    @RequestMapping("/delete/{productId}")
+    public ResponseEntity<String> deleteProduct(@PathVariable Long productId) {
+        return productService.deleteProduct(productId);
     }
 }

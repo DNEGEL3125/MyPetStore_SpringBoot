@@ -83,7 +83,7 @@ public class ProductService {
 
                 // New product
                 if (entryKey.contains("new")) {
-                    productRepository.save(changedAttrs);
+                    productRepository.saveAndFlush(changedAttrs);
                     continue;
                 }
 
@@ -146,5 +146,8 @@ public class ProductService {
         return (recordsCount - 1) / limit + 1;
     }
 
-
+    public ResponseEntity<String> deleteProduct(Long productId) {
+        productRepository.deleteById(productId);
+        return ResponseEntity.ok("The product has been successfully deleted");
+    }
 }

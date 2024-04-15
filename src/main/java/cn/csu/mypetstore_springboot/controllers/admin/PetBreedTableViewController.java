@@ -23,7 +23,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/admin/petBreeds")
 public class PetBreedTableViewController {
-    final static int PRODUCTS_PER_PAGE = 16;
+    final static int PRODUCTS_PER_PAGE = 8;
     private static final String PET_BREED_LIST_PAGE = "admin/PetBreedsView";
     private final CategoryService categoryService;
     private final PetBreedService petBreedService;
@@ -108,5 +108,10 @@ public class PetBreedTableViewController {
                                                  @RequestParam(value = "searchFor") String searchFor) {
         Long maxPageNumber = petBreedService.getMaxPageNumber(PRODUCTS_PER_PAGE, keyword, searchFor);
         return ResponseEntity.ok(maxPageNumber);
+    }
+
+    @RequestMapping("/delete/{petBreedId}")
+    public ResponseEntity<String> deletePetBreed(@PathVariable Long petBreedId) {
+        return petBreedService.deletePetBreed(petBreedId);
     }
 }

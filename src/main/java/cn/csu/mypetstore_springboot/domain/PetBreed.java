@@ -77,4 +77,11 @@ public class PetBreed implements Serializable {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    public static PetBreed NoNullEntity() {
+        PetBreed petBreed = new PetBreed();
+        Category category1 = new Category();
+        petBreed.setCategory(category1);
+        return petBreed;
+    }
 }

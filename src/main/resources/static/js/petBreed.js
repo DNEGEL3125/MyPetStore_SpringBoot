@@ -29,6 +29,11 @@ function sendPetBreedsChange($sender) {
         const petBreedId = splitRes[2];
         const attrName = splitRes[0];
 
+        if (attrName === "delete") {
+            deletePetBreed(petBreedId);
+            continue;
+        }
+
         // Split attrName by dots to handle nested properties
         const attrNames = attrName.split('.');
 
@@ -119,11 +124,10 @@ function addRowToTable() {
             $(this).attr('id', newId);
         });
         $('#petBreed-table tbody').append($newRow);
-        $newRow.find("select").select2();
-        const $attributesBtn = $newRow.find(".attributes-btn").prop("disabled", true);
-        // 设置按钮的 data-toggle 和 title 属性
-        $attributesBtn.attr('data-toggle', 'tooltip');
-        $attributesBtn.attr('title', 'You need to save changes first.');
+        const $selectsInRow = $newRow.find("select");
+        $selectsInRow.select2();
+        onInputChanged($selectsInRow);
+
         showSuccessToast("The petBreed has been added to the bottom of the table");
     });
 }
@@ -163,6 +167,9 @@ $(document).ready(function () {
     pagePreviousBtn.prop("disabled", true);
     pageNextBtn.prop("disabled", true);
 
+    $("#petBreed-table-form").submit(function (ev) {
+        ev.preventDefault();
+    });
 
 });
 
@@ -302,7 +309,24 @@ function uploadPetBreedImg($uploadBtn) {
         },
         error: function (xhr, status, error) {
             console.error('Error uploading image:', error);
-            // Handle error response from server
+            showErrorToast(`Error uploading image: ${xhr.responseText}`)
+        }
+    });
+}
+
+function solveDeleteBtnClick($targetBtn) {
+    $targetBtn.closest("tr").hide();
+    onInputChanged($targetBtn);
+}
+
+function deletePetBreed(petBreedId) {
+    $.ajax({
+        url: `/admin/petBreeds/delete/${petBreedId}`,
+        success: function (resp) {
+            showSuccessToast(resp);
+        },
+        error: function (xhr) {
+            showErrorToast(xhr.responseText)
         }
     });
 }

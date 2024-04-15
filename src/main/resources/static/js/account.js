@@ -113,8 +113,10 @@ function displayAccountTable(pageNumber = 1) {
         contentType: 'application/json', // Set content type to JSON
         data: jsonData,
         success: function (tableHtml) {
-            $("#account-table").replaceWith(tableHtml);
+            const $accountTable = $("#account-table");
+            $accountTable.replaceWith(tableHtml);
             $("#table-change-btn-container").collapse('hide');
+            $('.status-select').select2();
         },
         error: function (xhr, status, error) {
             showErrorToast(xhr.responseText);
@@ -155,8 +157,10 @@ function displaySearchAccountTable(keyword, searchFor, pageNumber = 1) {
         contentType: 'application/json', // Set content type to JSON
         data: jsonData,
         success: function (tableHtml) {
-            $("#account-table").replaceWith(tableHtml);
+            const $accountTable = $("#account-table");
+            $accountTable.replaceWith(tableHtml);
             $("#table-change-btn-container").collapse('hide');
+            $('.status-select').select2();
         },
         error: function (xhr, status, error) {
             showErrorToast(xhr.responseText);

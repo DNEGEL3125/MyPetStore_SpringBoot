@@ -34,8 +34,8 @@ public class ObjectFieldCopier {
         return null;
     }
 
-    public static boolean isEntity(Field field) {
-        Entity annotation = field.getAnnotation(Entity.class);
+    public static boolean isEntity(Class<?> clazz) {
+        Entity annotation = clazz.getAnnotation(Entity.class);
 
         return annotation != null;
     }
@@ -92,7 +92,7 @@ public class ObjectFieldCopier {
             }
 
             // If the field type is annotated with @Entity and not null, recursively copy its fields
-            if (isEntity(field)) {
+            if (isEntity(field.getType())) {
                 copyFieldsIfNotNullRecursively(valueA, valueB);
             }
             // Else copy from `a` directly

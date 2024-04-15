@@ -3,7 +3,7 @@ package cn.csu.mypetstore_springboot.Services;
 import cn.csu.mypetstore_springboot.Repositories.PetBreedRepository;
 import cn.csu.mypetstore_springboot.Repositories.PetBreedRepositoryC;
 import cn.csu.mypetstore_springboot.domain.PetBreed;
-import cn.csu.mypetstore_springboot.utils.CamelToSnakeConverter;
+import cn.csu.mypetstore_springboot.utils.ObjectFieldCopier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +26,8 @@ public class PetBreedService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final PetBreedRepository petBreedRepository;
     private final PetBreedRepositoryC petBreedRepositoryC;
+    private final static int PET_BREED_IMAGE_WIDTH = 125;
+    private final static int PET_BREED_IMAGE_HEIGHT = 125;
 
 
     public PetBreedService(PetBreedRepository petBreedRepository, PetBreedRepositoryC petBreedRepositoryC) {
@@ -98,7 +100,36 @@ public class PetBreedService {
     }
 
     public ResponseEntity<String> updatePetBreedsByIds(Map<String, PetBreed> changedAttrMap) {
+        try {
+            for (var petBreedIdKeyEntry : changedAttrMap.entrySet()) {
+                String entryKey = petBreedIdKeyEntry.getKey();
+                PetBreed changedAttrs = petBreedIdKeyEntry.getValue();
 
+                // New petBreed
+                if (entryKey.contains("new")) {
+                    petBreedRepository.save(changedAttrs);
+                    continue;
+                }
+
+                long petBreedId = Long.parseLong(entryKey);
+
+                // New petBreed
+                if (petBreedId < 0) {
+                    petBreedRepository.save(changedAttrs);
+                    continue;
+                }
+
+                PetBreed petBreed = petBreedRepository.getReferenceById(petBreedId);
+
+                ObjectFieldCopier.copyFieldsIfNotNullRecursively(changedAttrs, petBreed);
+
+                // Update the account
+                petBreedRepository.save(petBreed);
+            }
+        } catch (Exception e) {
+            logger.error(e.toString());
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
         return ResponseEntity.ok("Update pet breeds successfully");
     }
 
@@ -123,9 +154,14 @@ public class PetBreedService {
                 Files.createDirectories(directory);
             }
 
+            // Resize the image
+            byte[] resizeImageBytes = ImageService.resizeImage(image, PET_BREED_IMAGE_WIDTH, PET_BREED_IMAGE_HEIGHT);
             // Resolve the file path and save the image file
-            Path filePath = directory.resolve(fileName);
-            Files.copy(image.getInputStream(), filePath);
+            ImageService.saveImage(resizeImageBytes, directory.resolve(fileName));
+
+
+//            Path filePath = directory.resolve(fileName);
+//            Files.copy(image.getInputStream(), filePath);
 
             petBreedRepository.updateImagePathById(petBreedId, imageResourcePath);
 
@@ -134,5 +170,10 @@ public class PetBreedService {
             logger.error("Failed to upload image: " + e.getMessage());
             return ResponseEntity.badRequest().body("Failed to upload image: " + e.getMessage());
         }
+    }
+
+    public ResponseEntity<String> deletePetBreed(Long petBreedId) {
+        petBreedRepository.deleteById(petBreedId);
+        return ResponseEntity.ok("Successfully delete the pet breed");
     }
 }

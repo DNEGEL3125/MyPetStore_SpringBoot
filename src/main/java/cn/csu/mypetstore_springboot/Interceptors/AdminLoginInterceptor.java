@@ -9,9 +9,8 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        // TODO remove this
-        if (handler != null)
-            return true;
+//        if (handler != null)
+//            return true;
         // Check if user is logged in
         if (request.getSession().getAttribute("admin") == null) {
             // User is not logged in, redirect to login page

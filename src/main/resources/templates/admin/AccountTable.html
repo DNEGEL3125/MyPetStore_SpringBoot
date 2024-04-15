@@ -1,4 +1,4 @@
-<table id="account-table" class="table table-striped table-bordered" th:fragment="account-table">
+<table id="account-table" class="table table-striped table-baccounted" th:fragment="account-table">
     <thead>
     <tr>
         <th>user ID</th>
@@ -37,7 +37,17 @@
                        oninput="onInputChanged($(this))">
             </label>
         </td>
-        <td th:text="${account.status}"></td>
+        <td>
+            <select class="status-select" th:id="'status-select-' + ${account.id}"
+                    onchange="onInputChanged($(this))">
+                <option th:each="accountStatus : ${accountStatusList}"
+                        th:value="${accountStatus}" th:text="${accountStatus}"
+                        th:id="'status-option-' + ${account.id} + '-' + ${accountStatus.ordinal()}"
+                        th:selected="${account.status == accountStatus}">
+                    <!-- Use th:selected to set the selected option -->
+                </option>
+            </select>
+        </td>
         <td th:text="${account.registerDate}"></td>
     </tr>
     </tbody>

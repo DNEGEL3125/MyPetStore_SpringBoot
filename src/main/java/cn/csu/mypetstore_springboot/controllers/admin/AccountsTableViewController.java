@@ -37,7 +37,7 @@ public class AccountsTableViewController {
     }
 
     @RequestMapping("/update")
-    public ResponseEntity<String> updateAccountsByIds(@RequestBody Map<String, Map<String, String>> changedAttrMap) {
+    public ResponseEntity<String> updateAccountsByIds(@RequestBody Map<String, Account> changedAttrMap) {
         logger.info("Modified id: " + changedAttrMap.toString());
         return accountService.updateAccountsByIds(changedAttrMap);
     }
@@ -48,7 +48,9 @@ public class AccountsTableViewController {
             Model model
     ) {
         List<Account> accountsByPage = accountService.getAccounts(pageNumber, ACCOUNTS_PER_PAGE);
+        Account.AccountStatus[] accountStatusList = Account.AccountStatus.values();
         model.addAttribute("accountsList", accountsByPage);
+        model.addAttribute("accountStatusList", accountStatusList);
 
         return "admin/AccountTable";
     }
@@ -61,7 +63,9 @@ public class AccountsTableViewController {
             Model model
     ) {
         List<Account> accountsByPage = accountService.searchAccounts(page, ACCOUNTS_PER_PAGE, searchFor, keyword);
+        Account.AccountStatus[] accountStatusList = Account.AccountStatus.values();
         model.addAttribute("accountsList", accountsByPage);
+        model.addAttribute("accountStatusList", accountStatusList);
         return "admin/AccountTable";
     }
 

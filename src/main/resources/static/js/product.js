@@ -28,6 +28,12 @@ function sendProductsChange($sender) {
         const productId = splitRes[2];
         const attrName = splitRes[0];
 
+        // Delete this row
+        if (attrName === "delete") {
+            deleteProduct(productId);
+            continue;
+        }
+
         // Split attrName by dots to handle nested properties
         const attrNames = attrName.split('.');
 
@@ -271,6 +277,31 @@ function displaySearchProductTable(keyword, searchFor, pageNumber = 1) {
             showErrorToast("Failed to get maximum page number");
         }
     })
-
 }
 
+function solveDeleteProductBtnClick($targetBtn) {
+    $targetBtn.closest("tr").hide();
+    onInputChanged($targetBtn);
+}
+
+function deleteProduct(productId) {
+
+
+    const jsonData = {
+        "productId": productId
+    };
+
+    $.ajax({
+        url: `/admin/products/delete/${productId}`,
+        type: "POST",
+        contentType: 'application/json',
+        data: jsonData,
+        success: function (response) {
+            showSuccessToast(response);
+            displaySearchProductTable(keyword, searchFor, currentPage);
+        },
+        error: function () {
+            showErrorToast("Failed to delete the product");
+        }
+    })
+}

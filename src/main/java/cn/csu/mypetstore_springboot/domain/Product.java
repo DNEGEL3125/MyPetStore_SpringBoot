@@ -127,4 +127,11 @@ public class Product implements Serializable {
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
+
+    public static Product NoNullEntity() {
+        Product product = new Product();
+        PetBreed petBreed1 = PetBreed.NoNullEntity();
+        product.setPetBreed(petBreed1);
+        return product;
+    }
 }

@@ -32,7 +32,7 @@ public class Account implements Serializable {
         this.address = address;
     }
 
-    enum AccountStatus {
+    public enum AccountStatus {
         Offline,
         Online,
         Cancelled,

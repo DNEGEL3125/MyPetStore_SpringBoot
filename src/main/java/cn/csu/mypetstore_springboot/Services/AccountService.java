@@ -1,18 +1,18 @@
 package cn.csu.mypetstore_springboot.Services;
 
 import cn.csu.mypetstore_springboot.DTO.AccountCountDTO;
-import cn.csu.mypetstore_springboot.DTO.OrderCountDTO;
 import cn.csu.mypetstore_springboot.Repositories.AccountRepository;
 import cn.csu.mypetstore_springboot.Repositories.AccountRepositoryC;
 import cn.csu.mypetstore_springboot.domain.Account;
 import cn.csu.mypetstore_springboot.utils.CamelToSnakeConverter;
+import cn.csu.mypetstore_springboot.utils.ObjectFieldCopier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -66,36 +66,26 @@ public class AccountService {
      * @param changedAttrMap accountId to attrName to changedVal
      * @return Update result
      */
-    public ResponseEntity<String> updateAccountsByIds(Map<String, Map<String, String>> changedAttrMap) {
+    public ResponseEntity<String> updateAccountsByIds(Map<String, Account> changedAttrMap) {
         try {
             for (var accountIdKeyEntry : changedAttrMap.entrySet()) {
-                Long accountId = Long.valueOf(accountIdKeyEntry.getKey());
-                for (var entry : accountIdKeyEntry.getValue().entrySet()) {
-                    String attr = entry.getKey();
+                String entryKey = accountIdKeyEntry.getKey();
+                Account changedAttrs = accountIdKeyEntry.getValue();
 
-                    Field attributeField = Account.class.getDeclaredField(attr);
-                    attributeField.setAccessible(true); // Make the field accessible
-
-                    Class<?> attributeType = attributeField.getType(); // Get the attribute type
-
-                    Object newVal;
-                    if (attributeType == String.class) {
-                        newVal = entry.getValue();
-                    } else if (attributeType == Integer.class) {
-                        newVal = Integer.parseInt(entry.getValue());
-                    } else if (attributeType == Long.class) {
-                        newVal = Long.parseLong(entry.getValue());
-                    } else {
-                        throw new RuntimeException("Can't resolve the entry %s".formatted(entry));
-                    }
-
-                    Account accountById = accountRepository.getAccountById(accountId);
-                    // accountById[attr] = newVal;
-                    attributeField.set(accountById, newVal);
-
-                    // Update the account
-                    accountRepository.save(accountById);
+                // New account
+                if (entryKey.contains("new")) {
+                    accountRepository.save(changedAttrs);
+                    continue;
                 }
+
+                long accountId = Long.parseLong(entryKey);
+
+                Account account = accountRepository.getAccountById(accountId);
+
+                ObjectFieldCopier.copyFieldsIfNotNullRecursively(changedAttrs, account);
+
+                // Update the account
+                accountRepository.save(account);
             }
         } catch (Exception e) {
             logger.error(e.toString());

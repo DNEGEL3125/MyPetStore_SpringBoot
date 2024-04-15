@@ -174,4 +174,20 @@ td.text-right {
 
 .long-text-input {
     width: 100%;
+    min-height: 10rem;
+}
+
+.delete-btn {
+    width: 30px; /* Set button width */
+    height: 30px; /* Set button height */
+    border-radius: 50%; /* Make it circular */
+    /*background-color: #dc3545; !* Button background color *!*/
+    /*color: #fff; !* Text color *!*/
+    outline: none; /* Remove outline */
+    cursor: pointer; /* Cursor on hover */
+    vertical-align: middle; /* Align button vertically */
+    padding: 0;
+    font-size: x-large;
+    line-height: 0;
+    transition: background-color 0.3s; /* Smooth transition on hover */
 }

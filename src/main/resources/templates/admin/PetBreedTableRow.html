@@ -33,5 +33,10 @@
             </button>
         </div>
     </td>
+    <td>
+        <button class="btn btn-outline-danger delete-btn" th:id="'delete-btn-' + ${petBreed.id}"
+                onclick="solveDeleteBtnClick($(this))">&times;
+        </button>
+    </td>
 
 </tr>
