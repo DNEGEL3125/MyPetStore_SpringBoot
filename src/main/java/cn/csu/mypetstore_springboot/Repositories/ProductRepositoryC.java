@@ -4,16 +4,11 @@ import cn.csu.mypetstore_springboot.domain.Category;
 import cn.csu.mypetstore_springboot.domain.PetBreed;
 import cn.csu.mypetstore_springboot.domain.Product;
 import cn.csu.mypetstore_springboot.utils.DynamicSqlConstructor;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -40,7 +35,7 @@ public class ProductRepositoryC {
         String sql = """
                 SELECT * FROM product WHERE %s LIKE ? LIMIT ? OFFSET ?;""";
 
-        sql = DynamicSqlConstructor.constructMemberSql(sql, colName, Product.class);
+        sql = DynamicSqlConstructor.constructMemberQuerySql(sql, colName, Product.class);
 
         return jdbcTemplate.query(
                 sql,
@@ -66,7 +61,7 @@ public class ProductRepositoryC {
     public Long countProductsByContains(String colName, String keyword) throws NoSuchFieldException {
         String sql = """
                 SELECT COUNT(product_id) FROM product WHERE %s LIKE ?;""";
-        sql = DynamicSqlConstructor.constructMemberSql(sql, colName, Product.class);
+        sql = DynamicSqlConstructor.constructMemberQuerySql(sql, colName, Product.class);
         return jdbcTemplate.queryForObject(sql, Long.class, "%" + keyword + "%");
     }
 

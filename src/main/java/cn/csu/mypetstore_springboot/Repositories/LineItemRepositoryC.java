@@ -36,7 +36,7 @@ public class LineItemRepositoryC {
         String sql = """
                 SELECT line_item.*, pet_breed.*, product.list_price, product.unit_cost FROM `line_item` WHERE order_id = ? AND %s LIKE ? LIMIT ? OFFSET ?;""";
 
-        sql = DynamicSqlConstructor.constructMemberSql(sql, colName, LineItem.class);
+        sql = DynamicSqlConstructor.constructMemberQuerySql(sql, colName, LineItem.class);
 
         return jdbcTemplate.query(
                 sql,
@@ -76,7 +76,7 @@ public class LineItemRepositoryC {
     public Long countLineItemsByContains(Long orderId, String colName, String keyword) throws NoSuchFieldException {
         String sql = """
                 SELECT COUNT(1) FROM `line_item` WHERE order_id = ? AND %s LIKE ?;""";
-        sql = DynamicSqlConstructor.constructMemberSql(sql, colName, LineItem.class);
+        sql = DynamicSqlConstructor.constructMemberQuerySql(sql, colName, LineItem.class);
         return jdbcTemplate.queryForObject(sql, Long.class, orderId, "%" + keyword + "%");
     }
 

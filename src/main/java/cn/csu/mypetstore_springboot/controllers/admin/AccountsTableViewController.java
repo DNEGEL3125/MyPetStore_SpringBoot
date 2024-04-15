@@ -72,7 +72,7 @@ public class AccountsTableViewController {
     }
 
 
-    @RequestMapping("search/view/maxPageNumber")
+    @RequestMapping("/search/view/maxPageNumber")
     public ResponseEntity<Long> getMaxPageNumber(@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
                                                  @RequestParam(value = "searchFor") String searchFor) {
         Long maxPages = accountService.getMaxPageNumber(ACCOUNTS_PER_PAGE, keyword, searchFor);

@@ -163,12 +163,18 @@ function displaySearchAccountTable(keyword, searchFor, pageNumber = 1) {
         }
     });
 
-
-    $.get("/admin/accounts/search/view/maxPageNumber", function (response) {
-        MAX_PAGES = response;
-        // update button status
-        setCurrentPage(pageNumber);
-    });
+    $.ajax({
+        url: "/admin/accounts/search/view/maxPageNumber",
+        data: jsonData,
+        success: function (response) {
+            MAX_PAGES = response;
+            // update button status
+            setCurrentPage(pageNumber);
+        },
+        error: function (xhr) {
+            showErrorToast(xhr.responseText);
+        }
+    })
 
 }
 

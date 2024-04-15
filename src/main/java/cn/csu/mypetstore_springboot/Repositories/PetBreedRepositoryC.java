@@ -26,7 +26,7 @@ public class PetBreedRepositoryC {
     public List<PetBreed> searchPetBreedsByContains(String colName, String keyword, int limit, int offset) throws NoSuchFieldException {
         String sql = """
                 SELECT * FROM pet_breed WHERE %s LIKE ? LIMIT ? OFFSET ?;""";
-        sql = DynamicSqlConstructor.constructMemberSql(sql, colName, PetBreed.class);
+        sql = DynamicSqlConstructor.constructMemberQuerySql(sql, colName, PetBreed.class);
         return jdbcTemplate.query(
                 sql,
                 BeanPropertyRowMapper.newInstance(PetBreed.class),
@@ -39,7 +39,7 @@ public class PetBreedRepositoryC {
     public Long countPetBreedsByContains(String colName, String keyword) throws NoSuchFieldException {
         String sql = """
                 SELECT COUNT(1) FROM pet_breed WHERE %s LIKE ?;""";
-        sql = DynamicSqlConstructor.constructMemberSql(sql, colName, PetBreed.class);
+        sql = DynamicSqlConstructor.constructMemberQuerySql(sql, colName, PetBreed.class);
         return jdbcTemplate.queryForObject(sql, Long.class, "%" + keyword + "%");
     }
 }

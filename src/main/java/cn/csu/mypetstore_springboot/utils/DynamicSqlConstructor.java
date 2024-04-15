@@ -14,11 +14,11 @@ public class DynamicSqlConstructor {
     /**
      * For example
      *
-     * @param sql
+     * @param sql       query sql statement
      * @param colObject `lineItem.product.petBreed.name` like
      * @return
      */
-    public static String constructMemberSql(String sql, String colObject, Class<?> clazz) throws NoSuchFieldException {
+    public static String constructMemberQuerySql(String sql, String colObject, Class<?> clazz) throws NoSuchFieldException {
         String[] parts = colObject.split("\\.");
         LinkedList<String> sqlParts = new LinkedList<>(List.of(sql.split(" ")));
         int i;

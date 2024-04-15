@@ -37,7 +37,7 @@ public class AccountRepositoryC {
 
     public Long countAccountsByContains(String colName, String keyword) {
         String sql = """
-                SELECT COUNT(id) FROM account WHERE %s LIKE ? LIMIT ? OFFSET ?;""";
+                SELECT COUNT(id) FROM account WHERE %s LIKE ? ;""";
         sql = sql.formatted(colName);
         return jdbcTemplate.queryForObject(sql, Long.class, "%" + keyword + "%");
     }
