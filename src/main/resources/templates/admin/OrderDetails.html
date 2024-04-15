@@ -6,12 +6,12 @@
 <body th:onload="'setOrderId('+${order.orderId}+')'">
 <header th:replace="~{admin/Header}"></header>
 
-<div style="font-size: xx-large; text-align: center">
+<div style="font-size: xx-large; text-align: center; background-color: teal">
     <span th:text="'Order ID: '+${order.orderId}" style="margin-left: 1em"></span>
     <span th:text="'Total revenue: $'+${order.totalPrice}" style="margin-left: 1em"></span>
 </div>
 
-<div style="margin-top: 10px; text-align: center">
+<div style="margin: 10px;">
     <button class="btn btn-secondary" onclick="window.history.back()">Back</button>
     <label for="search-input">Search: </label>
     <input id="search-input">

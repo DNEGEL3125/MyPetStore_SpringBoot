@@ -191,3 +191,7 @@ td.text-right {
     line-height: 0;
     transition: background-color 0.3s; /* Smooth transition on hover */
 }
+
+#search-select-container {
+    text-align: left;
+}
