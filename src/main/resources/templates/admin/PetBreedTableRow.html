@@ -4,7 +4,7 @@
         <select class="category-select" th:id="'categoryId-select-' + ${petBreed.id}"
                 onchange="onInputChanged($(this))">
             <!--/*@thymesVar id="categoriesList" type="java.util.List<cn.csu.mypetstore_springboot.domain.Category>"*/-->
-            <option th:value="${category.id}" th:text="${category.name}"
+            <option th:value="${category.id}" th:text="${category.categoryName}"
                     th:each="category : ${categoriesList}"
                     th:id="'category.name-option-' + ${petBreed.id} + '-' + ${category.id}"
                     th:selected="${petBreed.categoryId == category.id}">

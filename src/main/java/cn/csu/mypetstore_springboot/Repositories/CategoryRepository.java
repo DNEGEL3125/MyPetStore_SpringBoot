@@ -18,7 +18,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     @Query("""
             SELECT NEW cn.csu.mypetstore_springboot.DTO.CategorySalesDTO(
-            c.name,
+            c.categoryName,
             SUM(o.totalPrice)
             ) FROM Order o
             INNER JOIN LineItem li ON o.orderId = li.orderId

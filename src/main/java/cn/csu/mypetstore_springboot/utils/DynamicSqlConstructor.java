@@ -73,9 +73,16 @@ public class DynamicSqlConstructor {
             curTableName = joinTableName;
         }
 
+        if (parts.length == 1) {
+            return String.join(" ", sqlParts).formatted(parts[0]);
+        }
+
+        String ownerCol = CamelToSnakeConverter.camelToSnake(parts[parts.length - 2]);
+        String attrCol = CamelToSnakeConverter.camelToSnake(parts[parts.length - 1]);
+
         // If parts = [category, name], parts[parts.length - 2] + '.' + parts[parts.length - 1] = category.name
         return String.join(" ", sqlParts)
-                .formatted(parts[parts.length - 2] + '.' + parts[parts.length - 1]);
+                .formatted(ownerCol + '.' + attrCol);
     }
 
     private static Field findIdField(Class<?> clazz) {

@@ -63,9 +63,13 @@ public class PetBreedService {
             return new ArrayList<>();
         }
 
-        String colName = CamelToSnakeConverter.camelToSnake(searchFor);
 
-        return petBreedRepositoryC.searchPetBreedsByContains(colName, keyword, limit, offset);
+        try {
+            return petBreedRepositoryC.searchPetBreedsByContains(searchFor, keyword, limit, offset);
+        } catch (NoSuchFieldException e) {
+            logger.error(e.toString());
+            return new ArrayList<>();
+        }
     }
 
     public Long getMaxPageNumber(int limit) {
@@ -84,9 +88,12 @@ public class PetBreedService {
             return 1L;
         }
 
-        String colName = CamelToSnakeConverter.camelToSnake(searchFor);
-
-        Long countedAccountsByContains = petBreedRepositoryC.countPetBreedsByContains(colName, keyword);
+        Long countedAccountsByContains = 1L;
+        try {
+            countedAccountsByContains = petBreedRepositoryC.countPetBreedsByContains(searchFor, keyword);
+        } catch (NoSuchFieldException e) {
+            logger.error(e.toString());
+        }
         return (countedAccountsByContains - 1) / limit + 1;
     }
 

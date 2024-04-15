@@ -1,6 +1,7 @@
 package cn.csu.mypetstore_springboot.Repositories;
 
 import cn.csu.mypetstore_springboot.domain.PetBreed;
+import cn.csu.mypetstore_springboot.utils.DynamicSqlConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -22,10 +23,10 @@ public class PetBreedRepositoryC {
      * @param keyword Search keyword
      * @return List of PetBreed
      */
-    public List<PetBreed> searchPetBreedsByContains(String colName, String keyword, int limit, int offset) {
+    public List<PetBreed> searchPetBreedsByContains(String colName, String keyword, int limit, int offset) throws NoSuchFieldException {
         String sql = """
                 SELECT * FROM pet_breed WHERE %s LIKE ? LIMIT ? OFFSET ?;""";
-        sql = sql.formatted(colName);
+        sql = DynamicSqlConstructor.constructMemberSql(sql, colName, PetBreed.class);
         return jdbcTemplate.query(
                 sql,
                 BeanPropertyRowMapper.newInstance(PetBreed.class),
@@ -35,10 +36,10 @@ public class PetBreedRepositoryC {
         );
     }
 
-    public Long countPetBreedsByContains(String colName, String keyword) {
+    public Long countPetBreedsByContains(String colName, String keyword) throws NoSuchFieldException {
         String sql = """
-                SELECT COUNT(id) FROM pet_breed WHERE %s LIKE ? LIMIT ? OFFSET ?;""";
-        sql = sql.formatted(colName);
+                SELECT COUNT(1) FROM pet_breed WHERE %s LIKE ?;""";
+        sql = DynamicSqlConstructor.constructMemberSql(sql, colName, PetBreed.class);
         return jdbcTemplate.queryForObject(sql, Long.class, "%" + keyword + "%");
     }
 }

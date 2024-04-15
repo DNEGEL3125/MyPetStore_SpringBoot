@@ -27,7 +27,7 @@ CREATE TABLE `account`
     `first_name`          varchar(80) NOT NULL,
     `last_name`           varchar(80) NOT NULL,
     `status`              INT                  DEFAULT 0,
-    address              varchar(80) NOT NULL,
+    address               varchar(80) NOT NULL,
     `city`                varchar(80) NOT NULL,
     `state`               varchar(80) NOT NULL,
     `zip`                 varchar(20) NOT NULL,
@@ -61,9 +61,9 @@ CREATE TABLE `bannerdata`
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category`
 (
-    id         BIGINT PRIMARY KEY AUTO_INCREMENT,
-    `name`     varchar(80) DEFAULT NULL,
-    image_path varchar(255)
+    id              BIGINT PRIMARY KEY AUTO_INCREMENT,
+    `category_name` varchar(80) DEFAULT NULL,
+    image_path      varchar(255)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 

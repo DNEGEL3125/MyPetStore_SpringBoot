@@ -57,7 +57,7 @@ VALUES ('REPTILES', '<image src=\"/images/banner_reptiles.gif\">');
 -- ----------------------------
 -- Records of category
 -- ----------------------------
-INSERT INTO `category`(id, name, image_path)
+INSERT INTO `category`(id, category_name, image_path)
 VALUES (@BIRD, 'Birds', '/images/birds_icon.gif');
 INSERT INTO `category`
 VALUES (@CAT, 'Cats', '/images/cats_icon.gif');

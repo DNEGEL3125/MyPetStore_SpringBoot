@@ -16,6 +16,8 @@ public class PetBreed implements Serializable {
     private Long id;
     @Column(name = "category_id")
     private Long categoryId;
+
+    @Column(name = "name")
     private String name;
     private String description;
     private String imagePath;

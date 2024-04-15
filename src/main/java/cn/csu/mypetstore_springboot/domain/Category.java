@@ -1,9 +1,6 @@
 package cn.csu.mypetstore_springboot.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -14,19 +11,20 @@ public class Category implements Serializable {
     @Serial
     private static final long serialVersionUID = 3992469837058393712L;
 
-    private String name;
+    @Column(name = "category_name")
+    private String categoryName;
     private String imagePath;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 
-    public String getName() {
-        return name;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCategoryName(String name) {
+        this.categoryName = name;
     }
 
     public void setId(Long id) {
