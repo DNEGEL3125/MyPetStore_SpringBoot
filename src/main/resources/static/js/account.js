@@ -85,8 +85,8 @@ $(document).ready(function () {
 
     // keydown event of search-input
     $("#search-input").keypress(function (ev) {
-        if (ev.keyCode === 13) {
-            displaySearchAccountTable($(this).val(), $(`#select-search-for`).val());
+        if (ev.key === "Enter") {
+            onSearchAccountBtnClicked();
         }
     });
 
@@ -124,7 +124,7 @@ function displayAccountTable(pageNumber = 1) {
     $.get("/admin/accounts/view/maxPageNumber", function (response) {
         MAX_PAGES = response;
         // update button status
-        setCurrentPage(currentPage);
+        setCurrentPage(pageNumber);
     });
 }
 
@@ -167,7 +167,7 @@ function displaySearchAccountTable(keyword, searchFor, pageNumber = 1) {
     $.get("/admin/accounts/search/view/maxPageNumber", function (response) {
         MAX_PAGES = response;
         // update button status
-        setCurrentPage(currentPage);
+        setCurrentPage(pageNumber);
     });
 
 }
