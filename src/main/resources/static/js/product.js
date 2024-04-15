@@ -162,21 +162,23 @@ $(document).ready(function () {
     pagePreviousBtn.prop("disabled", true);
     pageNextBtn.prop("disabled", true);
 
-
+    $("#product-table-form").submit(function (event) {
+        event.preventDefault();
+    });
 });
 
 function onAttributesBtnClick($targetButton) {
     const productId = $targetButton.attr("id").split("-")[2];
     getProductAttributeListHtml(productId)
         .then(function (productAttributeListHtml) {
-        showModal(
-            productAttributeListHtml,
-            "Product Attributes",
-            "Save changes",
-            sendProductAttributeChanges,
-            resetAttrInputChanges
-        );
-    })
+            showModal(
+                productAttributeListHtml,
+                "Product Attributes",
+                "Save changes",
+                sendProductAttributeChanges,
+                resetAttrInputChanges
+            );
+        })
 }
 
 function displayProductTable(pageNumber = 1) {
