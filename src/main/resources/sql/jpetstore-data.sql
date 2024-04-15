@@ -271,9 +271,9 @@ VALUES (@Labrador_Retriever_id, @FISH, 'Koi', 'Fresh Water fish from Japan', '/i
 INSERT INTO pet_breed (id, category_id, name, description, image_path)
 VALUES (@Manx_id, @FISH, 'Goldfish', 'Fresh Water fish from China', '/images/fish2.gif');
 INSERT INTO pet_breed (id, category_id, name, description, image_path)
-VALUES (@Persian_id, @FISH, 'Angelfish', 'Salt Water fish from Australia', '/images/fish1.jpg');
+VALUES (@Persian_id, @FISH, 'Angelfish', 'Salt Water fish from Australia', '/images/fish1.gif');
 INSERT INTO pet_breed (id, category_id, name, description, image_path)
-VALUES (@Poodle_id, @FISH, 'Tiger Shark', 'Salt Water fish from Australia', '/images.fish4.gif');
+VALUES (@Poodle_id, @FISH, 'Tiger Shark', 'Salt Water fish from Australia', '/images/fish4.gif');
 INSERT INTO pet_breed (id, category_id, name, description, image_path)
 VALUES (@Bulldog_id, @CAT, 'Persian', 'Friendly house cat, doubles as a princess', '/images/cat1.gif');
 INSERT INTO pet_breed (id, category_id, name, description, image_path)

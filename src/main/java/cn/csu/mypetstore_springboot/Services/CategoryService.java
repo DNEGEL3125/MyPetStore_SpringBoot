@@ -29,6 +29,10 @@ public class CategoryService {
         return categoryRepository.getCategoriesByLimitAndOffset(limit, offset);
     }
 
+    public List<Category> getCategories() {
+        return categoryRepository.findAll();
+    }
+
     public List<CategorySalesDTO> getCategorySalesData(String timeScale) {
         List<CategorySalesDTO> categorySalesData = new ArrayList<>();
         LocalDate dateNow = LocalDate.now();
@@ -38,7 +42,7 @@ public class CategoryService {
             return categoryRepository.getCategorySalesData();
         }
 
-        if (timeScale.toLowerCase().equals("year")) {//                categorySalesData = categoryRepository.getCategorySalesData();
+        if (timeScale.equalsIgnoreCase("year")) {//                categorySalesData = categoryRepository.getCategorySalesData();
         }
 
         return categorySalesData;

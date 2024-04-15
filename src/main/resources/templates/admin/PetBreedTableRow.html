@@ -1,0 +1,37 @@
+<!--/*@thymesVar id="petBreedsList" type="java.util.List<cn.csu.mypetstore_springboot.domain.PetBreed>"*/-->
+<tr th:each="petBreed:${petBreedsList}">
+    <td>
+        <select class="category-select" th:id="'categoryId-select-' + ${petBreed.id}"
+                onchange="onInputChanged($(this))">
+            <!--/*@thymesVar id="categoriesList" type="java.util.List<cn.csu.mypetstore_springboot.domain.Category>"*/-->
+            <option th:value="${category.id}" th:text="${category.name}"
+                    th:each="category : ${categoriesList}"
+                    th:id="'category.name-option-' + ${petBreed.id} + '-' + ${category.id}"
+                    th:selected="${petBreed.categoryId == category.id}">
+                <!-- Use th:selected to set the selected option -->
+            </option>
+        </select>
+    </td>
+    <td>
+        <input th:if="${editable}" th:id="'name-input-' + ${petBreed.id}" th:value="${petBreed.name}"
+               oninput="onInputChanged($(this))" required>
+        <span th:if="${not editable}" th:text="${petBreed.name}">
+        </span>
+    </td>
+    <td>
+        <textarea th:if="${editable}" th:id="'description-input-' + ${petBreed.id}" th:text="${petBreed.description}"
+                  oninput="onInputChanged($(this))" class="long-text-input" required></textarea>
+
+        <span th:if="${not editable}" th:text="${petBreed.description}"></span>
+    </td>
+    <td>
+        <img src="/images/error/image_error.png" th:src="${petBreed.imagePath}" alt="Image of the pet breed">
+        <div>
+            <input type="file" class="image-input" accept="image/*">
+            <button class="btn btn-primary" onclick="uploadPetBreedImg($(this))"
+                    th:id="'upload-image-btn-' + ${petBreed.id}" type="button">Upload Image
+            </button>
+        </div>
+    </td>
+
+</tr>

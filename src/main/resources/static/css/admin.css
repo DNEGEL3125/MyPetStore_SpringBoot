@@ -179,3 +179,7 @@ td.text-right {
 #toasts-container {
     z-index: 99999999;
 }
+
+.long-text-input {
+    width: 100%;
+}

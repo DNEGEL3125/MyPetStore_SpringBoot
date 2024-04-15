@@ -12,5 +12,7 @@ spring:
     hikari:
       jdbc-url: jdbc:mysql://localhost:3306/my_pet_store
       username: root
-
+  servlet:
+    multipart:
+      max-file-size: 20MB
 
