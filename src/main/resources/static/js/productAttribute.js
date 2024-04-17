@@ -24,27 +24,27 @@ function deleteAttributeByBtn($btnField) {
     $btnField.parent().remove();
 }
 
-function solveAddAttributeBtnClick($addAttributeBtn) {
+
+const solveAddAttributeBtnClick = (function () {
     let newAttrIdCnt = 1;
-    const $attributesUl = $addAttributeBtn.siblings("ul");
-    const productId = $attributesUl.attr("id").split('-')[2];
-    $addAttributeBtn.click(function () {
+    return async function ($addAttributeBtn) {
+        const $attributesUl = $addAttributeBtn.siblings("ul");
+        const productId = $attributesUl.attr('id').split('-')[2];
         const showAttrLiId = `show-attr-li-${productId}new${newAttrIdCnt}`;
         const attrInputId = `attr-input-${productId}new${newAttrIdCnt}`;
         const deleteAttrBtnId = `delete-attr-btn-${productId}new${newAttrIdCnt}`;
-        const liHtml = `
-        <li id='${showAttrLiId}' class="attr-item">
-            <input class="attr-input" id="${attrInputId}" oninput="onAttrInputChanged($(this))">
-            <button id="${deleteAttrBtnId}"
-                class="btn delete-attr-btn btn-danger" 
-                onclick="deleteAttributeByBtn($(this))">
-     -
-     </button>
-     </li>
-        `;
-        $attributesUl.append(liHtml);
+        const liHtml = await $.get(`/admin/product-attributes/view/list/li/productId/${productId}`);
 
-        const $newAttrInput = $attributesUl.find("#" + attrInputId);
+        const $liHtml = $(liHtml);
+
+        console.log(liHtml);
+        console.log($liHtml)
+        $attributesUl.append($liHtml);
+
+        $liHtml.attr('id', showAttrLiId);
+        const $newAttrInput = $liHtml.find('.attr-input');
+        $newAttrInput.attr('id', attrInputId);
+        $liHtml.find('.delete-attr-btn').attr('id', deleteAttrBtnId);
 
         $newAttrInput.focus();
 
@@ -59,8 +59,8 @@ function solveAddAttributeBtnClick($addAttributeBtn) {
             }
         });
         newAttrIdCnt++;
-    });
-}
+    }
+})();
 
 function sendProductAttributeChanges() {
     if (Object.keys(productAttrContentChangedMap).length === 0) {

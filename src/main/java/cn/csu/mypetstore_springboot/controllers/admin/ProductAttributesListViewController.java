@@ -1,6 +1,7 @@
 package cn.csu.mypetstore_springboot.controllers.admin;
 
 import cn.csu.mypetstore_springboot.Services.ProductAttributeService;
+import cn.csu.mypetstore_springboot.domain.Product;
 import cn.csu.mypetstore_springboot.domain.ProductAttribute;
 import cn.csu.mypetstore_springboot.utils.BasicTypeHelper;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +48,18 @@ public class ProductAttributesListViewController {
         model.addAttribute("attributesList", productAttributes);
         model.addAttribute("productId", productId);
         return "admin/ProductAttributeList";
+    }
+
+    @RequestMapping("/view/list/li/productId/{productId}")
+    public String getProductAttributeLi(Model model, @PathVariable Long productId) {
+        ArrayList<ProductAttribute> productAttributes = new ArrayList<>();
+        ProductAttribute productAttribute = new ProductAttribute();
+        productAttribute.setProductId(productId);
+        productAttributes.add(productAttribute);
+        model.addAttribute("attributesList", productAttributes);
+        model.addAttribute("productId", productId);
+
+        return "admin/ProductAttributeLi";
     }
 
     @RequestMapping("/update")

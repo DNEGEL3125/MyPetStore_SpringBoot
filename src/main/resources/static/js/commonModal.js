@@ -16,7 +16,6 @@ function showModal(htmlBody, title = "", yesBtnText = "OK", yesFunction = null, 
         // 关闭时消除之前设置的点击事件，防止多重事件触发
         $yesBtn.off("click");
         $closeBtn.off("click");
-        $modal.modal("hide");
     }).text(yesBtnText);
     if (yesFunction)
         $yesBtn.click(yesFunction);
@@ -26,7 +25,6 @@ function showModal(htmlBody, title = "", yesBtnText = "OK", yesFunction = null, 
         // 关闭时消除之前设置的点击事件，防止多重事件触发
         $yesBtn.off("click");
         $closeBtn.off("click");
-        $modal.modal("hide");
     });
 
 }
