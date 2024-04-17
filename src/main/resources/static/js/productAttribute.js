@@ -37,8 +37,6 @@ const solveAddAttributeBtnClick = (function () {
 
         const $liHtml = $(liHtml);
 
-        console.log(liHtml);
-        console.log($liHtml)
         $attributesUl.append($liHtml);
 
         $liHtml.attr('id', showAttrLiId);

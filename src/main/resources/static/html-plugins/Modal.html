@@ -3,7 +3,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabel">Modal Title</h4>
-                <button type="button" class="close btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" class="close btn" data-dismiss="modal" aria-hidden="true"
+                        onclick="$(this).closest('.modal').modal('toggle')">&times;
+                </button>
             </div>
             <div class="modal-body">Fail to display content</div>
             <div class="modal-footer">

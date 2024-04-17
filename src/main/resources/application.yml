@@ -4,6 +4,7 @@ spring:
 
   jpa:
     database: mysql
+    open-in-view: false
 
   datasource:
     url:
