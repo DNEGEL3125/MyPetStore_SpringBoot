@@ -20,9 +20,15 @@ public class ServerLogController {
         this.logService = logService;
     }
 
-    @RequestMapping("/offset/{offset}")
-    ResponseEntity<List<Log>> getLogs(@PathVariable int offset) {
-        List<Log> logs = logService.getLogs(DEFAULT_LOGS_CNT, offset);
+    @RequestMapping("/id-before/{id}")
+    ResponseEntity<List<Log>> getLogs(@PathVariable Long id) {
+        List<Log> logs = logService.getLogs(DEFAULT_LOGS_CNT, id);
+        return ResponseEntity.ok(logs);
+    }
+
+    @RequestMapping("/id-after/{id}")
+    ResponseEntity<List<Log>> getNewestLogs(@PathVariable Long id) {
+        List<Log> logs = logService.getNewestLogs(id);
         return ResponseEntity.ok(logs);
     }
 

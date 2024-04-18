@@ -14,7 +14,11 @@ public class LogService {
         this.logRepository = logRepository;
     }
 
-    public List<Log> getLogs(int limit, int offset) {
-        return logRepository.getByLimitAndOffset(limit, offset);
+    public List<Log> getLogs(int limit, Long id) {
+        return logRepository.getByIdBeforeAndLimit(id, limit);
+    }
+
+    public List<Log> getNewestLogs(Long idAfter) {
+        return logRepository.getByIdAfter(idAfter);
     }
 }

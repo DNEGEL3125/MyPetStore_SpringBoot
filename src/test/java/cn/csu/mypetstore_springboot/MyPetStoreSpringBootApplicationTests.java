@@ -21,7 +21,7 @@ class MyPetStoreSpringBootApplicationTests {
     @Test
     void contextLoads() {
         Long accountCount = accountService.getAccountCount();
-        logger.info(accountCount.toString());
+        logger.error(accountCount.toString());
     }
 
 }

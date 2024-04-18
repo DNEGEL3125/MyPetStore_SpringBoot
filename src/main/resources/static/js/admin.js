@@ -1,4 +1,5 @@
-let logsViewOffset = 0;
+let logsViewMinId = Number.MAX_SAFE_INTEGER;
+let logsViewMaxId = -1;
 
 function stopServer() {
     const recheckHtml = `
@@ -103,14 +104,34 @@ function logOut() {
 }
 
 const putLogsToLogsView = function () {
-    return function (logs) {
+    return function (logs, putOn = 'top') {
+
+
         const logsView = document.getElementById("logs-view");
         const $logsView = $(logsView)
+
+        let putFunc;
+        switch (putOn.toLowerCase()) {
+            case "top":
+                putFunc = $logsView.prepend.bind($logsView);
+                break;
+            case 'bottom':
+                putFunc = $logsView.append.bind($logsView);
+                break;
+            default:
+                throw new Error(`Unknown putOn '${putOn}'`)
+        }
+
         const preScrollHeight = logsView.scrollHeight;
         const preScrollTop = $logsView.scrollTop();
         for (const log of logs) {
-            const lineStr = [log.timestamp, log['level'], log['loggerName'], log.message].join(" |");
-            $logsView.prepend(`<div>${lineStr}</div>`);
+            const lineArray = [];
+            lineArray.push(new Date(log.timestamp));
+            lineArray.push(`<span class="log-${log['level'].toLowerCase()}">${log['level']}</span>`)
+            lineArray.push(`<span style="color: limegreen">${log['loggerName']}</span>`)
+            lineArray.push(log.message);
+            const lineStr = lineArray.join(" |");
+            putFunc(`<div>${lineStr}</div>`);
         }
 
         // 通过修改Scroll，让用户所看到的内容不发生改变
@@ -119,19 +140,19 @@ const putLogsToLogsView = function () {
 }();
 
 const loadMoreLogs = function () {
-    let lastOffset = -1;
+    let lastId = -1;
     return function () {
         // 重复加载
-        if (logsViewOffset <= lastOffset) {
+        if (logsViewMinId === lastId && logsViewMinId !== Number.MAX_SAFE_INTEGER) {
             return;
         }
-        lastOffset = logsViewOffset;
-        console.log(`load more logs, offset = ${logsViewOffset}`);
+        lastId = logsViewMinId;
+        console.log(`load more logs, minId = ${logsViewMinId}`);
         $.ajax({
-            url: `/admin/log/offset/${logsViewOffset}`,
+            url: `/admin/log/id-before/${logsViewMinId}`,
             success: function (response) {
                 putLogsToLogsView(response);
-                logsViewOffset += response.length;
+                logsViewMinId = response[response.length - 1]['id'];
             },
             error: function () {
                 showErrorToast("Fail to load logs");
@@ -139,6 +160,28 @@ const loadMoreLogs = function () {
         });
     }
 }();
+
+const loadNewestLogs = function () {
+    return function () {
+        $.ajax({
+            url: `/admin/log/id-after/${logsViewMaxId}`,
+            success: function (response) {
+                putLogsToLogsView(response, 'bottom');
+                logsViewMaxId = response[response.length - 1]['id'];
+            },
+            error: function () {
+                showErrorToast("Fail to load newest logs");
+            }
+        });
+    }
+}();
+
+function reloadLogs() {
+    $("#logs-view").empty();
+    logsViewMinId = Number.MAX_SAFE_INTEGER;
+    logsViewMaxId = -1;
+    loadMoreLogs();
+}
 
 $(document).ready(function () {
     const logsView = document.getElementById("logs-view");

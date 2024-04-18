@@ -6,7 +6,7 @@
 <body>
 <header th:replace="~{admin/Header}"></header>
 
-<h1 th:text="'你好，' + ${admin.username}"></h1>
+<h1 th:text="'你好，' + ${admin.username}" style="padding: 1rem"></h1>
 
 <div>
     <table id="small-order-table" class="table table-striped table-bordered small-table">
@@ -54,9 +54,16 @@
 </div>
 
 <!--Display server logs-->
-<pre id="logs-view">
+<div id="logs-view-container">
+    <div id="logs-view-title">Log Terminal</div>
+    <ul class="menu-bar">
+        <li>
+            <button onclick="reloadLogs()">Reload</button>
+        </li>
+    </ul>
+    <pre id="logs-view"></pre>
+</div>
 
-</pre>
 
 <button class="btn btn-primary" onclick="showAddAdminModal()">Add Administrator</button>
 
