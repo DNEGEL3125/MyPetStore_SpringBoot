@@ -38,7 +38,7 @@ function renewVerificationCode() {
         },
         error: function (xhr, status, error) {
             // Handle errors
-            console.error('Error:', error);
+            console.error(error);
         }
     });
 }

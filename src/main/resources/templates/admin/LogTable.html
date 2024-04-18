@@ -1,0 +1,12 @@
+<table id="log-table" class="table table-striped table-bordered" th:fragment="log-table">
+    <thead>
+    <tr>
+        <th>Time</th>
+        <th>Level</th>
+        <th>Logger Name</th>
+        <th>Message</th>
+    </tr>
+    </thead>
+    <tbody th:insert="~{admin/OrderTableRow}">
+    </tbody>
+</table>

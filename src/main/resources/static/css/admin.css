@@ -107,7 +107,13 @@ tr {
     text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
 }
 
-tr:hover td {
+/*tr:hover td {*/
+/*    background: #4E5066;*/
+/*    color: #FFFFFF;*/
+/*    border-top: 1px solid #22262e;*/
+/*}*/
+
+td:hover {
     background: #4E5066;
     color: #FFFFFF;
     border-top: 1px solid #22262e;
@@ -194,4 +200,11 @@ td.text-right {
 
 #search-select-container {
     text-align: left;
+}
+
+#logs-view {
+    margin: 2em;
+    background-color: #22262e;
+    color: whitesmoke;
+    height: 20rem;
 }

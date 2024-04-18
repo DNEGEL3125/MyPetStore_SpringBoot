@@ -1,0 +1,7 @@
+<!--/*@thymesVar id="logsList" type="java.util.List<cn.csu.mypetstore_springboot.domain.Log>"*/-->
+<tr th:each="log:${logsList}">
+    <td th:text="${log.timestamp}"></td>
+    <td th:text="${log.level}"></td>
+    <td th:text="${log.loggerName}"></td>
+    <td th:text="${log.message}"></td>
+</tr>

@@ -6442,7 +6442,7 @@ function mergeScaleConfig(config, options) {
   Object.keys(configScales).forEach(id => {
     const scaleConf = configScales[id];
     if (!isObject(scaleConf)) {
-      return console.error(`Invalid scale configuration for scale: ${id}`);
+      return console.error();
     }
     if (scaleConf._proxy) {
       return console.warn(`Ignoring resolver passed as options for scale: ${id}`);
@@ -6794,7 +6794,7 @@ class Chart {
     this._dataChanges = [];
     instances[this.id] = this;
     if (!context || !canvas) {
-      console.error("Failed to create chart: can't acquire context from the given item");
+      console.error();
       return;
     }
     animator.listen(this, 'complete', onAnimationsComplete);

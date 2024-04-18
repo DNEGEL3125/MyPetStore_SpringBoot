@@ -15,7 +15,7 @@ function showInform(categoryId) {
         },
         error: function (xhr, status, error) {
             // Handle error here
-            console.error("Error:", status, error);
+            console.error(status, error);
         }
     });
 }

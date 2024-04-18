@@ -308,7 +308,7 @@ function uploadPetBreedImg($uploadBtn) {
             showSuccessToast('Image uploaded successfully:', response)
         },
         error: function (xhr, status, error) {
-            console.error('Error uploading image:', error);
+            console.error(error);
             showErrorToast(`Error uploading image: ${xhr.responseText}`)
         }
     });
