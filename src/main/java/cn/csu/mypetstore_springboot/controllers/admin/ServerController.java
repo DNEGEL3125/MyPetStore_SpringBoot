@@ -1,7 +1,7 @@
 package cn.csu.mypetstore_springboot.controllers.admin;
 
 import cn.csu.mypetstore_springboot.Interceptors.RequestStopInterceptor;
-import cn.csu.mypetstore_springboot.Services.admin.LoginService;
+import cn.csu.mypetstore_springboot.Services.admin.AdminLoginService;
 import cn.csu.mypetstore_springboot.domain.Admin;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class ServerController {
 
     private final RequestStopInterceptor requestStopInterceptor;
-    private final LoginService loginService;
+    private final AdminLoginService adminLoginService;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public ServerController(RequestStopInterceptor requestStopInterceptor, LoginService loginService) {
+    public ServerController(RequestStopInterceptor requestStopInterceptor, AdminLoginService adminLoginService) {
         this.requestStopInterceptor = requestStopInterceptor;
-        this.loginService = loginService;
+        this.adminLoginService = adminLoginService;
     }
 
     @PostMapping("/admin/stopRequests")
@@ -27,7 +27,7 @@ public class ServerController {
         Admin admin = (Admin) session.getAttribute("admin");
         if (admin == null) {
             return ResponseEntity.badRequest().body("Not login");
-        } else if (!loginService.verifyPassword(password, admin.getPassword())) {
+        } else if (!adminLoginService.verifyPassword(password, admin.getPassword())) {
             return ResponseEntity.badRequest().body("Password is wrong");
         }
         logger.info("`%s` pause the server".formatted(admin));

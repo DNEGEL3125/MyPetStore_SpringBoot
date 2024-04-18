@@ -1,8 +1,7 @@
 package cn.csu.mypetstore_springboot.controllers.admin;
 
 import cn.csu.mypetstore_springboot.Services.VerificationCodeService;
-import cn.csu.mypetstore_springboot.Services.admin.LoginService;
-import cn.csu.mypetstore_springboot.domain.Admin;
+import cn.csu.mypetstore_springboot.Services.admin.AdminLoginService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.*;
@@ -14,17 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin/login")
 public class LoginController {
     private final VerificationCodeService verificationCodeService;
-    private final LoginService loginService;
+    private final AdminLoginService adminLoginService;
 
 
-    public LoginController(VerificationCodeService verificationCodeService, LoginService loginService) {
+    public LoginController(VerificationCodeService verificationCodeService, AdminLoginService adminLoginService) {
         this.verificationCodeService = verificationCodeService;
-        this.loginService = loginService;
+        this.adminLoginService = adminLoginService;
     }
 
     @RequestMapping
     public ResponseEntity<String> login(String password, String username, String vCode, HttpSession session, HttpServletRequest request) {
-        return loginService.login(username, password, vCode, request, session);
+        return adminLoginService.login(username, password, vCode, request, session);
     }
 
     @RequestMapping("/form/view")

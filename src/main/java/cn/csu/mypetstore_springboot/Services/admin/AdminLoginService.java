@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class LoginService {
+public class AdminLoginService {
     private final AdminRepository adminRepository;
 
     private final PasswordEncoder passwordEncoder;
@@ -19,7 +19,7 @@ public class LoginService {
     private static Admin defaultAdmin = new Admin();
 
 
-    public LoginService(AdminRepository adminRepository, PasswordEncoder passwordEncoder) {
+    public AdminLoginService(AdminRepository adminRepository, PasswordEncoder passwordEncoder) {
         this.adminRepository = adminRepository;
         this.passwordEncoder = passwordEncoder;
 
@@ -38,7 +38,7 @@ public class LoginService {
         String rightVCode = (String) session.getAttribute("v-code");
         // 验证码错误
         if (!verificationCode.equals(rightVCode)) {
-            log.info(
+            log.warn(
                     "User with IP {} failed to log in using (username={}, password={}, verification code={}) because given verification code '{}' != '{}'",
                     ipAddress,
                     username,
@@ -54,7 +54,7 @@ public class LoginService {
 
         // 没有username对应的管理员
         if (adminByUsername == null) {
-            log.info(
+            log.warn(
                     "User with IP {} failed to log in using (username={}, password={}) because given username '{}' doesn't exist",
                     ipAddress,
                     username,
@@ -66,7 +66,7 @@ public class LoginService {
         // 密码是否匹配
         boolean isPasswordMatch = verifyPassword(password, adminByUsername.getPassword());
         if (!isPasswordMatch) {
-            log.info(
+            log.warn(
                     "User with IP {} failed to log in using (username={}, password={}) because given password '{}' is wrong",
                     ipAddress,
                     username,
@@ -77,6 +77,7 @@ public class LoginService {
 
         // 利用session记录登录的管理员
         session.setAttribute("admin", adminByUsername);
+        log.info("{} has logged in", adminByUsername);
 
         return ResponseEntity.ok("Log in successfully!");
     }
