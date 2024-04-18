@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true" debug="true">
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+    <!-- 写入到数据库 -->
+    <appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
+        <sqlDialect class="ch.qos.logback.core.db.dialect.MySQLDialect"/>
+        <connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource">
+            <dataSource class="com.mchange.v2.c3p0.ComboPooledDataSource">
+                <driverClass>com.mysql.cj.jdbc.Driver</driverClass>
+                <jdbcUrl>jdbc:mysql://127.0.0.1:3306/my_pet_store</jdbcUrl>
+                <user>root</user> <!-- 数据库用户名 -->
+                <password/> <!-- 密码 -->
+            </dataSource>
+        </connectionSource>
+    </appender>
+
+
+    <!-- 控制日志输出级别 -->
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="DB"/>
+    </root>
+</configuration>

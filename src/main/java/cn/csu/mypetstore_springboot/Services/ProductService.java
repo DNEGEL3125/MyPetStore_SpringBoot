@@ -5,6 +5,7 @@ import cn.csu.mypetstore_springboot.Repositories.ProductRepositoryC;
 import cn.csu.mypetstore_springboot.domain.Product;
 import cn.csu.mypetstore_springboot.utils.CamelToSnakeConverter;
 import cn.csu.mypetstore_springboot.utils.ObjectFieldCopier;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Service
 public class ProductService {
     private final static String AVAILABLE_SEARCH_FOR_REGEX = "[a-zA-Z0-9_.]+";
@@ -21,7 +23,7 @@ public class ProductService {
     private final ProductRepositoryC productRepositoryC;
 
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
+//    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public ProductService(ProductRepository productRepository, ProductRepositoryC productRepositoryC) {
         this.productRepository = productRepository;
@@ -51,7 +53,7 @@ public class ProductService {
 
         boolean isValid = searchFor.matches(AVAILABLE_SEARCH_FOR_REGEX);
         if (!isValid) {
-            logger.info("searchFor='%s' in searchProducts doesn't match %s"
+            log.info("searchFor='%s' in searchProducts doesn't match %s"
                     .formatted(searchFor, AVAILABLE_SEARCH_FOR_REGEX));
             return new ArrayList<>();
         }
@@ -60,7 +62,7 @@ public class ProductService {
         try {
             return productRepositoryC.searchProductsByContains(searchFor, keyword, limit, offset);
         } catch (NoSuchFieldException e) {
-            logger.error(e.toString());
+            log.error(e.toString());
             return new ArrayList<>();
         }
     }
@@ -103,7 +105,7 @@ public class ProductService {
                 productRepository.save(product);
             }
         } catch (Exception e) {
-            logger.error(e.toString());
+            log.error(e.toString());
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 
@@ -121,7 +123,7 @@ public class ProductService {
 
         boolean isValid = searchFor.matches(AVAILABLE_SEARCH_FOR_REGEX);
         if (!isValid) {
-            logger.info("searchFor='%s' in getMaxPageNumber doesn't match %s"
+            log.info("searchFor='%s' in getMaxPageNumber doesn't match %s"
                     .formatted(searchFor, AVAILABLE_SEARCH_FOR_REGEX));
             return 1L;
         }
@@ -132,7 +134,7 @@ public class ProductService {
         try {
             recordsCount = productRepositoryC.countProductsByContains(searchFor, keyword);
         } catch (NoSuchFieldException e) {
-            logger.error("getMaxPageNumber " + e.getMessage());
+            log.error("getMaxPageNumber " + e.getMessage());
         }
 
 //        if (colName.startsWith("pet_breed.")) {

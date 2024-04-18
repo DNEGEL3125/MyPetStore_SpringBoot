@@ -3,11 +3,9 @@ package cn.csu.mypetstore_springboot.controllers.admin;
 import cn.csu.mypetstore_springboot.Services.VerificationCodeService;
 import cn.csu.mypetstore_springboot.Services.admin.LoginService;
 import cn.csu.mypetstore_springboot.domain.Admin;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,28 +16,15 @@ public class LoginController {
     private final VerificationCodeService verificationCodeService;
     private final LoginService loginService;
 
+
     public LoginController(VerificationCodeService verificationCodeService, LoginService loginService) {
         this.verificationCodeService = verificationCodeService;
         this.loginService = loginService;
     }
 
     @RequestMapping
-    public ResponseEntity<String> login(String password, String username, String vCode, HttpSession session) {
-        ResponseEntity<String> returnVal;
-        if (!vCode.equals(session.getAttribute("v-code"))) {
-            returnVal = ResponseEntity.badRequest().body("Wrong verification code");
-        } else {
-            Admin admin = loginService.login(username, password);
-            if (admin == null) {
-                returnVal = ResponseEntity.badRequest().body("Incorrect username or password");
-            } else {
-                returnVal = ResponseEntity.ok("Log in successfully!");
-                session.setAttribute("admin", admin);
-            }
-        }
-
-        session.removeAttribute("v-code");
-        return returnVal;
+    public ResponseEntity<String> login(String password, String username, String vCode, HttpSession session, HttpServletRequest request) {
+        return loginService.login(username, password, vCode, request, session);
     }
 
     @RequestMapping("/form/view")

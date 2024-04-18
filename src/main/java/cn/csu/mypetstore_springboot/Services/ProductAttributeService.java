@@ -2,6 +2,7 @@ package cn.csu.mypetstore_springboot.Services;
 
 import cn.csu.mypetstore_springboot.Repositories.ProductAttributeRepository;
 import cn.csu.mypetstore_springboot.domain.ProductAttribute;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +37,7 @@ public class ProductAttributeService {
                 productAttribute.setProductId(productId);
                 productAttribute.setContent(newContent);
 
-                productAttributeRepository.save(productAttribute);
+                productAttributeRepository.saveAndFlush(productAttribute);
                 continue;
             }
 

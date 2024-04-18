@@ -3,7 +3,7 @@
     class="attr-item" th:each="productAttr:${attributesList}">
     <input th:value="${productAttr.content}" class="attr-input"
            th:id="'attr-input-' + ${productAttr.id}"
-           oninput="onAttrInputChanged($(this))">
+           oninput="onAttrInputChanged($(this))" onblur="solveAttrInputBlur($(this))">
 
     <button th:id="'delete-attr-btn-' + ${productAttr.id}"
             class="btn delete-attr-btn btn-outline-danger delete-btn"

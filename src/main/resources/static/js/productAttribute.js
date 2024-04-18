@@ -1,4 +1,3 @@
-let attributeList;
 // productAttributeId => newVal
 // if newVal == "": delete
 let productAttrContentChangedMap = {};
@@ -46,16 +45,6 @@ const solveAddAttributeBtnClick = (function () {
 
         $newAttrInput.focus();
 
-        $newAttrInput.blur(function () {
-            const inputVal = $(this).val();
-            // 如果失去焦点并且为空，表示被放弃
-            if (!inputVal) {
-                $attributesUl.children("#" + showAttrLiId).remove();
-            } else {
-                // 此事件只触发一次
-                $newAttrInput.off("blur");
-            }
-        });
         newAttrIdCnt++;
     }
 })();
@@ -90,6 +79,15 @@ function sendProductAttributeChanges() {
 function onAttrInputChanged($field) {
     const productAttrId = $field.attr("id").split("-")[2];
     productAttrContentChangedMap[productAttrId] = $field.val();
+}
+
+function solveAttrInputBlur($targetInput) {
+    const inputVal = $targetInput.val();
+    const $attributesLi = $targetInput.closest("li");
+    // 如果失去焦点并且为空，表示被放弃
+    if (!inputVal) {
+        $attributesLi.remove();
+    }
 }
 
 function resetAttrInputChanges() {
