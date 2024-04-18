@@ -6,7 +6,10 @@
 <body>
 <header th:replace="~{admin/Header}"></header>
 
-<h1 th:text="'你好，' + ${admin.username}" style="padding: 1rem"></h1>
+<h1 style="padding: 1rem" class="popout-text">
+    <span>你</span><span>好</span><span>，</span><span th:each="char : ${admin.username.toCharArray()}"
+                                                      th:text="${char}"></span>
+</h1>
 
 <div>
     <table id="small-order-table" class="table table-striped table-bordered small-table">
@@ -64,16 +67,18 @@
     <pre id="logs-view"></pre>
 </div>
 
+<div style="margin-bottom: 1em; text-align: center;">
+    <button class="btn btn-primary" onclick="showAddAdminModal()">Add Administrator</button>
 
-<button class="btn btn-primary" onclick="showAddAdminModal()">Add Administrator</button>
+    <!-- Display "Start the server" button if server is not running -->
+    <button class="btn btn-success" th:if="${isRequestsStopped}" onclick="startServer()">Start the server</button>
 
-<!-- Display "Start the server" button if server is not running -->
-<button class="btn btn-success" th:if="${isRequestsStopped}" onclick="startServer()">Start the server</button>
+    <!-- Display "Stop the server" button if server is running -->
+    <button class="btn btn-danger" th:if="${not isRequestsStopped}" onclick="stopServer()">Stop the server</button>
 
-<!-- Display "Stop the server" button if server is running -->
-<button class="btn btn-danger" th:if="${not isRequestsStopped}" onclick="stopServer()">Stop the server</button>
+    <button class="btn btn-secondary" onclick="logOut()">Log Out</button>
+</div>
 
-<button class="btn btn-secondary" onclick="logOut()">Log Out</button>
 
 <div id="toasts-container" class="toast-container position-fixed top-0 start-50 translate-middle-x">
 
