@@ -32,4 +32,10 @@ public class ServerLogController {
         return ResponseEntity.ok(logs);
     }
 
+    @RequestMapping("/log-level/{level}/id-before/{id}")
+    ResponseEntity<List<Log>> getLogsByLevel(@PathVariable String level, @PathVariable Long id) {
+        List<Log> logsByLevel = logService.getLogsByLevel(level, id, DEFAULT_LOGS_CNT);
+        return ResponseEntity.ok(logsByLevel);
+    }
+
 }

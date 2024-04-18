@@ -1,5 +1,6 @@
 let logsViewMinId = Number.MAX_SAFE_INTEGER;
 let logsViewMaxId = -1;
+let selectedLevel = 'None';
 
 function stopServer() {
     const recheckHtml = `
@@ -149,7 +150,7 @@ const loadMoreLogs = function () {
         lastId = logsViewMinId;
         console.log(`load more logs, minId = ${logsViewMinId}`);
         $.ajax({
-            url: `/admin/log/id-before/${logsViewMinId}`,
+            url: `/admin/log/log-level/${selectedLevel}/id-before/${logsViewMinId}`,
             success: function (response) {
                 putLogsToLogsView(response);
                 logsViewMinId = response[response.length - 1]['id'];
@@ -183,6 +184,7 @@ function reloadLogs() {
     loadMoreLogs();
 }
 
+
 $(document).ready(function () {
     const logsView = document.getElementById("logs-view");
     const $logsView = $(logsView);
@@ -194,5 +196,11 @@ $(document).ready(function () {
         if ($(this).scrollTop() <= 20) {
             loadMoreLogs();
         }
+    });
+
+    // Handle change event of radio buttons
+    $('input[name="filter"]').on('change', function () {
+        selectedLevel = $(this).val();
+        reloadLogs();
     });
 });

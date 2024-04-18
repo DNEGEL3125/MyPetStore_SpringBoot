@@ -61,7 +61,16 @@
     <div id="logs-view-title">Log Terminal</div>
     <ul class="menu-bar">
         <li>
-            <button onclick="reloadLogs()">Reload</button>
+            <button onclick="reloadLogs()" class="menu-button">Reload</button>
+        </li>
+        <li>
+            <button class="menu-button">Filter</button>
+            <ul class="submenu">
+                <li><label><input type="radio" name="filter" value="None" checked>None</label></li>
+                <li><label><input type="radio" name="filter" value="INFO">INFO</label></li>
+                <li><label><input type="radio" name="filter" value="WARN">WARN</label></li>
+                <li><label><input type="radio" name="filter" value="ERROR">ERROR</label></li>
+            </ul>
         </li>
     </ul>
     <pre id="logs-view"></pre>

@@ -21,4 +21,11 @@ public class LogService {
     public List<Log> getNewestLogs(Long idAfter) {
         return logRepository.getByIdAfter(idAfter);
     }
+
+    public List<Log> getLogsByLevel(String level, Long idBefore, int limit) {
+        if (level.equalsIgnoreCase("none")) {
+            return logRepository.getByIdBeforeAndLimit(idBefore, limit);
+        }
+        return logRepository.getByLevelAndIdBeforeAndLimit(level, idBefore, limit);
+    }
 }

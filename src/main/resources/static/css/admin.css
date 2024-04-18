@@ -245,7 +245,7 @@ td.text-right {
     float: left;
 }
 
-.menu-bar li button {
+.menu-button {
     display: block;
     color: white;
     text-align: center;
@@ -256,9 +256,34 @@ td.text-right {
 }
 
 /* Change the link color to show active/hover */
-.menu-bar li button:hover {
+.menu-button:hover {
     background-color: #ddd;
     color: black;
+}
+
+
+/* Style the child menu */
+.submenu {
+    display: none; /* Hide the submenu by default */
+    position: absolute;
+    background-color: #444;
+    z-index: 1; /* Ensure the submenu appears above the main content */
+
+    color: whitesmoke;
+    padding: 0 1em 0 0.5em;
+    opacity: 0.95;
+}
+
+/* Style the list items of the child menu */
+.submenu li {
+    float: none; /* Reset the floating behavior */
+    list-style-type: none;
+    padding: 0.2rem 0;
+}
+
+/* Show the submenu when hovering over the parent menu item */
+.menu-bar li:hover .submenu {
+    display: block;
 }
 
 .unexpected-underline-text {

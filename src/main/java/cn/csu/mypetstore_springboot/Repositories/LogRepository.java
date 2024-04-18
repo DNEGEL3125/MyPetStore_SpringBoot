@@ -15,4 +15,8 @@ public interface LogRepository extends JpaRepository<Log, Long> {
     @Transactional
     @Query(value = "SELECT * FROM logging_event WHERE event_id > :id ORDER BY timestmp DESC", nativeQuery = true)
     List<Log> getByIdAfter(Long id);
+
+    @Transactional
+    @Query(value = "SELECT * FROM logging_event WHERE event_id < :id AND level_string = :level ORDER BY timestmp DESC LIMIT :limit ", nativeQuery = true)
+    List<Log> getByLevelAndIdBeforeAndLimit(String level, Long id, int limit);
 }
